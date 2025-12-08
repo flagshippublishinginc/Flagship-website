@@ -1,0 +1,109 @@
+/* Flagship Publication - Custom Theme Styles */
+
+:root {
+  /* Background colors */
+  --color-background-light: #F8F6F3;
+  --color-background-mid: #EAE6DF;
+  
+  /* Text colors */
+  --color-text-primary: #1A1A1A;
+  --color-text-secondary: #4B4B4B;
+  
+  /* Borders and dividers */
+  --color-border: #DDD8D1;
+  
+  /* Accent and CTA (Terracotta red) */
+  --color-accent-primary: #C63C22;
+  --color-accent-hover: #8B2A17;
+  
+  /* Button text */
+  --color-button-text: #FFFFFF;
+}
+
+/* Apply to body */
+body {
+  background-color: var(--color-background-light);
+  color: var(--color-text-primary);
+}
+
+/* Links */
+a {
+  color: var(--color-accent-primary);
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+}
+
+/* Buttons and CTAs */
+button,
+[role="button"],
+.sanity-button {
+  background-color: var(--color-accent-primary);
+  color: var(--color-button-text);
+  border: none;
+}
+
+button:hover,
+[role="button"]:hover,
+.sanity-button:hover {
+  background-color: var(--color-accent-hover);
+}
+
+/* Form inputs */
+input,
+textarea,
+select {
+  border-color: var(--color-border);
+  background-color: var(--color-background-light);
+  color: var(--color-text-primary);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--color-accent-primary);
+  outline-color: var(--color-accent-primary);
+}
+
+/* Borders and dividers */
+hr,
+.divider {
+  border-color: var(--color-border);
+}
+
+/* Secondary text */
+.text-secondary,
+small,
+.caption {
+  color: var(--color-text-secondary);
+}
+
+/* Studio-specific overrides */
+.sanity-studio {
+  --_base-bg-color: var(--color-background-light);
+  --_border-color: var(--color-border);
+  --_text-color: var(--color-text-primary);
+}
+
+/* Cards and panels */
+.card,
+.panel,
+[role="region"] {
+  background-color: var(--color-background-mid);
+  border-color: var(--color-border);
+}
+
+/* Accent states */
+.accent,
+.highlight,
+[data-state="active"] {
+  background-color: var(--color-accent-primary);
+  color: var(--color-button-text);
+}
+
+.accent:hover,
+.highlight:hover,
+[data-state="active"]:hover {
+  background-color: var(--color-accent-hover);
+}
