@@ -10,7 +10,7 @@ export default defineConfig({
   name: 'default',
   title: 'Flagship Publication',
 
-  projectId: 'p2ttbhct',
+  projectId: 'o9to2bdp',
   dataset: 'production',
 
   plugins: [structureTool({structure}), visionTool(), colorInput(), pageBuilder()],
@@ -19,4 +19,3 @@ export default defineConfig({
     types: schemaTypes,
   },
 })
-
