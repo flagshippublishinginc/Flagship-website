@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Source_Sans_3 } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import { Footer, Header } from "@/components";
 
 const sourceSans3 = Source_Sans_3({
   variable: "--font-source-sans-3",

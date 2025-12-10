@@ -28,6 +28,38 @@ body {
   color: var(--foreground);
 }
 
+/* Heading tags styles */
+
+@layer base {
+  h1 {
+    @apply text-[28px] md:text-[36px] lg:text-[40px] font-bold;
+  }
+
+  h2 {
+    @apply text-3xl font-bold;
+  }
+
+  h3 {
+    @apply text-2xl font-bold;
+  }
+
+  h4 {
+    @apply text-xl font-bold;
+  }
+
+  h5 {
+    @apply text-lg font-bold;
+  }
+
+  h6 {
+    @apply text-base font-bold;
+  }
+
+  a {
+    @apply text-primary hover:text-tertiary transition duration-300;
+  }
+}
+
 /* Header styles: */
 .header {
   @apply py-4 px-4 bg-white border-b border-[#DDD8D1];
@@ -39,7 +71,12 @@ body {
 
 /* Button styles: */
 .btn-primary {
-  @apply bg-transparent text-primary py-5 px-8 transition duration-400 font-bold border border-tertiary hover:bg-tertiary hover:text-white  cursor-pointer;
+  @apply bg-transparent text-primary  py-5 px-8 transition duration-400 font-bold border border-tertiary hover:bg-tertiary hover:text-white  cursor-pointer inline-block;
+}
+
+/* Link styles */
+.link-primary {
+  @apply bg-transparent text-tertiary  py-4 px-1 transition duration-400 font-bold border-b border-tertiary hover:border-tertiary hover:text-tertiary cursor-pointer inline-block leading-none;
 }
 
 /* Footer styles */
@@ -50,4 +87,14 @@ body {
 
 .footer-container {
   @apply max-w-[1360px] mx-auto;
+}
+
+.container {
+  @apply max-w-[1360px] mx-auto;
+}
+
+/* Banner styles */
+
+.banner-container {
+  @apply max-w-[1960px] mx-auto;
 }

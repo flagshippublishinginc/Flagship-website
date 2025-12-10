@@ -1,7 +1,22 @@
+import { HomeBanner } from "@/components";
+
+const bannerData = {
+  title: `What You Should Know About “Sharktober” On Maui`,
+  description:
+    "As stunning southern Colorado scenery passes by, a handful of men learns to operate a live steam engine on the Cumbres & Toltec Scenic Railway",
+  image:
+    "https://cdn.pixabay.com/photo/2014/10/25/21/57/bay-503139_960_720.jpg",
+  author: "LISA TRUESDALE",
+  buttonLabel: "Read Story",
+  buttonLink: "#",
+};
+
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center  font-sans">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between "></main>
+    <div className="md:min-h-screen">
+      <main>
+        <HomeBanner {...bannerData} />
+      </main>
     </div>
   );
 }
