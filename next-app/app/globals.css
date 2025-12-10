@@ -47,3 +47,7 @@ body {
 .footer {
   @apply py-10 px-4 bg-accent;
 }
+
+.footer-container {
+  @apply max-w-[1360px] mx-auto;
+}
