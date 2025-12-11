@@ -1,21 +1,21 @@
 import { HomeBanner } from "@/components";
+import { client } from "@/lib/sanity";
+import { HeroBannerProps } from "@/lib/types";
 
-const bannerData = {
-  title: `What You Should Know About “Sharktober” On Maui`,
-  description:
-    "As stunning southern Colorado scenery passes by, a handful of men learns to operate a live steam engine on the Cumbres & Toltec Scenic Railway",
-  image:
-    "https://cdn.pixabay.com/photo/2014/10/25/21/57/bay-503139_960_720.jpg",
-  author: "LISA TRUESDALE",
-  buttonLabel: "Read Full Story",
-  buttonLink: "#",
-};
+async function getData() {
+  const query = `*[_type == "homePage"] { _id, modules, seo, title }`;
+  const data: any = await client.fetch(query);
+  return data;
+}
 
-export default function Home() {
+export default async function Home() {
+  const data: HeroBannerProps[] = await getData();
+  const refineData = data[0];
+  console.log("Banner data ", refineData);
   return (
     <div className="md:min-h-screen">
       <main>
-        <HomeBanner {...bannerData} />
+        <HomeBanner {...refineData} />
       </main>
     </div>
   );
