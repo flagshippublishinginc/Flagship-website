@@ -27,6 +27,7 @@ import stats from './modules/statsModule'
 import logoCloud from './modules/logoModule'
 import header from './modules/headerModule'
 import footer from './modules/footerModule'
+import homeBannerModule from './modules/homeBannerModule'
 
 export const schemaTypes = [
   // documents
@@ -60,4 +61,5 @@ export const schemaTypes = [
   logoCloud,
   header,
   footer,
+  homeBannerModule,
 ]

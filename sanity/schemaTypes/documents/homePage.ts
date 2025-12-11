@@ -12,7 +12,7 @@ export default defineType({
       title: 'Page Modules', 
       type: 'array', 
       of: [ 
-        {type: 'heroModule'}, 
+        {type: 'homeBannerModule'}, 
         {type: 'featuredCardsModule'}, 
         {type: 'richTextModule'}, 
         {type: 'imageGalleryModule'}, 
