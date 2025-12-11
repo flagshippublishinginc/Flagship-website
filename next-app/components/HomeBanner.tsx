@@ -1,8 +1,15 @@
 import Image from "next/image";
 import { HeroBannerProps } from "@/lib/types";
 import AnimatedLink from "./AnimatedLink";
+import { client } from "@/lib/sanity";
 
-const HomeBanner: React.FC<HeroBannerProps> = ({
+async function getData() {
+  const query = `*[_type == "homePage"][0]{ _id, title, modules, seo }`;
+  const data = await client.fetch(query);
+  return data;
+}
+
+const HomeBanner: React.FC<HeroBannerProps> = async ({
   title,
   description,
   image,
@@ -10,6 +17,7 @@ const HomeBanner: React.FC<HeroBannerProps> = ({
   buttonLabel,
   buttonLink,
 }) => {
+  const data = await getData();
   return (
     <section className="home-banner w-full">
       <div className="banner-container">
@@ -34,7 +42,7 @@ const HomeBanner: React.FC<HeroBannerProps> = ({
                 </a>
               </h1>
               <p className="banner-description md:mb-6 mb-3">{description}</p>
-              <p className="text-secondary  text-[12px]">
+              <p className="text-secondary text-[12px]">
                 By{" "}
                 <span className=" font-medium transition-colors group-hover:text-tertiary duration-300">
                   {author}
