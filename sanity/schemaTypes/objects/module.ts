@@ -16,6 +16,8 @@ export default defineType({
     { type: 'richTextModule' },
     { type: 'statsModule' },
     { type: 'testimonialModule' },
-    { type: 'twoColumnModule' }
+    { type: 'twoColumnModule' },
+    { type: 'readerFavourites' },
+    { type: 'activitiesModule' }
   ]
 })
