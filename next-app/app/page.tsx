@@ -1,5 +1,4 @@
-import { HomeBanner } from "@/components";
-import RichText from "@/components/RichText";
+import { HomeBanner, RichText } from "@/components";
 import { client } from "@/lib/sanity";
 // async function getData() {
 //   const query = `*[_type == "homePage"][0]{ "homeBanner": modules[_type == "homeBannerModule"][0]{ _key, _type, title, description, authorPrefix, author, buttonLabel, buttonLink, image, } }`;

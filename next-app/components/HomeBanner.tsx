@@ -1,7 +1,7 @@
 import Image from "next/image";
-import AnimatedLink from "./AnimatedLink";
 import { urlFor } from "@/lib/sanity";
 import { HomeBannerInterface } from "@/lib/interfaces";
+import AnimatedLink from "./AnimatedLink";
 
 const HomeBanner = async ({ modules }: { modules: HomeBannerInterface }) => {
   return (
