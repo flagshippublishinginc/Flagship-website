@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { HeroBannerProps } from "@/lib/types";
+import AnimatedLink from "./AnimatedLink";
 
 const HomeBanner: React.FC<HeroBannerProps> = ({
   title,
@@ -12,7 +13,7 @@ const HomeBanner: React.FC<HeroBannerProps> = ({
   return (
     <section className="home-banner w-full">
       <div className="banner-container">
-        <div className="grid items-end grid-cols-1 md:grid-cols-[1fr_1fr] lg:grid-cols-[3fr_2fr] gap-5 lg:gap-10">
+        <div className="grid items-center grid-cols-1 md:grid-cols-[1fr_1fr] lg:grid-cols-[3fr_2fr] gap-5 lg:gap-10">
           <div className="banner-image h-full w-full">
             <Image
               src={image}
@@ -40,9 +41,7 @@ const HomeBanner: React.FC<HeroBannerProps> = ({
                 </span>
               </p>
               <div className="mt-25 pb-10">
-                <a href={buttonLink} className="banner-button link-primary">
-                  {buttonLabel}
-                </a>
+                <AnimatedLink text={buttonLabel} href={buttonLink} />
               </div>
             </div>
           </div>

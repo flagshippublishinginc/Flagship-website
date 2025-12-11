@@ -7,7 +7,7 @@ const bannerData = {
   image:
     "https://cdn.pixabay.com/photo/2014/10/25/21/57/bay-503139_960_720.jpg",
   author: "LISA TRUESDALE",
-  buttonLabel: "Read Story",
+  buttonLabel: "Read Full Story",
   buttonLink: "#",
 };
 
