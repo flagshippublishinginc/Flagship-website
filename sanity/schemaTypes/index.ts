@@ -28,6 +28,8 @@ import logoCloud from './modules/logoModule'
 import header from './modules/headerModule'
 import footer from './modules/footerModule'
 import homeBannerModule from './modules/homeBannerModule'
+import readerFavourites from './modules/readerFavouritesModule'
+import activities from './modules/activitiesModule'
 
 export const schemaTypes = [
   // documents
@@ -62,4 +64,6 @@ export const schemaTypes = [
   header,
   footer,
   homeBannerModule,
+  readerFavourites,
+  activities,
 ]
