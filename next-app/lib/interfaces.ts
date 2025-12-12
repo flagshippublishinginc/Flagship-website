@@ -19,3 +19,59 @@ export interface HomeBannerInterface {
   image: SanityImage;
   title: string;
 }
+
+export interface ReaderFavouriteArticle {
+  author: string;
+  category: string;
+  description: string;
+  image: {
+    _type: string;
+    asset: {
+      _type: string;
+      _ref: string;
+    };
+  };
+  publishDate: string;
+  readLink: string;
+  readText: string;
+  title: string;
+}
+
+export interface ReaderFavouritesInterface {
+  articles: ReaderFavouriteArticle[];
+  headingHighlight: string;
+  headingText: string;
+}
+
+export interface LeadArticleInterface {
+  description: string;
+  image: {
+    _type: string;
+    asset: {
+      _type: string;
+      _ref: string;
+    };
+  };
+  readLink: string;
+  title: string;
+}
+
+export interface SidebarArticlesInterface {
+  description: string;
+  image: {
+    _type: string;
+    asset: {
+      _type: string;
+      _ref: string;
+    };
+  };
+  readLink: string;
+  title: string;
+}
+
+export interface ActivitiesModuleInterface {
+  leadArticle: LeadArticleInterface;
+  sidebarArticles: SidebarArticlesInterface[];
+  headingHighlight: string;
+  headingText: string;
+}

@@ -1,19 +1,14 @@
-import { HomeBanner, RichText } from "@/components";
-import { client } from "@/lib/sanity";
-// async function getData() {
-//   const query = `*[_type == "homePage"][0]{ "homeBanner": modules[_type == "homeBannerModule"][0]{ _key, _type, title, description, authorPrefix, author, buttonLabel, buttonLink, image, } }`;
-//   const data: any = await client.fetch(query);
-//   return data;
-// }
-
-async function getDataAllData() {
-  const query = `*[_type == "homePage"][0] { modules }`;
-  const data: any = await client.fetch(query);
-  return data;
-}
+import {
+  HomeBanner,
+  RichText,
+  ReaderFavourites,
+  ActivitiesModule,
+} from "@/components";
+import { getDataAllData } from "@/lib/helpingFunctions";
 
 export default async function Home() {
-  const allData: any = await getDataAllData();
+  const query = `*[_type == "homePage"][0] { modules }`;
+  const allData: any = await getDataAllData(query);
   return (
     <div className="md:min-h-screen">
       <main>
@@ -25,6 +20,30 @@ export default async function Home() {
             if (module._type === "richTextModule") {
               return <RichText key={index} richText={module.content} />;
             }
+            if (module._type === "readerFavourites") {
+              return (
+                <ReaderFavourites
+                  key={index}
+                  articles={module.articles}
+                  headingText={module.headingText}
+                  headingHighlight={module.headingHighlight}
+                />
+              );
+            }
+            if (module._type === "activitiesModule") {
+              console.log("Rendering ActivitiesModule", module);
+
+              return (
+                <ActivitiesModule
+                  key={index}
+                  leadArticle={module.leadArticle}
+                  sidebarArticles={module.sidebarArticles}
+                  headingText={module.headingText}
+                  headingHighlight={module.headingHighlight}
+                />
+              );
+            }
+            return null;
           })}
         </div>
       </main>

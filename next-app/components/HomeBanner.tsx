@@ -20,7 +20,7 @@ const HomeBanner = async ({ modules }: { modules: HomeBannerInterface }) => {
           </div>
           <div className="banner-content w-full flex">
             <div className="banner-content-inner px-4 pt-10 group">
-              <h1 className="md:mb-10 mb-5">
+              <h1 className="md:mb-10 mb-5 font-heading">
                 <a
                   href="#"
                   className="transition-colors group-hover:text-tertiary duration-300">
