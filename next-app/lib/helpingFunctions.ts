@@ -15,3 +15,9 @@ export function formatPublishDate(dateString: string) {
 
   return `${day} ${month} ${year}`;
 }
+
+export async function getTheme() {
+  const themeQuery = `*[_type == "themeSettings"][0]`;
+  const themeData = await getSanityData(themeQuery);
+  return themeData;
+}

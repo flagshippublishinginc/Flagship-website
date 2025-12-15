@@ -48,7 +48,9 @@ const ReaderFavourites: React.FC<ReaderFavouritesInterface> = ({
                 </div>
                 <div className="article_text">
                   {article.title && (
-                    <h4 className="font-heading mb-4">{article.title}</h4>
+                    <h4 className="font-heading text-primary mb-4">
+                      {article.title}
+                    </h4>
                   )}
 
                   {article.description && (
