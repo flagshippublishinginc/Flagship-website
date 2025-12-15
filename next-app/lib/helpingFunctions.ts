@@ -2,7 +2,7 @@ import { client } from "./sanity";
 
 // const query = `*[_type == "homePage"][0]{ "homeBanner": modules[_type == "homeBannerModule"][0]{ _key, _type, title, description, authorPrefix, author, buttonLabel, buttonLink, image, } }`;
 
-export async function getDataAllData(query: string) {
+export async function getSanityData(query: string) {
   const data: any = await client.fetch(query);
   return data;
 }

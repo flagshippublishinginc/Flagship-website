@@ -1,6 +1,7 @@
 import { ActivitiesModuleInterface } from "@/lib/interfaces";
 import { urlFor } from "@/lib/sanity";
 import Image from "next/image";
+import Link from "next/link";
 
 const ActivitiesModule: React.FC<ActivitiesModuleInterface> = ({
   leadArticle,
@@ -32,7 +33,9 @@ const ActivitiesModule: React.FC<ActivitiesModuleInterface> = ({
               )}
               <div className="textContent">
                 {leadArticle.title && (
-                  <h2 className="font-heading mb-4">{leadArticle.title}</h2>
+                  <h2 className="font-heading mb-4">
+                    <Link href={leadArticle.readLink}>{leadArticle.title}</Link>
+                  </h2>
                 )}
                 {leadArticle.description && (
                   <p className="text-secondary mb-6">
@@ -62,7 +65,9 @@ const ActivitiesModule: React.FC<ActivitiesModuleInterface> = ({
                   )}
                   <div className="textContent">
                     {article.title && (
-                      <h5 className="font-heading mb-4">{article.title}</h5>
+                      <h5 className="font-heading mb-4">
+                        <Link href={article.readLink}>{article.title}</Link>
+                      </h5>
                     )}
                     {article.description && (
                       <p className="text-secondary text-[14px]">

@@ -18,14 +18,14 @@ const ReaderFavourites: React.FC<ReaderFavouritesInterface> = ({
             <span className="text-tertiary"> {headingHighlight}</span>
           </h2>
         </div>
-        <div className="flex flex-wrap mx-[-16px] lg:mx-[-32px]  border-b border-background-gray">
+        <div className="flex flex-wrap mx-[-16px] lg:mx-[-32px] border-b border-background-gray">
           {articles.map((article, index) => {
             const updatedDescription =
               article.description.slice(0, 100) + "...";
             return (
               <div
                 key={index}
-                className={`py-6 px-4 lg:px-8 w-full md:w-[calc(100%/2)] lg:w-[calc(100%/3)] border-t border-background-gray md:odd:border-r  lg:odd:border-r-0 lg:not-first:border-l`}>
+                className={`group py-6 px-4 lg:px-8 w-full md:w-[calc(100%/2)] lg:w-[calc(100%/3)] border-t bg-white border-background-gray md:odd:border-r lg:not-[&:hover]:odd:border-r-0 lg:not-[&:hover]:not-first:border-l md:hover:scale-105 transition-all duration-300 md:hover:border`}>
                 <div className="article-top mb-6">
                   <div className="image-top flex justify-between items-center gap-2 mb-3 text-[14px]">
                     {article.publishDate && (
@@ -56,7 +56,7 @@ const ReaderFavourites: React.FC<ReaderFavouritesInterface> = ({
                   )}
 
                   {article.author && (
-                    <p className="text-gray-light text-[12px]">
+                    <p className="text-gray-light text-[12px] group-hover:text-tertiary transition-all duration-300">
                       {article.author}
                     </p>
                   )}
