@@ -7,22 +7,29 @@ export default defineType({
   type: 'document',
   fields: [
     defineField({ name: 'title', type: 'string', initialValue: 'Contact' }),
-    defineField({ 
-      name: 'modules', 
-      title: 'Page Modules', 
-      type: 'array', 
-      of: [ 
-        {type: 'heroModule'}, 
-        {type: 'featuredCardsModule'}, 
-        {type: 'richTextModule'}, 
-        {type: 'imageGalleryModule'}, 
-        {type: 'ctaBannerModule'}, 
-        {type: 'testimonialModule'}, 
-        {type: 'faqModule'}, 
-        {type: 'statsModule'}, 
-        {type: 'logosModule'}, 
-        {type: 'twoColumnModule'}
-      ] 
+    defineField({
+      name: 'site',
+      title: 'Site',
+      type: 'reference',
+      to: [{ type: 'site' }],
+      validation: Rule => Rule.required()
+    }),
+    defineField({
+      name: 'modules',
+      title: 'Page Modules',
+      type: 'array',
+      of: [
+        { type: 'heroModule' },
+        { type: 'featuredCardsModule' },
+        { type: 'richTextModule' },
+        { type: 'imageGalleryModule' },
+        { type: 'ctaBannerModule' },
+        { type: 'testimonialModule' },
+        { type: 'faqModule' },
+        { type: 'statsModule' },
+        { type: 'logosModule' },
+        { type: 'twoColumnModule' }
+      ]
     }),
     defineField({ name: 'seo', title: 'SEO', type: 'seo' }),
     defineField({ name: 'email', title: 'Contact Email', type: 'string' }),

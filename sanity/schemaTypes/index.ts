@@ -11,6 +11,7 @@ import category from './documents/category'
 import testimonial from './documents/testimonial'
 import settings from './documents/settings'
 import themeSettings from './documents/themeSettings'
+import site from './documents/site'
 
 import seo from './objects/seo'
 import links from './objects/links'
@@ -27,6 +28,10 @@ import stats from './modules/statsModule'
 import logoCloud from './modules/logoModule'
 import header from './modules/headerModule'
 import footer from './modules/footerModule'
+import homeBannerModule from './modules/homeBannerModule'
+import readerFavourites from './modules/readerFavouritesModule'
+import activities from './modules/activitiesModule'
+import categoryHighlight from './modules/categoryHighlightModule'
 
 export const schemaTypes = [
   // documents
@@ -42,6 +47,7 @@ export const schemaTypes = [
   testimonial,
   settings,
   themeSettings,
+  site,
 
   // objects
   seo,
@@ -60,4 +66,8 @@ export const schemaTypes = [
   logoCloud,
   header,
   footer,
+  homeBannerModule,
+  readerFavourites,
+  activities,
+  categoryHighlight,
 ]

@@ -7,6 +7,7 @@ export default defineType({
   type: 'array',
   of: [
     { type: 'heroModule' },
+    { type: 'homeBannerModule' },
     { type: 'ctaBannerModule' },
     { type: 'faqModule' },
     { type: 'featuredCardsModule' },
@@ -15,6 +16,8 @@ export default defineType({
     { type: 'richTextModule' },
     { type: 'statsModule' },
     { type: 'testimonialModule' },
-    { type: 'twoColumnModule' }
+    { type: 'twoColumnModule' },
+    { type: 'readerFavourites' },
+    { type: 'activitiesModule' }
   ]
 })

@@ -1,21 +1,51 @@
-import { HomeBanner } from "@/components";
+import {
+  HomeBanner,
+  RichText,
+  ReaderFavourites,
+  ActivitiesModule,
+} from "@/components";
+import { getDataAllData } from "@/lib/helpingFunctions";
 
-const bannerData = {
-  title: `What You Should Know About “Sharktober” On Maui`,
-  description:
-    "As stunning southern Colorado scenery passes by, a handful of men learns to operate a live steam engine on the Cumbres & Toltec Scenic Railway",
-  image:
-    "https://cdn.pixabay.com/photo/2014/10/25/21/57/bay-503139_960_720.jpg",
-  author: "LISA TRUESDALE",
-  buttonLabel: "Read Full Story",
-  buttonLink: "#",
-};
-
-export default function Home() {
+export default async function Home() {
+  const query = `*[_type == "homePage"][0] { modules }`;
+  const allData: any = await getDataAllData(query);
   return (
     <div className="md:min-h-screen">
       <main>
-        <HomeBanner {...bannerData} />
+        <div className="grid grid-cols-1 ">
+          {allData.modules.map((module: any, index: number) => {
+            if (module._type === "homeBannerModule") {
+              return <HomeBanner key={index} modules={module} />;
+            }
+            if (module._type === "richTextModule") {
+              return <RichText key={index} richText={module.content} />;
+            }
+            if (module._type === "readerFavourites") {
+              return (
+                <ReaderFavourites
+                  key={index}
+                  articles={module.articles}
+                  headingText={module.headingText}
+                  headingHighlight={module.headingHighlight}
+                />
+              );
+            }
+            if (module._type === "activitiesModule") {
+              console.log("Rendering ActivitiesModule", module);
+
+              return (
+                <ActivitiesModule
+                  key={index}
+                  leadArticle={module.leadArticle}
+                  sidebarArticles={module.sidebarArticles}
+                  headingText={module.headingText}
+                  headingHighlight={module.headingHighlight}
+                />
+              );
+            }
+            return null;
+          })}
+        </div>
       </main>
     </div>
   );

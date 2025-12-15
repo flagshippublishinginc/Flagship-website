@@ -1,8 +1,15 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 :root {
   --background: #ffffff;
   --foreground: #1a1a1a;
+  --font-sans: var(--font-source-sans-3), system-ui, sans-serif;
+  --font-heading: var(--font-playfair-display), system-ui, serif;
+}
+@theme {
+  --font-sans: var(--font-source-sans-3), system-ui, sans-serif;
+  --font-heading: var(--font-playfair-display), system-ui, serif;
 }
 
 @theme inline {
@@ -10,12 +17,25 @@
   --color-secondary: #4b4b4b;
   --color-tertiary: #c63c22;
   --color-accent: #8b2a17;
+  --color-gray: #ddd8d1;
+  --color-gray-light: #b7b7b7;
+  --color-background-gray: #ddd8d1;
+  --color-background-category: #fbfaf9;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
+@layer utilities {
+  .font-heading {
+    font-family: var(--font-heading);
+  }
+
+  .font-sans {
+    font-family: var(--font-sans);
+  }
+}
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #ffffff;
@@ -31,12 +51,20 @@ body {
 /* Heading tags styles */
 
 @layer base {
+  body {
+    font-family: var(--font-sans);
+  }
+
   h1 {
     @apply text-[28px] md:text-[36px] lg:text-[40px] font-bold;
   }
 
   h2 {
     @apply text-3xl font-bold;
+  }
+
+  h2 {
+    font-family: var(--font-heading);
   }
 
   h3 {
@@ -60,13 +88,19 @@ body {
   }
 }
 
+/* Section spacing */
+
+.section-spacing {
+  @apply py-6 md:py-8 lg:py-10;
+}
+
 /* Header styles: */
 .header {
-  @apply py-4 px-4 bg-white border-b border-[#DDD8D1];
+  @apply py-4 bg-white border-b border-[#DDD8D1];
 }
 
 .header-container {
-  @apply max-w-[1360px] mx-auto flex justify-between items-center gap-4;
+  @apply max-w-[1360px] mx-auto flex justify-between items-center gap-4 px-4;
 }
 
 /* Button styles: */
@@ -82,15 +116,15 @@ body {
 /* Footer styles */
 
 .footer {
-  @apply py-10 px-4 bg-accent;
+  @apply py-10  bg-accent;
 }
 
 .footer-container {
-  @apply max-w-[1360px] mx-auto;
+  @apply max-w-[1360px] mx-auto px-4;
 }
 
 .container {
-  @apply max-w-[1360px] mx-auto;
+  @apply max-w-[1360px] mx-auto px-4 lg:px-8;
 }
 
 /* Banner styles */

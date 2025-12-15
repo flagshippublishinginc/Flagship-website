@@ -1,3 +1,7 @@
 export { default as HomeBanner } from "./HomeBanner";
 export { default as Footer } from "./Footer";
 export { default as Header } from "./Header";
+export { default as RichText } from "./RichText";
+export { default as AnimatedLink } from "./AnimatedLink";
+export { default as ReaderFavourites } from "./ReaderFavourites";
+export { default as ActivitiesModule } from "./ActivitiesModule";
