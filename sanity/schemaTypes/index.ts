@@ -11,6 +11,7 @@ import category from './documents/category'
 import testimonial from './documents/testimonial'
 import settings from './documents/settings'
 import themeSettings from './documents/themeSettings'
+import site from './documents/site'
 
 import seo from './objects/seo'
 import links from './objects/links'
@@ -46,6 +47,7 @@ export const schemaTypes = [
   testimonial,
   settings,
   themeSettings,
+  site,
 
   // objects
   seo,
