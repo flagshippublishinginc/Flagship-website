@@ -13,6 +13,13 @@ export default defineType({
       initialValue: 'Primary Theme',
       validation: Rule => Rule.required()
     }),
+    defineField({
+      name: 'site',
+      title: 'Site',
+      type: 'reference',
+      to: [{ type: 'site' }],
+      validation: Rule => Rule.required()
+    }),
 
 
     // Logos

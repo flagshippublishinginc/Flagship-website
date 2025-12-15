@@ -7,6 +7,13 @@ export default defineType({
   type: 'document',
   fields: [
     defineField({ name: 'name', type: 'string' }),
+    defineField({
+      name: 'site',
+      title: 'Site',
+      type: 'reference',
+      to: [{ type: 'site' }],
+      validation: Rule => Rule.required()
+    }),
     defineField({ name: 'avatar', type: 'image' }),
     defineField({ name: 'bio', type: 'array', of: [{ type: 'block' }] })
   ],
