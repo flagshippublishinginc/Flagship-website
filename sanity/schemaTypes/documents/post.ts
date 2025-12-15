@@ -7,13 +7,6 @@ export default defineType({
   type: 'document',
   fields: [
     defineField({ name: 'title', type: 'string', validation: Rule => Rule.required() }),
-    defineField({
-      name: 'site',
-      title: 'Site',
-      type: 'reference',
-      to: [{ type: 'site' }],
-      validation: Rule => Rule.required()
-    }),
     defineField({ name: 'slug', type: 'slug', options: { source: 'title', maxLength: 96 }, validation: Rule => Rule.required() }),
     defineField({ name: 'excerpt', type: 'text' }),
     defineField({ name: 'coverImage', type: 'image' }),
