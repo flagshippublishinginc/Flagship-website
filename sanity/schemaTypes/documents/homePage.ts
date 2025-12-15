@@ -22,6 +22,7 @@ export default defineType({
         { type: 'homeBannerModule' },
         { type: 'readerFavourites' },
         { type: 'activitiesModule' },
+        { type: 'categoryHighlightModule' },
         { type: 'featuredCardsModule' },
         { type: 'richTextModule' },
         { type: 'imageGalleryModule' },

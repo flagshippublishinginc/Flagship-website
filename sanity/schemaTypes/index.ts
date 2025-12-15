@@ -31,6 +31,7 @@ import footer from './modules/footerModule'
 import homeBannerModule from './modules/homeBannerModule'
 import readerFavourites from './modules/readerFavouritesModule'
 import activities from './modules/activitiesModule'
+import categoryHighlight from './modules/categoryHighlightModule'
 
 export const schemaTypes = [
   // documents
@@ -68,4 +69,5 @@ export const schemaTypes = [
   homeBannerModule,
   readerFavourites,
   activities,
+  categoryHighlight,
 ]

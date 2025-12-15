@@ -1,4 +1,4 @@
-import {defineType, defineField} from 'sanity'
+import { defineType, defineField } from 'sanity'
 
 export default defineType({
   name: 'homeBannerModule',
@@ -8,7 +8,7 @@ export default defineType({
     {
       name: 'authorGroup',
       title: 'Author',
-      options: {columns: 2},
+      options: { columns: 2 },
     },
   ],
   fields: [
@@ -54,9 +54,9 @@ export default defineType({
     select: {
       title: 'title',
       subtitle: 'subtitle',
-      media: 'backgroundImage',
+      media: 'image',
     },
-    prepare({title, subtitle, media}) {
+    prepare({ title, subtitle, media }) {
       return {
         title: title || 'Hero',
         subtitle: subtitle ? subtitle.slice(0, 60) : 'Hero section',
