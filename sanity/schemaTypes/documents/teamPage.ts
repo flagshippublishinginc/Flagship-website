@@ -8,27 +8,34 @@ export default defineType({
   fields: [
     defineField({ name: 'title', type: 'string' }),
     defineField({
+      name: 'site',
+      title: 'Site',
+      type: 'reference',
+      to: [{ type: 'site' }],
+      validation: Rule => Rule.required()
+    }),
+    defineField({
       name: 'members',
       title: 'Team Members (ordered)',
       type: 'array',
       of: [{ type: 'reference', to: [{ type: 'teamMember' }] }]
     }),
-    defineField({ 
-      name: 'modules', 
-      title: 'Page Modules', 
-      type: 'array', 
-      of: [ 
-        {type: 'heroModule'}, 
-        {type: 'featuredCardsModule'}, 
-        {type: 'richTextModule'}, 
-        {type: 'imageGalleryModule'}, 
-        {type: 'ctaBannerModule'}, 
-        {type: 'testimonialModule'}, 
-        {type: 'faqModule'}, 
-        {type: 'statsModule'}, 
-        {type: 'logosModule'}, 
-        {type: 'twoColumnModule'}
-      ] 
+    defineField({
+      name: 'modules',
+      title: 'Page Modules',
+      type: 'array',
+      of: [
+        { type: 'heroModule' },
+        { type: 'featuredCardsModule' },
+        { type: 'richTextModule' },
+        { type: 'imageGalleryModule' },
+        { type: 'ctaBannerModule' },
+        { type: 'testimonialModule' },
+        { type: 'faqModule' },
+        { type: 'statsModule' },
+        { type: 'logosModule' },
+        { type: 'twoColumnModule' }
+      ]
     }),
     defineField({ name: 'seo', title: 'SEO', type: 'seo' })
   ]

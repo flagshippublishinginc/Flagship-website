@@ -33,7 +33,7 @@ const ActivitiesModule: React.FC<ActivitiesModuleInterface> = ({
               )}
               <div className="textContent">
                 {leadArticle.title && (
-                  <h2 className="font-heading mb-4">
+                  <h2 className="font-headiang mb-4">
                     <Link href={leadArticle.readLink}>{leadArticle.title}</Link>
                   </h2>
                 )}

@@ -14,7 +14,30 @@ export default defineType({
       validation: Rule => Rule.required()
     }),
 
+
+    // Logos
+    defineField({
+      name: 'logo',
+      title: 'Logos',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'dark',
+          title: 'Dark Logo (for light backgrounds)',
+          type: 'image',
+          options: { hotspot: true }
+        }),
+        defineField({
+          name: 'light',
+          title: 'Light Logo (for dark backgrounds)',
+          type: 'image',
+          options: { hotspot: true }
+        })
+      ]
+    }),
+
     // Background Colors
+
     defineField({
       name: 'backgroundSection',
       title: 'Background Colors',
@@ -150,7 +173,7 @@ export default defineType({
       title: 'Google Fonts URL',
       type: 'url',
       description: 'Paste the Google Fonts embed URL (e.g. https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap). This will be loaded on the frontend when enabled.',
-      hidden: ({document}) => !document?.useGoogleFont
+      hidden: ({ document }) => !document?.useGoogleFont
     }),
 
     // Preview note
@@ -192,9 +215,9 @@ export default defineType({
 
       // small SVG swatch showing primary (left) and background (right)
       const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='40' height='20'>` +
-                  `<rect width='20' height='20' fill='${primary}' />` +
-                  `<rect x='20' width='20' height='20' fill='${bg}' />` +
-                  `</svg>`
+        `<rect width='20' height='20' fill='${primary}' />` +
+        `<rect x='20' width='20' height='20' fill='${bg}' />` +
+        `</svg>`
       const dataUrl = `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`
 
       return {
