@@ -7,6 +7,13 @@ export default defineType({
   type: 'document',
   fields: [
     defineField({ name: 'author', type: 'string' }),
+    defineField({
+      name: 'site',
+      title: 'Site',
+      type: 'reference',
+      to: [{ type: 'site' }],
+      validation: Rule => Rule.required()
+    }),
     defineField({ name: 'role', type: 'string' }),
     defineField({ name: 'content', type: 'text' }),
     defineField({ name: 'photo', type: 'image' })
