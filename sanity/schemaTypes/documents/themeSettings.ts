@@ -1,5 +1,6 @@
 import React from 'react'
 import { defineType, defineField } from 'sanity'
+import { ColorStringInput } from '../../components/ColorStringInput'
 
 export default defineType({
   name: 'themeSettings',
@@ -51,21 +52,21 @@ export default defineType({
       type: 'object',
       fields: [
         defineField({
-          name: 'light',
+          name: 'lightColor',
           title: 'Background Light',
           description: 'Warm ivory white; keeps pages bright without starkness',
-          type: 'color',
-          options: { disableAlpha: true },
-          initialValue: { hex: '#F8F6F3' },
+          type: 'string',
+          initialValue: '#F8F6F3',
+          components: { input: ColorStringInput },
           validation: Rule => Rule.required()
         }),
         defineField({
-          name: 'mid',
+          name: 'midColor',
           title: 'Background Mid',
           description: 'Subtle beige divider tone for section breaks or cards',
-          type: 'color',
-          options: { disableAlpha: true },
-          initialValue: { hex: '#EAE6DF' },
+          type: 'string',
+          initialValue: '#EAE6DF',
+          components: { input: ColorStringInput },
           validation: Rule => Rule.required()
         })
       ]
@@ -78,21 +79,21 @@ export default defineType({
       type: 'object',
       fields: [
         defineField({
-          name: 'primary',
+          name: 'primaryColor',
           title: 'Primary Text',
           description: 'Deep neutral black for maximum readability',
-          type: 'color',
-          options: { disableAlpha: true },
-          initialValue: { hex: '#1A1A1A' },
+          type: 'string',
+          initialValue: '#1A1A1A',
+          components: { input: ColorStringInput },
           validation: Rule => Rule.required()
         }),
         defineField({
-          name: 'secondary',
+          name: 'secondaryColor',
           title: 'Secondary Text',
           description: 'Gray tone for subheads, captions, metadata',
-          type: 'color',
-          options: { disableAlpha: true },
-          initialValue: { hex: '#4B4B4B' },
+          type: 'string',
+          initialValue: '#4B4B4B',
+          components: { input: ColorStringInput },
           validation: Rule => Rule.required()
         })
       ]
@@ -100,12 +101,12 @@ export default defineType({
 
     // Borders and Lines
     defineField({
-      name: 'borders',
+      name: 'borderColor',
       title: 'Lines / Borders',
       description: 'Soft neutral gray for dividers',
-      type: 'color',
-      options: { disableAlpha: true },
-      initialValue: { hex: '#DDD8D1' },
+      type: 'string',
+      initialValue: '#DDD8D1',
+      components: { input: ColorStringInput },
       validation: Rule => Rule.required()
     }),
 
@@ -116,21 +117,21 @@ export default defineType({
       type: 'object',
       fields: [
         defineField({
-          name: 'primary',
+          name: 'primaryAccentColor',
           title: 'Primary Accent / CTA / Link Hover',
           description: 'Terracotta red – warm, human, rooted',
-          type: 'color',
-          options: { disableAlpha: true },
-          initialValue: { hex: '#C63C22' },
+          type: 'string',
+          initialValue: '#C63C22',
+          components: { input: ColorStringInput },
           validation: Rule => Rule.required()
         }),
         defineField({
-          name: 'hover',
+          name: 'hoverAccentColor',
           title: 'Accent Hover / Active State',
           description: 'Slightly darker shade for hover depth',
-          type: 'color',
-          options: { disableAlpha: true },
-          initialValue: { hex: '#8B2A17' },
+          type: 'string',
+          initialValue: '#8B2A17',
+          components: { input: ColorStringInput },
           validation: Rule => Rule.required()
         })
       ]
@@ -138,12 +139,12 @@ export default defineType({
 
     // Button Text Color
     defineField({
-      name: 'buttonText',
+      name: 'buttonTextColor',
       title: 'Button Text (on accent)',
       description: 'Pure white; passes accessibility contrast',
-      type: 'color',
-      options: { disableAlpha: true },
-      initialValue: { hex: '#FFFFFF' },
+      type: 'string',
+      initialValue: '#FFFFFF',
+      components: { input: ColorStringInput },
       validation: Rule => Rule.required()
     }),
 
@@ -212,13 +213,13 @@ export default defineType({
   preview: {
     select: {
       title: 'title',
-      accentPrimary: 'accentSection.primary',
-      backgroundLight: 'backgroundSection.light',
+      accentPrimary: 'accentSection.primaryAccentColor',
+      backgroundLight: 'backgroundSection.lightColor',
       fontFamily: 'fontFamily'
     },
     prepare({ title, accentPrimary, backgroundLight, fontFamily }) {
-      const primary = (accentPrimary && (accentPrimary.hex || accentPrimary)) || '#C63C22'
-      const bg = (backgroundLight && (backgroundLight.hex || backgroundLight)) || '#F8F6F3'
+      const primary = accentPrimary || '#C63C22'
+      const bg = backgroundLight || '#F8F6F3'
 
       // small SVG swatch showing primary (left) and background (right)
       const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='40' height='20'>` +

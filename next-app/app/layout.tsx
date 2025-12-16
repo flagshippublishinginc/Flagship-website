@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Source_Sans_3, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import { Footer, Header } from "@/components";
+import { Footer, Header, EnvironmentBadge } from "@/components";
 import { getSanityData, getTheme } from "@/lib/helpingFunctions";
 
 const sourceSans3 = Source_Sans_3({
@@ -44,6 +44,7 @@ export default function RootLayout({
         )}
       </head>
       <body className={` antialiased`}>
+        <EnvironmentBadge />
         <Header />
         {children}
         <Footer />
