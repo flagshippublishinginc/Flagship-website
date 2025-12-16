@@ -27,7 +27,6 @@ export const metadata: Metadata = {
 
 // getting theme data from sanity
 const themeData: any = await getTheme();
-console.log(themeData);
 
 export default function RootLayout({
   children,

@@ -6,6 +6,7 @@ export const client = createClient({
   dataset: "production",
   apiVersion: "2025-12-10",
   useCdn: false,
+  // perspective: "published",
 });
 
 const builder = createImageUrlBuilder(client);
