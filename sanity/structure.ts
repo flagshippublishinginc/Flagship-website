@@ -38,6 +38,28 @@ export const structure = (S: StructureBuilder) =>
                         ])
                     ),
                   S.listItem()
+                    .title('Contact Page')
+                    .child(
+                      S.documentList()
+                        .title('Contact Page')
+                        .filter('_type == "contactPage" && site._ref == $siteId')
+                        .params({ siteId })
+                        .initialValueTemplates([
+                          S.initialValueTemplateItem('contactPage-by-site', { siteId })
+                        ])
+                    ),
+                  S.listItem()
+                    .title('Team Page')
+                    .child(
+                      S.documentList()
+                        .title('Team Page')
+                        .filter('_type == "teamPage" && site._ref == $siteId')
+                        .params({ siteId })
+                        .initialValueTemplates([
+                          S.initialValueTemplateItem('teamPage-by-site', { siteId })
+                        ])
+                    ),
+                  S.listItem()
                     .title('Posts')
                     .child(
                       S.documentList()
@@ -60,6 +82,62 @@ export const structure = (S: StructureBuilder) =>
                         ])
                     ),
                   S.divider(),
+                  S.listItem()
+                    .title('Team Members')
+                    .child(
+                      S.documentList()
+                        .title('Team Members')
+                        .filter('_type == "teamMember" && site._ref == $siteId')
+                        .params({ siteId })
+                        .initialValueTemplates([
+                          S.initialValueTemplateItem('teamMember-by-site', { siteId })
+                        ])
+                    ),
+                  S.listItem()
+                    .title('Authors')
+                    .child(
+                      S.documentList()
+                        .title('Authors')
+                        .filter('_type == "author" && site._ref == $siteId')
+                        .params({ siteId })
+                        .initialValueTemplates([
+                          S.initialValueTemplateItem('author-by-site', { siteId })
+                        ])
+                    ),
+                  S.listItem()
+                    .title('Categories')
+                    .child(
+                      S.documentList()
+                        .title('Categories')
+                        .filter('_type == "category" && site._ref == $siteId')
+                        .params({ siteId })
+                        .initialValueTemplates([
+                          S.initialValueTemplateItem('category-by-site', { siteId })
+                        ])
+                    ),
+                  S.listItem()
+                    .title('Testimonials')
+                    .child(
+                      S.documentList()
+                        .title('Testimonials')
+                        .filter('_type == "testimonial" && site._ref == $siteId')
+                        .params({ siteId })
+                        .initialValueTemplates([
+                          S.initialValueTemplateItem('testimonial-by-site', { siteId })
+                        ])
+                    ),
+                  S.listItem()
+                    .title('Theme Settings')
+                    .child(
+                      S.documentList()
+                        .title('Theme Settings')
+                        .filter('_type == "themeSettings" && site._ref == $siteId')
+                        .params({ siteId })
+                        .initialValueTemplates([
+                          S.initialValueTemplateItem('themeSettings-by-site', { siteId })
+                        ])
+                    ),
+                  S.divider(),
                   S.documentListItem()
                     .schemaType('site')
                     .id(siteId)
@@ -68,20 +146,24 @@ export const structure = (S: StructureBuilder) =>
             )
         ),
       S.divider(),
-      // Custom Page Builder (Keep it available globally)
-      S.listItem()
-        .title('📄 Page Builder')
-        .id('page-builder')
-        .child(
-          S.component(PageBuilderToolComponent).id('page-builder')
-        ),
-      S.divider(),
       // All other documents (Global view)
       ...S.documentTypeListItems().filter(
-        (listItem) => !['site', 'page', 'homePage', 'post', 'blogListingPage'].includes(listItem.getId() || '')
+        (listItem) => ![
+          'site',
+          'page',
+          'homePage',
+          'post',
+          'blogListingPage',
+          'contactPage',
+          'teamPage',
+          'teamMember',
+          'author',
+          'category',
+          'testimonial',
+          'themeSettings'
+        ].includes(listItem.getId() || '')
       ),
       S.divider(),
       // Global Lists for shared content or admins
       S.documentTypeListItem('page').title('All Pages'),
-      S.documentTypeListItem('post').title('All Posts'),
     ])

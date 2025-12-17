@@ -1,9 +1,9 @@
-import { client } from "./sanity";
+import { sanityFetch } from "./sanity";
 
 // const query = `*[_type == "homePage"][0]{ "homeBanner": modules[_type == "homeBannerModule"][0]{ _key, _type, title, description, authorPrefix, author, buttonLabel, buttonLink, image, } }`;
 
-export async function getDataAllData(query: string) {
-  const data: any = await client.fetch(query);
+export async function getSanityData(query: string) {
+  const data: any = await sanityFetch({ query });
   return data;
 }
 
@@ -14,4 +14,10 @@ export function formatPublishDate(dateString: string) {
   const year = date.getFullYear();
 
   return `${day} ${month} ${year}`;
+}
+
+export async function getTheme() {
+  const themeQuery = `*[_type == "themeSettings"][0]`;
+  const themeData = await getSanityData(themeQuery);
+  return themeData;
 }

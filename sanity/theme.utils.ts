@@ -23,9 +23,9 @@ export async function getThemeSettings() {
     title,
     backgroundSection,
     textSection,
-    borders,
+    "borders": borderColor,
     accentSection,
-    buttonText,
+    "buttonText": buttonTextColor,
     fontFamily,
     useGoogleFont,
     googleFontUrl
@@ -60,13 +60,13 @@ export function transformThemeToCSSVariables(theme: any) {
   }
 
   return {
-    '--color-background-light': hex(theme.backgroundSection?.light, '#F8F6F3'),
-    '--color-background-mid': hex(theme.backgroundSection?.mid, '#EAE6DF'),
-    '--color-text-primary': hex(theme.textSection?.primary, '#1A1A1A'),
-    '--color-text-secondary': hex(theme.textSection?.secondary, '#4B4B4B'),
+    '--color-background-light': hex(theme.backgroundSection?.lightColor, '#F8F6F3'),
+    '--color-background-mid': hex(theme.backgroundSection?.midColor, '#EAE6DF'),
+    '--color-text-primary': hex(theme.textSection?.primaryColor, '#1A1A1A'),
+    '--color-text-secondary': hex(theme.textSection?.secondaryColor, '#4B4B4B'),
     '--color-border': hex(theme.borders, '#DDD8D1'),
-    '--color-accent-primary': hex(theme.accentSection?.primary, '#C63C22'),
-    '--color-accent-hover': hex(theme.accentSection?.hover, '#8B2A17'),
+    '--color-accent-primary': hex(theme.accentSection?.primaryAccentColor, '#C63C22'),
+    '--color-accent-hover': hex(theme.accentSection?.hoverAccentColor, '#8B2A17'),
     '--color-button-text': hex(theme.buttonText, '#FFFFFF'),
   }
 }

@@ -4,11 +4,11 @@ import {
   ReaderFavourites,
   ActivitiesModule,
 } from "@/components";
-import { getDataAllData } from "@/lib/helpingFunctions";
+import { getSanityData } from "@/lib/helpingFunctions";
 
 export default async function Home() {
   const query = `*[_type == "homePage"][0] { modules }`;
-  const allData: any = await getDataAllData(query);
+  const allData: any = await getSanityData(query);
   return (
     <div className="md:min-h-screen">
       <main>
@@ -31,8 +31,6 @@ export default async function Home() {
               );
             }
             if (module._type === "activitiesModule") {
-              console.log("Rendering ActivitiesModule", module);
-
               return (
                 <ActivitiesModule
                   key={index}
