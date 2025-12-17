@@ -1,5 +1,5 @@
 import { defineConfig } from 'sanity'
-import { presentationTool } from '@sanity/presentation'
+import { presentationTool } from 'sanity/presentation'
 import { structureTool } from 'sanity/structure'
 import { visionTool } from '@sanity/vision'
 import { schemaTypes } from './schemaTypes'
@@ -21,6 +21,7 @@ export default defineConfig({
     pageBuilder(),
     presentationTool({
       previewUrl: {
+        origin: 'http://localhost:3000',
         previewMode: {
           enable: '/api/draft',
           disable: '/api/disable-draft',

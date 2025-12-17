@@ -19,7 +19,11 @@ export const client = createClient({
   useCdn: !isPreview, // Disable CDN in preview to see latest changes
   perspective: isPreview ? 'previewDrafts' : 'published',
   token: isPreview ? process.env.NEXT_PUBLIC_SANITY_TOKEN : undefined,
-  ignoreBrowserTokenWarning: true
+  ignoreBrowserTokenWarning: true,
+  stega: {
+    enabled: true,
+    studioUrl: 'http://localhost:3333',
+  }
 });
 
 const builder = createImageUrlBuilder(client);
