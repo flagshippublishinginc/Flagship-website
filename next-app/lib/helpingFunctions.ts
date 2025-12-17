@@ -1,9 +1,9 @@
-import { client } from "./sanity";
+import { sanityFetch } from "./sanity";
 
 // const query = `*[_type == "homePage"][0]{ "homeBanner": modules[_type == "homeBannerModule"][0]{ _key, _type, title, description, authorPrefix, author, buttonLabel, buttonLink, image, } }`;
 
 export async function getSanityData(query: string) {
-  const data: any = await client.fetch(query);
+  const data: any = await sanityFetch({ query });
   return data;
 }
 

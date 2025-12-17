@@ -3,6 +3,8 @@ import { Source_Sans_3, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Footer, Header, EnvironmentBadge } from "@/components";
 import { getSanityData, getTheme } from "@/lib/helpingFunctions";
+import { VisualEditing } from "next-sanity/visual-editing";
+import { draftMode } from "next/headers";
 
 const sourceSans3 = Source_Sans_3({
   variable: "--font-source-sans-3",
@@ -28,7 +30,7 @@ export const metadata: Metadata = {
 // getting theme data from sanity
 const themeData: any = await getTheme();
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -43,6 +45,7 @@ export default function RootLayout({
         )}
       </head>
       <body className={` antialiased`}>
+        {(await draftMode()).isEnabled && <VisualEditing />}
         <EnvironmentBadge />
         <Header />
         {children}
