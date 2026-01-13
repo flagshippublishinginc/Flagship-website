@@ -74,6 +74,8 @@ export interface ActivitiesModuleInterface {
   sidebarArticles: SidebarArticlesInterface[];
   headingHighlight: string;
   headingText: string;
+  buttonText?: string;
+  ButtonUrl?: string;
 }
 
 export interface CurrentIssueInterface {

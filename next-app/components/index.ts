@@ -6,5 +6,13 @@ export { default as AnimatedLink } from "./AnimatedLink";
 export { default as ReaderFavourites } from "./ReaderFavourites";
 export { default as ActivitiesModule } from "./ActivitiesModule";
 export { default as EnvironmentBadge } from "./EnvironmentBadge";
+<<<<<<< HEAD
 export { default as CurrentIssue } from "./CurrentIssue";
 
+=======
+export { default as Subscribe } from "./Subscribe";
+export { default as AnimatedButton } from "./AnimatedButton";
+export { default as ImageSlider } from "./ImageSlider";
+export { default as TravelGuides } from "./TravelGuides";
+export { default as Gallery } from "./Gallery";
+>>>>>>> 7cd60c979367a16e38115a1feb06eabcf9970408
