@@ -75,3 +75,17 @@ export interface ActivitiesModuleInterface {
   headingHighlight: string;
   headingText: string;
 }
+
+export interface CurrentIssueInterface {
+  badge?: string;
+  issueDate: string;
+  coverImage: SanityImage;
+  volumeInfo?: string;
+  featuredTitle?: string;
+  mainFeature: string;
+  features?: string[];
+  heroImage: SanityImage;
+  buttonText?: string;
+  buttonLink?: string;
+}
+

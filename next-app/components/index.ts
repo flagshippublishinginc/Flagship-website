@@ -6,3 +6,5 @@ export { default as AnimatedLink } from "./AnimatedLink";
 export { default as ReaderFavourites } from "./ReaderFavourites";
 export { default as ActivitiesModule } from "./ActivitiesModule";
 export { default as EnvironmentBadge } from "./EnvironmentBadge";
+export { default as CurrentIssue } from "./CurrentIssue";
+
