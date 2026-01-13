@@ -2,12 +2,15 @@ import { ActivitiesModuleInterface } from "@/lib/interfaces";
 import { urlFor } from "@/lib/sanity";
 import Image from "next/image";
 import Link from "next/link";
+import AnimatedButton from "./AnimatedButton";
 
 const ActivitiesModule: React.FC<ActivitiesModuleInterface> = ({
   leadArticle,
   sidebarArticles,
   headingHighlight,
   headingText,
+  buttonText,
+  ButtonUrl,
 }) => {
   return (
     <section className="section-spacing">
@@ -23,12 +26,15 @@ const ActivitiesModule: React.FC<ActivitiesModuleInterface> = ({
             <div className="p-4 md:p-6">
               {leadArticle.image && (
                 <div className="imageContent mb-4">
-                  <Image
-                    src={urlFor(leadArticle.image).url()}
-                    alt={leadArticle.title}
-                    width={820}
-                    height={800}
-                  />
+                  <Link href={leadArticle.readLink}>
+                    <Image
+                      src={urlFor(leadArticle.image).url()}
+                      alt={leadArticle.title}
+                      width={820}
+                      height={800}
+                      style={{ width: "100%", height: "auto" }}
+                    />
+                  </Link>
                 </div>
               )}
               <div className="textContent">
@@ -38,7 +44,7 @@ const ActivitiesModule: React.FC<ActivitiesModuleInterface> = ({
                   </h2>
                 )}
                 {leadArticle.description && (
-                  <p className="text-secondary mb-6">
+                  <p className="text-secondary mb-0">
                     {leadArticle.description}
                   </p>
                 )}
@@ -55,12 +61,17 @@ const ActivitiesModule: React.FC<ActivitiesModuleInterface> = ({
                   className="p-4 md:p-6 grid grid-cols-1 lg:grid-cols-2 gap-4 not-first:border-t border-background-gray">
                   {article.image && (
                     <div className="imageContent">
-                      <Image
-                        src={urlFor(article.image).url()}
-                        alt={article.title}
-                        width={820}
-                        height={800}
-                      />
+                      <Link
+                        className="group block overflow-hidden"
+                        href={article.readLink}>
+                        <Image
+                          src={urlFor(article.image).url()}
+                          alt={article.title}
+                          width={820}
+                          height={800}
+                          className="w-full h-auto transform transition-transform duration-300 lg:group-hover:scale-110"
+                        />
+                      </Link>
                     </div>
                   )}
                   <div className="textContent">
@@ -70,7 +81,7 @@ const ActivitiesModule: React.FC<ActivitiesModuleInterface> = ({
                       </h5>
                     )}
                     {article.description && (
-                      <p className="text-secondary text-[14px]">
+                      <p className="text-secondary text-[14px] m-0">
                         {updatedDescription}
                       </p>
                     )}
@@ -80,6 +91,13 @@ const ActivitiesModule: React.FC<ActivitiesModuleInterface> = ({
             })}
           </div>
         </div>
+        {buttonText && ButtonUrl && (
+          <div className="flex justify-center mt-8 md:mt-14">
+            <Link href={ButtonUrl}>
+              <AnimatedButton text={buttonText} href={ButtonUrl} />
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );

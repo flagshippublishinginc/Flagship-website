@@ -22,7 +22,7 @@ const HomeBanner = async ({ modules }: { modules: HomeBannerInterface }) => {
             <div className="banner-content-inner px-4 pt-10 group">
               <h1 className="md:mb-10 mb-5 font-heading">
                 <a
-                  href="#"
+                  href="https://www.mauimagazine.net/"
                   className="transition-colors group-hover:text-tertiary duration-300">
                   {modules.title}
                 </a>

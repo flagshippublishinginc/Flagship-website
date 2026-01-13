@@ -3,6 +3,10 @@ import {
   RichText,
   ReaderFavourites,
   ActivitiesModule,
+  Subscribe,
+  ImageSlider,
+  TravelGuides,
+  Gallery,
 } from "@/components";
 import { getSanityData } from "@/lib/helpingFunctions";
 
@@ -43,6 +47,10 @@ export default async function Home() {
             }
             return null;
           })}
+          <Subscribe />
+          <TravelGuides />
+          <ImageSlider />
+          <Gallery />
         </div>
       </main>
     </div>
