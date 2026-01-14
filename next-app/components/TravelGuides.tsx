@@ -109,7 +109,7 @@ const TravelGuides: React.FC<TravelGuidesModule> = async ({
                         />
                       </div>
                       {rightSidePostData.title && (
-                        <div className="leftPost_Text mt-4">
+                        <div className="leftPost_Text">
                           <h5 className="font-heading md:text-[18px]">
                             {rightSidePostData.title}
                           </h5>
