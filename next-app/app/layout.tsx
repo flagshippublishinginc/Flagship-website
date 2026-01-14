@@ -19,28 +19,30 @@ const playfairDisplay = Playfair_Display({
 });
 
 // getting seo meta data from sanity
-const homePageQuery = `*[_type == "homePage"][0]{ title, seo { metaTitle, metaDescription } }`;
-const homePageData = await getSanityData(homePageQuery);
+export async function generateMetadata(): Promise<Metadata> {
+  const homePageQuery = `*[_type == "homePage"][0]{ title, seo { metaTitle, metaDescription } }`;
+  const homePageData = await getSanityData(homePageQuery);
 
-export const metadata: Metadata = {
-  title: homePageData.seo.metaTitle,
-  description: homePageData.seo.metaDescription,
-};
-
-// getting theme data from sanity
-const themeData: any = await getTheme();
+  return {
+    title: homePageData?.seo?.metaTitle || "Flagship",
+    description: homePageData?.seo?.metaDescription || "",
+  };
+}
 
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // getting theme data from sanity
+  const themeData: any = await getTheme();
+
   return (
     <html
       lang="en"
       className={`${sourceSans3.variable} ${playfairDisplay.variable}`}>
       <head>
-        {themeData.useGoogleFont && themeData.googleFontUrl && (
+        {themeData?.useGoogleFont && themeData?.googleFontUrl && (
           <link rel="stylesheet" href={themeData.googleFontUrl} />
         )}
       </head>

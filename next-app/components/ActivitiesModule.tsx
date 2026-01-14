@@ -1,10 +1,10 @@
-import { ActivitiesModuleInterface } from "@/lib/interfaces";
-import { urlFor } from "@/lib/sanity";
+import { urlForImage, urlForFile } from "@/lib/sanity";
 import Image from "next/image";
 import Link from "next/link";
 import AnimatedButton from "./AnimatedButton";
+import { ActivitiesModule as ActivitiesModuleProps } from "@/types/homeModules";
 
-const ActivitiesModule: React.FC<ActivitiesModuleInterface> = ({
+const ActivitiesModule: React.FC<ActivitiesModuleProps> = ({
   leadArticle,
   sidebarArticles,
   headingHighlight,
@@ -24,17 +24,30 @@ const ActivitiesModule: React.FC<ActivitiesModuleInterface> = ({
         <div className="flex flex-wrap mx-[-16px] lg:mx-[-32px]  border-b border-t border-background-gray">
           <div className="leadArticle-item w-full  lg:w-[60%] border-b lg:border-b-0 md:border-r border-background-gray">
             <div className="p-4 md:p-6">
-              {leadArticle.image && (
+              {leadArticle && (
                 <div className="imageContent mb-4">
-                  <Link href={leadArticle.readLink}>
-                    <Image
-                      src={urlFor(leadArticle.image).url()}
-                      alt={leadArticle.title}
+                  {leadArticle.mediaType === "image" && (
+                    <Link href={leadArticle.readLink}>
+                      <Image
+                        src={urlForImage(leadArticle.image)?.url() || ""}
+                        alt={leadArticle.title}
+                        width={820}
+                        height={800}
+                        style={{ width: "100%", height: "auto" }}
+                      />
+                    </Link>
+                  )}
+                  {leadArticle.mediaType === "video" && (
+                    <video
+                      src={urlForFile(leadArticle.video) || ""}
                       width={820}
                       height={800}
+                      autoPlay={true}
+                      playsInline={true}
+                      muted={true}
                       style={{ width: "100%", height: "auto" }}
                     />
-                  </Link>
+                  )}
                 </div>
               )}
               <div className="textContent">
@@ -65,7 +78,7 @@ const ActivitiesModule: React.FC<ActivitiesModuleInterface> = ({
                         className="group block overflow-hidden" // Added rounded for better mobile look
                         href={article.readLink}>
                         <Image
-                          src={urlFor(article.image).url()}
+                          src={urlForImage(article.image)?.url() || ""}
                           alt={article.title}
                           width={820}
                           height={800}

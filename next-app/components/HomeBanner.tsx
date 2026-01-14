@@ -1,16 +1,16 @@
 import Image from "next/image";
-import { urlFor } from "@/lib/sanity";
-import { HomeBannerInterface } from "@/lib/interfaces";
+import { urlForImage } from "@/lib/sanity";
+import { HomeBannerModule } from "@/types/homeModules";
 import AnimatedLink from "./AnimatedLink";
 
-const HomeBanner = async ({ modules }: { modules: HomeBannerInterface }) => {
+const HomeBanner = async ({ modules }: { modules: HomeBannerModule }) => {
   return (
     <section className="home-banner w-full">
       <div className="banner-container">
         <div className="grid items-center grid-cols-1 md:grid-cols-[1fr_1fr] lg:grid-cols-[3fr_2fr] gap-5 lg:gap-10">
           <div className="banner-image h-full w-full">
             <Image
-              src={urlFor(modules.image).url()}
+              src={urlForImage(modules.image)?.url() || ""}
               alt={modules.title}
               width={600}
               height={870}

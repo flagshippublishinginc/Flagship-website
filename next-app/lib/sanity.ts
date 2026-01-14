@@ -1,27 +1,43 @@
-import { createImageUrlBuilder } from "@sanity/image-url";
-import { createClient } from "next-sanity";
+import { createClient, type SanityClient } from "next-sanity";
+import imageUrlBuilder from "@sanity/image-url";
+import { getFileAsset } from "@sanity/asset-utils";
 import { draftMode } from "next/headers";
 
-const mode = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
-const isPreview = mode === "preview";
-
-export const client = createClient({
+const config = {
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
-  apiVersion: "2025-12-10",
-  useCdn: !isPreview,
-  perspective: isPreview ? "previewDrafts" : "published",
-  token: isPreview ? process.env.NEXT_PUBLIC_SANITY_TOKEN : undefined,
-  ignoreBrowserTokenWarning: true,
+  apiVersion: "2025-01-14",
+  useCdn: true,
   stega: {
-    enabled: true,
-    studioUrl: "http://localhost:3333",
+    enabled: process.env.NODE_ENV !== "production",
+    studioUrl:
+      process.env.NEXT_PUBLIC_SANITY_STUDIO_URL || "http://localhost:3333",
   },
+} as const;
+
+export const client: SanityClient = createClient({
+  ...config,
+  perspective: "published",
 });
 
-const builder = createImageUrlBuilder(client);
+const imageBuilder = imageUrlBuilder(client);
 
-export const urlFor = (source: any) => builder.image(source);
+export const urlForImage = (source: any) =>
+  source ? imageBuilder.image(source).auto("format").fit("max") : null;
+
+export function urlForFile(source: any): string | null {
+  if (!source?.asset?._ref) return null;
+
+  try {
+    const asset = getFileAsset(source, {
+      projectId: config.projectId,
+      dataset: config.dataset,
+    });
+    return asset.url ?? null;
+  } catch {
+    return null;
+  }
+}
 
 export async function sanityFetch<QueryResponse>({
   query,
@@ -29,23 +45,27 @@ export async function sanityFetch<QueryResponse>({
   tags,
 }: {
   query: string;
-  params?: any;
+  params?: Record<string, any>;
   tags?: string[];
-}) {
-  const isDraftMode = (await draftMode()).isEnabled;
-  if (isDraftMode && !process.env.NEXT_PUBLIC_SANITY_TOKEN) {
-    throw new Error("Missing NEXT_PUBLIC_SANITY_TOKEN");
+}): Promise<QueryResponse> {
+  const draft = await draftMode();
+  const isDraftMode = draft.isEnabled;
+
+  if (isDraftMode && !process.env.SANITY_READ_TOKEN) {
+    throw new Error(
+      "Missing SANITY_READ_TOKEN environment variable for draft mode"
+    );
   }
 
-  const perspective = isDraftMode ? "previewDrafts" : "published";
-
   return client.fetch<QueryResponse>(query, params, {
-    token: isDraftMode ? process.env.NEXT_PUBLIC_SANITY_TOKEN : undefined,
-    perspective,
+    token: isDraftMode ? process.env.SANITY_READ_TOKEN : undefined,
+    perspective: isDraftMode ? "previewDrafts" : "published",
     useCdn: !isDraftMode,
     next: {
-      revalidate: isDraftMode ? 0 : 60,
+      revalidate: isDraftMode ? 0 : 30,
       tags,
     },
   });
 }
+
+export type SanityFetch = typeof sanityFetch;

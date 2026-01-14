@@ -1,10 +1,10 @@
 import { formatPublishDate } from "@/lib/helpingFunctions";
-import { ReaderFavouritesInterface } from "@/lib/interfaces";
-import { urlFor } from "@/lib/sanity";
+import { urlForImage } from "@/lib/sanity";
 import Image from "next/image";
 import AnimatedLink from "./AnimatedLink";
+import { ReaderFavouritesModule } from "@/types/homeModules";
 
-const ReaderFavourites: React.FC<ReaderFavouritesInterface> = ({
+const ReaderFavourites: React.FC<ReaderFavouritesModule> = ({
   articles,
   headingText,
   headingHighlight,
@@ -39,7 +39,7 @@ const ReaderFavourites: React.FC<ReaderFavouritesInterface> = ({
                   </div>
                   <div className="article-image">
                     <Image
-                      src={urlFor(article.image).url()}
+                      src={urlForImage(article.image)?.url() || ""}
                       alt={article.title}
                       width={700}
                       height={700}
