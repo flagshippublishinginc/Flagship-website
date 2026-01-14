@@ -1,4 +1,4 @@
-import { sanityFetch } from "./sanity";
+import { sanityFetch } from "./fetch";
 
 // const query = `*[_type == "homePage"][0]{ "homeBanner": modules[_type == "homeBannerModule"][0]{ _key, _type, title, description, authorPrefix, author, buttonLabel, buttonLink, image, } }`;
 
