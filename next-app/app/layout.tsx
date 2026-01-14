@@ -29,6 +29,40 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+// getting header data from sanity
+const headerQuery = `*[_type == "settings"][0]{
+  header {
+    logo,
+    navLinks[]{
+      label,
+      link {
+        type,
+        external,
+        internal->{ 
+          "slug": slug.current, 
+          _type 
+        }
+      },
+      icon,
+      image,
+      children[]{
+        label,
+        link {
+          type,
+          external,
+          internal->{ 
+            "slug": slug.current, 
+            _type 
+          }
+        },
+        icon,
+        image
+      }
+    }
+  }
+}`;
+const headerData = await getSanityData(headerQuery);
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -49,7 +83,7 @@ export default async function RootLayout({
       <body className={` antialiased`}>
         {(await draftMode()).isEnabled && <VisualEditing />}
         <EnvironmentBadge />
-        <Header />
+        <Header data={headerData?.header} />
         {children}
         <Footer />
       </body>

@@ -15,6 +15,7 @@ import site from './documents/site'
 
 import seo from './objects/seo'
 import links from './objects/links'
+import navItem from './objects/navItem'
 
 import hero from './modules/heroModule'
 import richTextBlock from './modules/richTextModule'
@@ -57,6 +58,7 @@ export const schemaTypes = [
   // objects
   seo,
   links,
+  navItem,
 
   // modules
   hero,

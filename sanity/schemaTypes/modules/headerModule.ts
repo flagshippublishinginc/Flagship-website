@@ -15,7 +15,7 @@ export default defineType({
       name: 'navLinks',
       title: 'Navigation links',
       type: 'array',
-      of: [{ type: 'link' }]
+      of: [{ type: 'navItem' }]
     }),
     defineField({ name: 'ctaText', title: 'CTA text', type: 'string' }),
     defineField({ name: 'ctaUrl', title: 'CTA URL', type: 'url' })
