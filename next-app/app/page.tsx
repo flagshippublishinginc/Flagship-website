@@ -4,7 +4,7 @@ import {
   ReaderFavourites,
   ActivitiesModule,
   Subscribe,
-  ImageSlider,
+  RealEstateModule,
   TravelGuides,
   Gallery,
 } from "@/components";
@@ -19,6 +19,7 @@ export default async function Home() {
   }`;
 
   const allData: any = await getSanityData(query);
+  console.log("AllData", allData);
   return (
     <div className="md:min-h-screen">
       <main>
@@ -35,13 +36,14 @@ export default async function Home() {
                 return <ActivitiesModule key={index} {...module} />;
               case "categoryHighlightModule":
                 return <TravelGuides key={index} {...module} />;
+              case "subscriptionBannerModule":
+                return <Subscribe key={index} {...module} />;
+              case "realEstateModule":
+                return <RealEstateModule key={index} {...module} />;
               default:
                 break;
             }
           })}
-          <Subscribe />
-          <ImageSlider />
-          <Gallery />
         </div>
       </main>
     </div>

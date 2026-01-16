@@ -8,6 +8,6 @@ export { default as ActivitiesModule } from "./ActivitiesModule";
 export { default as EnvironmentBadge } from "./EnvironmentBadge";
 export { default as Subscribe } from "./Subscribe";
 export { default as AnimatedButton } from "./AnimatedButton";
-export { default as ImageSlider } from "./ImageSlider";
+export { default as RealEstateModule } from "./realEstateModule";
 export { default as TravelGuides } from "./TravelGuides";
 export { default as Gallery } from "./Gallery";

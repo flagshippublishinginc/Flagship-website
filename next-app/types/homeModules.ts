@@ -136,3 +136,47 @@ export interface TravelGuidesModule extends BaseModule {
   buttonText?: string;
   buttonLink?: string;
 }
+
+export interface SubscribeModule extends BaseModule {
+  _type: "subscriptionBannerModule";
+  headingHighlight: string;
+  headingText: string;
+  buttonText?: string;
+  buttonLink?: string;
+  description?: string;
+  imageLayout?: string;
+  tripleImages?: {
+    image1: SanityImage;
+    image2: SanityImage;
+    image3: SanityImage;
+  };
+  singleImage?: SanityImage;
+}
+
+export interface RealEstateArticle {
+  _key?: string;
+  _type: string;
+  title: string;
+  image: SanityImage;
+  link: string;
+  description: string;
+}
+
+export interface PropertySlide {
+  _key?: string;
+  _type: string;
+  title: string;
+  image: SanityImage;
+  link: string;
+}
+
+export interface RealEstateModule extends BaseModule {
+  _type: "realEstateModule";
+  headingHighlight: string;
+  headingText: string;
+  featuredDescription: string;
+  featuredImage: SanityImage;
+  featuredTitle: string;
+  sidebarArticles: RealEstateArticle[];
+  propertySlides: PropertySlide[];
+}

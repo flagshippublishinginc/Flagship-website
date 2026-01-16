@@ -45,6 +45,7 @@ const ActivitiesModule: React.FC<ActivitiesModuleProps> = ({
                       autoPlay={true}
                       playsInline={true}
                       muted={true}
+                      loop={true}
                       style={{ width: "100%", height: "auto" }}
                     />
                   )}
@@ -75,7 +76,7 @@ const ActivitiesModule: React.FC<ActivitiesModuleProps> = ({
                   {article.image && (
                     <div className="imageContent w-full ">
                       <Link
-                        className="group block overflow-hidden" // Added rounded for better mobile look
+                        className="group block overflow-hidden"
                         href={article.readLink}>
                         <Image
                           src={urlForImage(article.image)?.url() || ""}

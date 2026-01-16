@@ -1,6 +1,4 @@
-import Image from "next/image";
 import AnimatedButton from "./AnimatedButton";
-import { urlFor } from "@/lib/sanity";
 
 const LAYOUT = [
   { col: "md:col-span-2", row: "lg:row-span-3" },

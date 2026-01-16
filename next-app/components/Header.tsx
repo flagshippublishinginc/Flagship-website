@@ -135,7 +135,7 @@ const Header = ({ data }: HeaderProps) => {
                                 ? `/${child.link.internal.slug}`
                                 : "#"
                           }
-                          className="text-[13px] font-bold uppercase tracking-wider hover:underline whitespace-nowrap">
+                          className="text-[13px] font-bold uppercase tracking-wider hover:underline whitespace-nowrap hover:text-white">
                           {child.label}
                         </Link>
                       </div>
@@ -246,7 +246,7 @@ const Header = ({ data }: HeaderProps) => {
                               ? `/${child.link.internal.slug}`
                               : "#"
                         }
-                        className="text-[14px] uppercase tracking-wider font-medium">
+                        className="text-[14px] uppercase tracking-wider font-medium hover:text-white">
                         {child.label}
                       </Link>
                     ))}
