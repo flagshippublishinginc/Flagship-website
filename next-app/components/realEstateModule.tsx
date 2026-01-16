@@ -108,7 +108,7 @@ const RealEstateModule: React.FC<RealEstateModuleProps> = ({
         <Splide options={options} extensions={{ AutoScroll }}>
           {propertySlides.map((item, index) => (
             <SplideSlide key={index}>
-              <div className=" bg-white h-full flex items-center justify-center text-lg font-bold text-gray-800 relative">
+              <div className=" bg-white h-full flex items-center justify-center text-lg font-bold text-primary relative">
                 <Image
                   src={urlForImage(item.image)?.url() || ""}
                   alt={item.title}

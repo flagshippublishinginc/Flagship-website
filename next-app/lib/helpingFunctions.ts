@@ -21,3 +21,8 @@ export async function getTheme() {
   const themeData = await getSanityData(themeQuery);
   return themeData;
 }
+
+export async function getThemeSetting(query: string) {
+  const themeSettingData = await getSanityData(query);
+  return themeSettingData;
+}

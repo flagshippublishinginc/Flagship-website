@@ -70,7 +70,7 @@ const Header = ({ data }: HeaderProps) => {
   };
 
   return (
-    <header className="header text-primary relative z-50">
+    <header className="header text-primary relative z-50 border-gray border-b">
       <div className="header-container">
         <div className="logo">
           <Link href="/">

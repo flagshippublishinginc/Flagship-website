@@ -151,7 +151,7 @@ const Subscribe: React.FC<SubscribeModule> = ({
               initial="initial"
               animate="animate"
               transition={{ delay: layout === "single" ? 0 : 2 }}>
-              <h2 className="text-4xl font-serif text-[#c94a2c]">
+              <h2 className="text-4xl font-serif text-tertiary">
                 {headingText} <br className="hidden lg:block" />{" "}
                 {headingHighlight}
               </h2>

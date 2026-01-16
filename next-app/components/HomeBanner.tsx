@@ -30,7 +30,7 @@ const HomeBanner = async ({ modules }: { modules: HomeBannerModule }) => {
               <p className="banner-description md:mb-6 mb-3">
                 {modules.description}
               </p>
-              <p className="text-gray text-[12px]">
+              <p className="text-secondary text-[12px]">
                 By{" "}
                 <span className=" font-medium transition-colors group-hover:text-tertiary duration-300">
                   {modules.author}
