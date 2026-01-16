@@ -2,8 +2,8 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --font-sans: var(--font-source-sans-3), system-ui, sans-serif;
-  --font-heading: var(--font-playfair-display), system-ui, serif;
+  --font-sans: var(--font-sans), system-ui, sans-serif;
+  --font-heading: var(--font-heading), system-ui, serif;
 }
 
 @theme inline {
@@ -44,16 +44,21 @@ body {
     font-family: var(--font-sans);
   }
 
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+  }
+
   h1 {
     @apply text-[28px] md:text-[36px] lg:text-[40px] font-bold;
   }
 
   h2 {
     @apply text-3xl font-bold;
-  }
-
-  h2 {
-    font-family: var(--font-heading);
   }
 
   h3 {

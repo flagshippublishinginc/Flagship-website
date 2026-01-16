@@ -4,7 +4,7 @@ import {
   ReaderFavourites,
   ActivitiesModule,
   Subscribe,
-  RealEstateModule,
+  RealEstate,
   TravelGuides,
   Gallery,
 } from "@/components";
@@ -39,7 +39,7 @@ export default async function Home() {
               case "subscriptionBannerModule":
                 return <Subscribe key={index} {...module} />;
               case "realEstateModule":
-                return <RealEstateModule key={index} {...module} />;
+                return <RealEstate key={index} {...module} />;
               default:
                 break;
             }

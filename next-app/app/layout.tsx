@@ -2,11 +2,7 @@ import type { Metadata } from "next";
 import { Source_Sans_3, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Footer, Header, EnvironmentBadge } from "@/components";
-import {
-  getSanityData,
-  getTheme,
-  getThemeSetting,
-} from "@/lib/helpingFunctions";
+import { getSanityData, getTheme } from "@/lib/helpingFunctions";
 import { VisualEditing } from "next-sanity/visual-editing";
 import { draftMode } from "next/headers";
 import { stegaClean } from "@sanity/client/stega";
@@ -67,16 +63,21 @@ const headerQuery = `*[_type == "settings"][0]{
   }
 }`;
 
-const themeSettingQuery = `*[_type == "themeSettings"][0]`;
-const headerData = await getSanityData(headerQuery);
-const themeSettingData = await getSanityData(themeSettingQuery);
+const themeSettingQuery = `*[_type == "themeSettings" && title == "MAUI NŌ KA ʻOI Theme"][0]`;
 
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const themeData: any = await getTheme();
+  // Fetching data inside the component to ensure it's dynamic
+  const [headerData, themeSettingData] = await Promise.all([
+    getSanityData(headerQuery),
+    getSanityData(themeSettingQuery),
+  ]);
+
+  console.log(themeSettingData);
+
   return (
     <html
       lang="en"
@@ -99,8 +100,8 @@ export default async function RootLayout({
             }
           `}
         </style>
-        {themeData?.useGoogleFont && themeData?.googleFontUrl && (
-          <link rel="stylesheet" href={themeData.googleFontUrl} />
+        {themeSettingData?.useGoogleFont && themeSettingData?.googleFontUrl && (
+          <link rel="stylesheet" href={themeSettingData.googleFontUrl} />
         )}
       </head>
       <body className={` antialiased`}>

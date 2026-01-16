@@ -3,6 +3,7 @@ import { urlForImage } from "@/lib/sanity";
 import Image from "next/image";
 import AnimatedLink from "./AnimatedLink";
 import { ReaderFavouritesModule } from "@/types/homeModules";
+import { stegaClean } from "@sanity/client/stega";
 
 const ReaderFavourites: React.FC<ReaderFavouritesModule> = ({
   articles,
@@ -20,8 +21,8 @@ const ReaderFavourites: React.FC<ReaderFavouritesModule> = ({
         </div>
         <div className="flex flex-wrap mx-[-16px] lg:mx-[-32px] border-b border-background-gray">
           {articles.map((article, index) => {
-            const updatedDescription =
-              article.description.slice(0, 100) + "...";
+            const cleanedDescription = stegaClean(article.description);
+            const updatedDescription = cleanedDescription.slice(0, 100) + "...";
             return (
               <div
                 key={index}

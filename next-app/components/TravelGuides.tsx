@@ -36,7 +36,7 @@ const TravelGuides: React.FC<TravelGuidesModule> = async ({
                     <div
                       key={index}
                       className={`grid grid-cols-[4fr_6fr] md:grid-cols-[3fr_7fr] lg:grid-cols-1 gap-4 items-center leftPost_items p-4 md:p-6 ${index != 0 ? "border-t border-background-gray" : ""}`}>
-                      <div className="leftPost_Img">
+                      <div className="leftPost_Img overflow-hidden">
                         <Image
                           src={
                             urlForImage(leftSidePostData.coverImage)?.url() ||
@@ -45,7 +45,7 @@ const TravelGuides: React.FC<TravelGuidesModule> = async ({
                           alt={leftSidePostData.title}
                           width={774}
                           height={496}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover transform transition-transform duration-300 lg:hover:scale-110"
                         />
                       </div>
                       {leftSidePostData.title && (
@@ -96,16 +96,16 @@ const TravelGuides: React.FC<TravelGuidesModule> = async ({
                     <div
                       className={`grid grid-cols-[4fr_6fr] md:grid-cols-[3fr_7fr] lg:grid-cols-1 gap-4 items-center leftPost_items p-4 md:p-6 border-background-gray ${index != 0 ? "border-t " : ""} ${index === 0 ? "border-t lg:border-t-0" : ""}`}
                       key={index}>
-                      <div className="leftPost_Img">
+                      <div className="leftPost_Img overflow-hidden">
                         <Image
                           src={
                             urlForImage(rightSidePostData.coverImage)?.url() ||
                             ""
                           }
                           alt={rightSidePostData.title}
-                          width={774}
-                          height={496}
-                          className="w-full h-full object-cover"
+                          width={244}
+                          height={189}
+                          className="w-full h-full object-cover transform transition-transform duration-300 lg:hover:scale-110"
                         />
                       </div>
                       {rightSidePostData.title && (

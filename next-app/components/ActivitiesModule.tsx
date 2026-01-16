@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import AnimatedButton from "./AnimatedButton";
 import { ActivitiesModule as ActivitiesModuleProps } from "@/types/homeModules";
+import { stegaClean } from "@sanity/client/stega";
 
 const ActivitiesModule: React.FC<ActivitiesModuleProps> = ({
   leadArticle,
@@ -67,8 +68,9 @@ const ActivitiesModule: React.FC<ActivitiesModuleProps> = ({
           </div>
           <div className="sidebarArticles-item w-full lg:w-[40%]">
             {sidebarArticles.map((article, index) => {
+              const cleanedDescription = stegaClean(article.description);
               const updatedDescription =
-                article.description.slice(0, 75) + "...";
+                cleanedDescription.slice(0, 75) + "...";
               return (
                 <div
                   key={index}

@@ -7,20 +7,7 @@ import "@splidejs/splide/dist/css/themes/splide-default.min.css";
 import { AutoScroll } from "@splidejs/splide-extension-auto-scroll";
 import { RealEstateModule as RealEstateModuleProps } from "@/types/homeModules";
 import { urlForImage } from "@/lib/sanity";
-const images = [
-  {
-    src: "/Frame 111.webp",
-    altText: "Frame 111",
-  },
-  {
-    src: "/Frame 110.webp",
-    altText: "Frame 110",
-  },
-  {
-    src: "/Frame 109.webp",
-    altText: "Frame 109",
-  },
-];
+import { stegaClean } from "@sanity/client/stega";
 
 const RealEstateModule: React.FC<RealEstateModuleProps> = ({
   headingHighlight,
@@ -80,18 +67,20 @@ const RealEstateModule: React.FC<RealEstateModuleProps> = ({
           </div>
           <div className="sidebarArticles-item w-full lg:w-[40%] ">
             {sidebarArticles?.map((item, index) => {
-              const updatedDescription = item.description.slice(0, 75) + "...";
+              const cleanedDescription = stegaClean(item.description);
+              const updatedDescription =
+                cleanedDescription.slice(0, 75) + "...";
               return (
                 <div
                   key={index}
                   className={`grid grid-cols-[4fr_6fr] lg:grid-cols-[6fr_4fr] items-center lg:items-start gap-4 p-4 md:p-6 ${index === sidebarArticles.length - 1 ? "not-first:border-t border-background-gray" : ""}`}>
-                  <div className="image_content">
+                  <div className="image_content overflow-hidden">
                     <Image
                       src={urlForImage(item.image)?.url() || ""}
                       alt={item.title}
                       width={334}
                       height={184}
-                      className="h-full w-full"
+                      className="h-full w-full object-cover transform transition-transform duration-300 lg:hover:scale-110"
                     />
                   </div>
                   <div className="text_content">
@@ -114,7 +103,7 @@ const RealEstateModule: React.FC<RealEstateModuleProps> = ({
                   alt={item.title}
                   width={850}
                   height={538}
-                  className="h-full"
+                  className="h-full "
                 />
                 <div className="textContent absolute bottom-9 left-8 z-10">
                   <h5 className="text-white">{item.title}</h5>
