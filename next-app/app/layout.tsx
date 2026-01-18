@@ -76,8 +76,6 @@ export default async function RootLayout({
     getSanityData(themeSettingQuery),
   ]);
 
-  console.log(themeSettingData);
-
   return (
     <html
       lang="en"

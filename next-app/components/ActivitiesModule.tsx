@@ -28,13 +28,16 @@ const ActivitiesModule: React.FC<ActivitiesModuleProps> = ({
               {leadArticle && (
                 <div className="imageContent mb-4">
                   {leadArticle.mediaType === "image" && (
-                    <Link href={leadArticle.readLink}>
+                    <Link
+                      href={leadArticle.readLink}
+                      className="block overflow-hidden">
                       <Image
                         src={urlForImage(leadArticle.image)?.url() || ""}
                         alt={leadArticle.title}
                         width={820}
                         height={800}
                         style={{ width: "100%", height: "auto" }}
+                        className="w-full h-auto object-cover transform transition-transform duration-300 lg:hover:scale-110"
                       />
                     </Link>
                   )}

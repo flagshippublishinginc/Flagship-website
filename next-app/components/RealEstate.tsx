@@ -50,13 +50,13 @@ const RealEstateModule: React.FC<RealEstateModuleProps> = ({
         <div className="flex flex-wrap mx-[-16px] lg:mx-[-32px]  border-b border-t border-background-gray">
           <div className="leadArticle-item w-full  lg:w-[60%] border-b lg:border-b-0 md:border-r border-background-gray">
             <div className="p-4 md:p-6">
-              <div className="featured_img">
+              <div className="featured_img overflow-hidden">
                 <Image
                   src={urlForImage(featuredImage)?.url() || ""}
                   alt={featuredTitle}
                   width={850}
                   height={316}
-                  className="h-full w-full"
+                  className="h-full w-full object-cover transform transition-transform duration-300 lg:hover:scale-110"
                 />
               </div>
               <div className="featured_title pt-3">
@@ -93,7 +93,7 @@ const RealEstateModule: React.FC<RealEstateModuleProps> = ({
           </div>
         </div>
       </div>
-      <div className="slider-wrapper pt-6">
+      <div className="slider-wrapper pt-6 overflow-hidden">
         <Splide options={options} extensions={{ AutoScroll }}>
           {propertySlides.map((item, index) => (
             <SplideSlide key={index}>
