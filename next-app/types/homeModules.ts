@@ -123,6 +123,7 @@ export interface PostType {
   _type: string;
   title: string;
   coverImage: SanityImage;
+  description: string;
 }
 
 export interface TravelGuidesModule extends BaseModule {
@@ -179,4 +180,36 @@ export interface RealEstateModule extends BaseModule {
   featuredTitle: string;
   sidebarArticles: RealEstateArticle[];
   propertySlides: PropertySlide[];
+}
+
+export interface TwoColumnImageContentModule extends BaseModule {
+  _type: "classicsModule";
+  headingText: string;
+  headingHighlight: string;
+  featuredImage: SanityImage;
+  featuredTitle: string;
+  featuredDescription: string;
+  featuredButtonLink: string;
+  featuredButtonText: string;
+  secondaryImage: SanityImage;
+}
+
+export interface GalleryItem {
+  _key?: string;
+  _type: string;
+  title: string;
+  image: SanityImage;
+  itemType: string;
+  photoCredit: string;
+  location: string;
+  textContent: string;
+}
+
+export interface GalleryModule extends BaseModule {
+  _type: "galleryModule";
+  headingHighlight: string;
+  headingText: string;
+  buttonText?: string;
+  buttonLink?: string;
+  galleryItems: GalleryItem[];
 }

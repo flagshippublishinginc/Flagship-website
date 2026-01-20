@@ -11,3 +11,4 @@ export { default as AnimatedButton } from "./AnimatedButton";
 export { default as TravelGuides } from "./TravelGuides";
 export { default as Gallery } from "./Gallery";
 export { default as RealEstate } from "./RealEstate";
+export { default as TwoColumnImageContent } from "./TwoColumnImageContent";

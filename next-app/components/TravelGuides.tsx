@@ -3,6 +3,7 @@ import AnimatedButton from "./AnimatedButton";
 import { getSanityData } from "@/lib/helpingFunctions";
 import Image from "next/image";
 import { urlForImage } from "@/lib/sanity";
+import { stegaClean } from "next-sanity";
 
 const TravelGuides: React.FC<TravelGuidesModule> = async ({
   rightSidePosts,
@@ -53,6 +54,19 @@ const TravelGuides: React.FC<TravelGuidesModule> = async ({
                           <h5 className="font-heading md:text-[18px]">
                             {leftSidePostData.title}
                           </h5>
+                          {leftSidePostData?.description && (
+                            <div className="featured_text mt-2">
+                              <p className="text-secondary text-[14px]">
+                                {stegaClean(
+                                  leftSidePostData?.description
+                                ).slice(0, 50) +
+                                  (stegaClean(leftSidePostData?.description)
+                                    .length > 50
+                                    ? "..."
+                                    : "")}
+                              </p>
+                            </div>
+                          )}
                         </div>
                       )}
                     </div>
@@ -65,19 +79,29 @@ const TravelGuides: React.FC<TravelGuidesModule> = async ({
           {featuredPostData && (
             <div className="w-full lg:w-[57%] order-1 lg:order-2 border-b lg:border-t-0 lg:border-b-0 md:border-l md:border-r border-background-gray">
               <div className="p-4 md:p-6">
-                <div className="featured-img">
+                <div className="featured-img overflow-hidden">
                   <Image
                     src={urlForImage(featuredPostData.coverImage)?.url() || ""}
                     alt={featuredPostData.title}
                     width={774}
                     height={496}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transform transition-transform duration-300 lg:hover:scale-110"
                   />
                 </div>
 
                 {featuredPostData?.title && (
                   <div className="featured_text mt-3">
                     <h2>{featuredPostData.title}</h2>
+                  </div>
+                )}
+                {featuredPostData?.description && (
+                  <div className="featured_text mt-2">
+                    <p className="text-secondary text-[14px]">
+                      {stegaClean(featuredPostData?.description).slice(0, 75) +
+                        (stegaClean(featuredPostData?.description).length > 75
+                          ? "..."
+                          : "")}
+                    </p>
                   </div>
                 )}
               </div>
@@ -109,10 +133,23 @@ const TravelGuides: React.FC<TravelGuidesModule> = async ({
                         />
                       </div>
                       {rightSidePostData.title && (
-                        <div className="leftPost_Text">
+                        <div className="rightPost_Text">
                           <h5 className="font-heading md:text-[18px]">
                             {rightSidePostData.title}
                           </h5>
+                          {rightSidePostData?.description && (
+                            <div className="featured_text mt-2">
+                              <p className="text-secondary text-[14px]">
+                                {stegaClean(
+                                  rightSidePostData?.description
+                                ).slice(0, 50) +
+                                  (stegaClean(rightSidePostData?.description)
+                                    .length > 50
+                                    ? "..."
+                                    : "")}
+                              </p>
+                            </div>
+                          )}
                         </div>
                       )}
                     </div>

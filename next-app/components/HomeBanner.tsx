@@ -6,20 +6,20 @@ import AnimatedLink from "./AnimatedLink";
 const HomeBanner = async ({ modules }: { modules: HomeBannerModule }) => {
   return (
     <section className="home-banner w-full">
-      <div className="banner-container">
-        <div className="grid items-center grid-cols-1 md:grid-cols-[1fr_1fr] lg:grid-cols-[3fr_2fr] gap-5 lg:gap-10">
-          <div className="banner-image h-full w-full">
+      <div className="container">
+        <div className="grid items-center grid-cols-1 md:grid-cols-[1fr_1fr] lg:grid-cols-[3fr_2fr] gap-0 md:gap-5 lg:gap-10">
+          <div className="banner-image h-full w-full overflow-hidden">
             <Image
               src={urlForImage(modules.image)?.url() || ""}
               alt={modules.title}
               width={600}
               height={870}
-              className="w-full max-h-[870px] h-full object-cover"
+              className="w-full max-h-[870px] h-full object-cover transform transition-transform duration-300 lg:hover:scale-110"
               priority
             />
           </div>
           <div className="banner-content w-full flex">
-            <div className="banner-content-inner px-4 pt-10 group">
+            <div className="banner-content-inner  pt-10 group">
               <h1 className="md:mb-10 mb-5 font-heading">
                 <a
                   href="https://www.mauimagazine.net/"

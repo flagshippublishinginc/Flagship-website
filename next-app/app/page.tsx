@@ -7,6 +7,7 @@ import {
   RealEstate,
   TravelGuides,
   Gallery,
+  TwoColumnImageContent,
 } from "@/components";
 import { getSanityData } from "@/lib/helpingFunctions";
 
@@ -21,9 +22,9 @@ export default async function Home() {
   const allData: any = await getSanityData(query);
   console.log("AllData", allData);
   return (
-    <div className="md:min-h-screen">
+    <div className="md:min-h-screen pb-10 lg:pb-20">
       <main>
-        <div className="grid grid-cols-1 ">
+        <div className="block">
           {allData.modules.map((module: any, index: number) => {
             switch (module._type) {
               case "homeBannerModule":
@@ -40,6 +41,10 @@ export default async function Home() {
                 return <Subscribe key={index} {...module} />;
               case "realEstateModule":
                 return <RealEstate key={index} {...module} />;
+              case "classicsModule":
+                return <TwoColumnImageContent key={index} {...module} />;
+              case "galleryModule":
+                return <Gallery key={index} {...module} />;
               default:
                 break;
             }

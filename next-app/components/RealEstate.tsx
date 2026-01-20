@@ -77,7 +77,7 @@ const RealEstateModule: React.FC<RealEstateModuleProps> = ({
                   <div className="image_content overflow-hidden">
                     <Image
                       src={urlForImage(item.image)?.url() || ""}
-                      alt={item.title}
+                      alt={stegaClean(item.title)}
                       width={334}
                       height={184}
                       className="h-full w-full object-cover transform transition-transform duration-300 lg:hover:scale-110"
@@ -100,12 +100,12 @@ const RealEstateModule: React.FC<RealEstateModuleProps> = ({
               <div className=" bg-white h-full flex items-center justify-center text-lg font-bold text-primary relative">
                 <Image
                   src={urlForImage(item.image)?.url() || ""}
-                  alt={item.title}
+                  alt={stegaClean(item.title)}
                   width={850}
                   height={538}
                   className="h-full "
                 />
-                <div className="textContent absolute bottom-9 left-8 z-10">
+                <div className="textContent px-4 py-5  absolute bottom-0 w-full left-0 z-10 bg-[linear-gradient(245.94deg,rgba(0,0,0,0.01)_37.19%,rgba(0,0,0,0.1)_90%)] backdrop-blur-[3px]">
                   <h5 className="text-white">{item.title}</h5>
                 </div>
               </div>

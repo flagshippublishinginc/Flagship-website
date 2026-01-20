@@ -151,13 +151,15 @@ const Subscribe: React.FC<SubscribeModule> = ({
               initial="initial"
               animate="animate"
               transition={{ delay: layout === "single" ? 0 : 2 }}>
-              <h2 className="text-4xl text-tertiary">
+              <h2 className="text-4xl text-tertiary text-center lg:text-left">
                 {headingText} <br className="hidden lg:block" />{" "}
                 {headingHighlight}
               </h2>
-              <p className=" mt-4 lg:mt-10">{description}</p>
+              <p className=" mt-4 lg:mt-10 text-center lg:text-left">
+                {description}
+              </p>
               {buttonText && buttonLink && (
-                <div className="flex mt-4 lg:mt-14">
+                <div className="flex mt-4 lg:mt-14 justify-center lg:justify-start">
                   <AnimatedButton text={buttonText} href={buttonLink} />
                 </div>
               )}

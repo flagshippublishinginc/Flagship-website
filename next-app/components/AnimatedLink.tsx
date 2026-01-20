@@ -13,7 +13,7 @@ const AnimatedLink = ({ text, href }: { text: string; href: string }) => {
         href={href}
         variants={containerVariants}
         initial="initial"
-        whileHover="animate"
+        whileHover="hover"
         className="grid grid-cols-1 h-[30px] overflow-hidden font-medium hover:text-tertiary border-b-2 hover:border-tertiary transition duration-300">
         <span className=" inline-flex">
           {words.map((word, index) => (
