@@ -62,7 +62,7 @@ const ActivitiesModule: React.FC<ActivitiesModuleProps> = ({
                   </h2>
                 )}
                 {leadArticle.description && (
-                  <p className="text-secondary mb-0">
+                  <p className="text-secondary mb-0 line-clamp-2">
                     {leadArticle.description}
                   </p>
                 )}
@@ -71,9 +71,6 @@ const ActivitiesModule: React.FC<ActivitiesModuleProps> = ({
           </div>
           <div className="sidebarArticles-item w-full lg:w-[40%]">
             {sidebarArticles.map((article, index) => {
-              const cleanedDescription = stegaClean(article.description);
-              const updatedDescription =
-                cleanedDescription.slice(0, 75) + "...";
               return (
                 <div
                   key={index}
@@ -104,8 +101,8 @@ const ActivitiesModule: React.FC<ActivitiesModuleProps> = ({
                       </h5>
                     )}
                     {article.description && (
-                      <p className="text-secondary text-[13px] md:text-[14px] m-0 leading-relaxed">
-                        {updatedDescription}
+                      <p className="text-secondary text-[13px] md:text-[14px] m-0 leading-relaxed line-clamp-2">
+                        {stegaClean(article.description)}
                       </p>
                     )}
                   </div>

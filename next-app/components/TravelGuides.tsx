@@ -56,14 +56,8 @@ const TravelGuides: React.FC<TravelGuidesModule> = async ({
                           </h5>
                           {leftSidePostData?.description && (
                             <div className="featured_text mt-2">
-                              <p className="text-secondary text-[14px]">
-                                {stegaClean(
-                                  leftSidePostData?.description
-                                ).slice(0, 50) +
-                                  (stegaClean(leftSidePostData?.description)
-                                    .length > 50
-                                    ? "..."
-                                    : "")}
+                              <p className="text-secondary text-[14px] line-clamp-2">
+                                {stegaClean(leftSidePostData?.description)}
                               </p>
                             </div>
                           )}
@@ -96,11 +90,8 @@ const TravelGuides: React.FC<TravelGuidesModule> = async ({
                 )}
                 {featuredPostData?.description && (
                   <div className="featured_text mt-2">
-                    <p className="text-secondary text-[14px]">
-                      {stegaClean(featuredPostData?.description).slice(0, 75) +
-                        (stegaClean(featuredPostData?.description).length > 75
-                          ? "..."
-                          : "")}
+                    <p className="text-secondary text-[14px] line-clamp-2">
+                      {stegaClean(featuredPostData?.description)}
                     </p>
                   </div>
                 )}
@@ -139,14 +130,8 @@ const TravelGuides: React.FC<TravelGuidesModule> = async ({
                           </h5>
                           {rightSidePostData?.description && (
                             <div className="featured_text mt-2">
-                              <p className="text-secondary text-[14px]">
-                                {stegaClean(
-                                  rightSidePostData?.description
-                                ).slice(0, 50) +
-                                  (stegaClean(rightSidePostData?.description)
-                                    .length > 50
-                                    ? "..."
-                                    : "")}
+                              <p className="text-secondary text-[14px] line-clamp-2">
+                                {stegaClean(rightSidePostData?.description)}
                               </p>
                             </div>
                           )}

@@ -67,9 +67,6 @@ const RealEstateModule: React.FC<RealEstateModuleProps> = ({
           </div>
           <div className="sidebarArticles-item w-full lg:w-[40%] ">
             {sidebarArticles?.map((item, index) => {
-              const cleanedDescription = stegaClean(item.description);
-              const updatedDescription =
-                cleanedDescription.slice(0, 75) + "...";
               return (
                 <div
                   key={index}
@@ -85,7 +82,9 @@ const RealEstateModule: React.FC<RealEstateModuleProps> = ({
                   </div>
                   <div className="text_content">
                     <h5 className="font-heading mb-4">{item.title}</h5>
-                    <p>{updatedDescription}</p>
+                    <p className="line-clamp-2">
+                      {stegaClean(item.description)}
+                    </p>
                   </div>
                 </div>
               );

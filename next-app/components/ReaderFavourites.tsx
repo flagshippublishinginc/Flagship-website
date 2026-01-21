@@ -21,8 +21,6 @@ const ReaderFavourites: React.FC<ReaderFavouritesModule> = ({
         </div>
         <div className="flex flex-wrap border-b border-background-gray">
           {articles.map((article, index) => {
-            const cleanedDescription = stegaClean(article.description);
-            const updatedDescription = cleanedDescription.slice(0, 100) + "...";
             return (
               <div
                 key={index}
@@ -55,7 +53,9 @@ const ReaderFavourites: React.FC<ReaderFavouritesModule> = ({
                   )}
 
                   {article.description && (
-                    <p className="text-secondary mb-6">{updatedDescription}</p>
+                    <p className="text-secondary mb-6 line-clamp-2">
+                      {stegaClean(article.description)}
+                    </p>
                   )}
 
                   {article.author && (

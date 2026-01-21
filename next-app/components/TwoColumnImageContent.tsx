@@ -39,7 +39,7 @@ const TwoColumnImageContent: React.FC<TwoColumnImageContentModule> = ({
             </div>
           </div>
           <div className="col-span-12 lg:col-span-4 flex flex-col justify-between gap-4">
-            <div className="column_heading lg:px-0 py-6 border-b border-background-gray hidden lg:block">
+            <div className="column_heading lg:px-0 py-6 border-t border-b border-background-gray hidden lg:block">
               <h3 className="font-heading">
                 {stegaClean(headingText)}
                 <span className="text-tertiary">
