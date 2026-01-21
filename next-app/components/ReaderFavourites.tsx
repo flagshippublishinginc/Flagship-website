@@ -24,7 +24,7 @@ const ReaderFavourites: React.FC<ReaderFavouritesModule> = ({
             return (
               <div
                 key={index}
-                className={`group py-6 md:px-4 lg:px-8 w-full md:w-[calc(100%/2)] lg:w-[calc(100%/3)] bg-white border-background-gray md:odd:border-r lg:not-[&:hover]:odd:border-r-0 lg:not-[&:hover]:not-first:border-l md:hover:scale-105 transition-all duration-300 md:hover:border ${index === 0 ? "" : "border-t lg:border-t-0"}`}>
+                className={`group py-6 md:px-4 lg:px-8 w-full md:w-[calc(100%/2)] lg:w-[calc(100%/3)] bg-white border-background-gray md:odd:border-r lg:not-[&:hover]:odd:border-r-0 lg:not-[&:hover]:not-first:border-l md:hover:scale-103 transition-all duration-300 md:hover:border ${index === 0 ? "" : "border-t lg:border-t-0"}`}>
                 <div className="article-top mb-6">
                   <div className="image-top flex justify-between items-center gap-2 mb-3 text-[14px]">
                     {article.publishDate && (
@@ -38,8 +38,8 @@ const ReaderFavourites: React.FC<ReaderFavouritesModule> = ({
                   </div>
                   <div className="article-image">
                     <Image
-                      src={urlForImage(article.image)?.url() || ""}
-                      alt={article.title}
+                      src={urlForImage(article.image)!.url()}
+                      alt={stegaClean(article.title)}
                       width={700}
                       height={700}
                     />

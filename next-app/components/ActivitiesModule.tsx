@@ -32,8 +32,8 @@ const ActivitiesModule: React.FC<ActivitiesModuleProps> = ({
                       href={leadArticle.readLink}
                       className="block overflow-hidden">
                       <Image
-                        src={urlForImage(leadArticle.image)?.url() || ""}
-                        alt={leadArticle.title}
+                        src={urlForImage(leadArticle.image)!.url()}
+                        alt={stegaClean(leadArticle.title)}
                         width={820}
                         height={800}
                         style={{ width: "100%", height: "auto" }}
@@ -82,7 +82,7 @@ const ActivitiesModule: React.FC<ActivitiesModuleProps> = ({
                         href={article.readLink}>
                         <Image
                           src={urlForImage(article.image)?.url() || ""}
-                          alt={article.title}
+                          alt={stegaClean(article.title)}
                           width={820}
                           height={800}
                           className="w-full h-auto md:h-auto object-cover transform transition-transform duration-300 lg:group-hover:scale-110"

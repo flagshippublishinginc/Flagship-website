@@ -52,8 +52,8 @@ const RealEstateModule: React.FC<RealEstateModuleProps> = ({
             <div className="py-3 md:p-6">
               <div className="featured_img overflow-hidden">
                 <Image
-                  src={urlForImage(featuredImage)?.url() || ""}
-                  alt={featuredTitle}
+                  src={urlForImage(featuredImage)!.url()}
+                  alt={stegaClean(featuredTitle)}
                   width={850}
                   height={316}
                   className="h-full w-full object-cover transform transition-transform duration-300 lg:hover:scale-110"
@@ -73,7 +73,7 @@ const RealEstateModule: React.FC<RealEstateModuleProps> = ({
                   className={`grid grid-cols-[4fr_6fr] lg:grid-cols-[6fr_4fr] items-center lg:items-start gap-4 py-3 md:p-6 ${index === sidebarArticles.length - 1 ? "not-first:border-t border-background-gray" : ""}`}>
                   <div className="image_content overflow-hidden">
                     <Image
-                      src={urlForImage(item.image)?.url() || ""}
+                      src={urlForImage(item.image)!.url()}
                       alt={stegaClean(item.title)}
                       width={334}
                       height={184}
@@ -81,8 +81,8 @@ const RealEstateModule: React.FC<RealEstateModuleProps> = ({
                     />
                   </div>
                   <div className="text_content">
-                    <h5 className="font-heading mb-4">{item.title}</h5>
-                    <p className="line-clamp-2">
+                    <h5 className="font-heading mb-2 lg:mb-4">{item.title}</h5>
+                    <p className="line-clamp-2 lg:text-[16px] text-[14px] text-secondary">
                       {stegaClean(item.description)}
                     </p>
                   </div>
@@ -98,7 +98,7 @@ const RealEstateModule: React.FC<RealEstateModuleProps> = ({
             <SplideSlide key={index}>
               <div className=" bg-white h-full flex items-center justify-center text-lg font-bold text-primary relative">
                 <Image
-                  src={urlForImage(item.image)?.url() || ""}
+                  src={urlForImage(item.image)!.url()}
                   alt={stegaClean(item.title)}
                   width={850}
                   height={538}

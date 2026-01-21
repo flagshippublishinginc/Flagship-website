@@ -30,7 +30,7 @@ const TwoColumnImageContent: React.FC<TwoColumnImageContentModule> = ({
             </div>
             <div className="overflow-hidden">
               <Image
-                src={urlForImage(featuredImage)?.url() || ""}
+                src={urlForImage(featuredImage)!.url()}
                 alt={stegaClean(featuredTitle)}
                 width={962}
                 height={762}
@@ -65,7 +65,7 @@ const TwoColumnImageContent: React.FC<TwoColumnImageContentModule> = ({
               </div>
               <div className="bottom_image mt-8 lg:mt-14 overflow-hidden">
                 <Image
-                  src={urlForImage(secondaryImage)?.url() || ""}
+                  src={urlForImage(secondaryImage)!.url()}
                   alt={stegaClean(featuredTitle)}
                   width={962}
                   height={762}

@@ -39,11 +39,8 @@ const TravelGuides: React.FC<TravelGuidesModule> = async ({
                       className={`grid grid-cols-[4fr_6fr] md:grid-cols-[3fr_7fr] lg:grid-cols-1 gap-4 items-center leftPost_items py-3 md:p-6 ${index != 0 ? "border-t border-background-gray" : ""}`}>
                       <div className="leftPost_Img overflow-hidden">
                         <Image
-                          src={
-                            urlForImage(leftSidePostData.coverImage)?.url() ||
-                            ""
-                          }
-                          alt={leftSidePostData.title}
+                          src={urlForImage(leftSidePostData.coverImage)!.url()}
+                          alt={stegaClean(leftSidePostData.title)}
                           width={774}
                           height={496}
                           className="w-full h-full object-cover transform transition-transform duration-300 lg:hover:scale-110"
@@ -76,7 +73,7 @@ const TravelGuides: React.FC<TravelGuidesModule> = async ({
                 <div className="featured-img overflow-hidden">
                   <Image
                     src={urlForImage(featuredPostData.coverImage)?.url() || ""}
-                    alt={featuredPostData.title}
+                    alt={stegaClean(featuredPostData.title)}
                     width={774}
                     height={496}
                     className="w-full h-full object-cover transform transition-transform duration-300 lg:hover:scale-110"
@@ -113,11 +110,8 @@ const TravelGuides: React.FC<TravelGuidesModule> = async ({
                       key={index}>
                       <div className="leftPost_Img overflow-hidden">
                         <Image
-                          src={
-                            urlForImage(rightSidePostData.coverImage)?.url() ||
-                            ""
-                          }
-                          alt={rightSidePostData.title}
+                          src={urlForImage(rightSidePostData.coverImage)!.url()}
+                          alt={stegaClean(rightSidePostData.title)}
                           width={244}
                           height={189}
                           className="w-full h-full object-cover transform transition-transform duration-300 lg:hover:scale-110"
