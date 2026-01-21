@@ -11,8 +11,8 @@ const LAYOUT = [
   { col: "md:col-start-4 md:col-end-6" },
   { col: "md:col-span-2", row: "md:row-span-3" },
   { col: "md:col-start-3", row: "md:row-start-3 md:row-span-3" },
-  { col: "md:col-span-2", row: "md:row-span-3" },
   { col: "md:col-start-3", row: "md:row-start-6 md:row-span-1" },
+  { col: "md:col-span-2", row: "md:row-span-3" },
 ];
 
 const Gallery: React.FC<GalleryModule> = ({
@@ -26,8 +26,8 @@ const Gallery: React.FC<GalleryModule> = ({
     <section className="section-spacing">
       <div className="container">
         {headingText || headingHighlight ? (
-          <div className="section_title pb-3 border-b border-background-gray">
-            <h2 className="font-heading">
+          <div className="section_title mx-[-12px] lg:mx-0 pb-3 border-b border-background-gray">
+            <h2 className="font-heading px-3">
               {headingText}{" "}
               <span className="text-tertiary">{headingHighlight}</span>
             </h2>
@@ -37,7 +37,7 @@ const Gallery: React.FC<GalleryModule> = ({
         )}
 
         <div className=" pt-3">
-          <div className="grid grid-cols lg:grid-cols-5 lg:grid-row-6 gap-2 md:gap-4 lg:gap-6">
+          <div className="grid grid-cols lg:grid-cols-5 lg:grid-row-6 gap-2 md:gap-4 lg:gap-col-6 lg:gap-row-5">
             {galleryItems?.map((item, index) => {
               const layout = LAYOUT[index] ?? {};
               return (

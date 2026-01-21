@@ -13,20 +13,20 @@ const ReaderFavourites: React.FC<ReaderFavouritesModule> = ({
   return (
     <section className="section-spacing">
       <div className="container">
-        <div className="section_title pb-3">
-          <h2 className="font-heading">
+        <div className="section_title pb-3 mx-[-12px] lg:mx-0 border-b border-background-gray">
+          <h2 className="font-heading px-3">
             {headingText}
             <span className="text-tertiary"> {headingHighlight}</span>
           </h2>
         </div>
-        <div className="flex flex-wrap mx-[-16px] lg:mx-[-32px] border-b border-background-gray">
+        <div className="flex flex-wrap border-b border-background-gray">
           {articles.map((article, index) => {
             const cleanedDescription = stegaClean(article.description);
             const updatedDescription = cleanedDescription.slice(0, 100) + "...";
             return (
               <div
                 key={index}
-                className={`group py-6 px-4 lg:px-8 w-full md:w-[calc(100%/2)] lg:w-[calc(100%/3)] border-t bg-white border-background-gray md:odd:border-r lg:not-[&:hover]:odd:border-r-0 lg:not-[&:hover]:not-first:border-l md:hover:scale-105 transition-all duration-300 md:hover:border`}>
+                className={`group py-6 md:px-4 lg:px-8 w-full md:w-[calc(100%/2)] lg:w-[calc(100%/3)] bg-white border-background-gray md:odd:border-r lg:not-[&:hover]:odd:border-r-0 lg:not-[&:hover]:not-first:border-l md:hover:scale-105 transition-all duration-300 md:hover:border ${index === 0 ? "" : "border-t lg:border-t-0"}`}>
                 <div className="article-top mb-6">
                   <div className="image-top flex justify-between items-center gap-2 mb-3 text-[14px]">
                     {article.publishDate && (

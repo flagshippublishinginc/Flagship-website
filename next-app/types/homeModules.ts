@@ -115,6 +115,8 @@ export interface CurrentIssueModule extends BaseModule {
   heroImage: SanityImage;
   buttonText?: string;
   buttonLink?: string;
+  headingHighlight: string;
+  headingText: string;
 }
 
 export interface PostType {

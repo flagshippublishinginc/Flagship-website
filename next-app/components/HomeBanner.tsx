@@ -19,7 +19,7 @@ const HomeBanner = async ({ modules }: { modules: HomeBannerModule }) => {
             />
           </div>
           <div className="banner-content w-full flex">
-            <div className="banner-content-inner  pt-10 group">
+            <div className="banner-content-inner pt-5 md:pt-10 group">
               <h1 className="md:mb-10 mb-5 font-heading">
                 <a
                   href="https://www.mauimagazine.net/"

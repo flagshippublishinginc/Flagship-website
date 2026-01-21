@@ -8,6 +8,7 @@ import {
   TravelGuides,
   Gallery,
   TwoColumnImageContent,
+  CurrentIssue,
 } from "@/components";
 import { getSanityData } from "@/lib/helpingFunctions";
 
@@ -24,14 +25,14 @@ export default async function Home() {
   return (
     <div className="md:min-h-screen pb-10 lg:pb-20">
       <main>
-        <div className="block">
+        <div>
           {allData.modules.map((module: any, index: number) => {
             switch (module._type) {
               case "homeBannerModule":
                 return <HomeBanner key={index} modules={module} />;
               case "richTextModule":
                 return <RichText key={index} richText={module} />;
-              case "readerFavouritesModule":
+              case "readerFavourites":
                 return <ReaderFavourites key={index} {...module} />;
               case "activitiesModule":
                 return <ActivitiesModule key={index} {...module} />;
@@ -45,6 +46,8 @@ export default async function Home() {
                 return <TwoColumnImageContent key={index} {...module} />;
               case "galleryModule":
                 return <Gallery key={index} {...module} />;
+              case "currentIssueModule":
+                return <CurrentIssue key={index} {...module} />;
               default:
                 break;
             }

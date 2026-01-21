@@ -145,7 +145,7 @@ const Subscribe: React.FC<SubscribeModule> = ({
           </div>
 
           <div
-            className={`w-full ${layout === "single" ? "" : "mt-10 lg:mt-0 pt-40"}`}>
+            className={`w-full ${layout === "single" ? "" : "mt-10 lg:mt-0 pt-20 lg:pt-40"}`}>
             <motion.div
               variants={SubscribeTextVariants}
               initial="initial"

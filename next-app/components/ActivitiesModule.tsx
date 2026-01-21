@@ -16,15 +16,15 @@ const ActivitiesModule: React.FC<ActivitiesModuleProps> = ({
   return (
     <section className="section-spacing">
       <div className="container">
-        <div className="section_title pb-3">
-          <h2 className="font-heading">
+        <div className="section_title pb-3 mx-[-12px] lg:mx-0 border-b border-background-gray">
+          <h2 className="font-heading px-3">
             {headingText}
             <span className="text-tertiary"> {headingHighlight}</span>
           </h2>
         </div>
-        <div className="flex flex-wrap mx-[-16px] lg:mx-[-32px]  border-b border-t border-background-gray">
-          <div className="leadArticle-item w-full  lg:w-[60%] border-b lg:border-b-0 md:border-r border-background-gray">
-            <div className="p-4 md:p-6">
+        <div className="flex flex-wrap border-b border-background-gray">
+          <div className="leadArticle-item w-full lg:w-[60%] border-b lg:border-b-0 md:border-r border-background-gray">
+            <div className="py-3 md:p-6">
               {leadArticle && (
                 <div className="imageContent mb-4">
                   {leadArticle.mediaType === "image" && (
@@ -77,7 +77,7 @@ const ActivitiesModule: React.FC<ActivitiesModuleProps> = ({
               return (
                 <div
                   key={index}
-                  className="p-4 md:p-6 grid grid-cols-[4fr_6fr] md:grid-cols-[3fr_7fr] items-center md:items-start lg:grid-cols-2 gap-4 not-first:border-t border-background-gray">
+                  className="py-3 md:p-6 grid grid-cols-[4fr_6fr] md:grid-cols-[3fr_7fr] items-center md:items-start lg:grid-cols-2 gap-4 not-first:border-t border-background-gray">
                   {article.image && (
                     <div className="imageContent w-full ">
                       <Link
