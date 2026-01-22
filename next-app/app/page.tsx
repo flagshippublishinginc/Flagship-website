@@ -3,45 +3,54 @@ import {
   RichText,
   ReaderFavourites,
   ActivitiesModule,
+  Subscribe,
+  RealEstate,
+  TravelGuides,
+  Gallery,
+  TwoColumnImageContent,
+  CurrentIssue,
 } from "@/components";
 import { getSanityData } from "@/lib/helpingFunctions";
 
 export default async function Home() {
-  const query = `*[_type == "homePage"][0] { modules }`;
+  const query = `*[_type == "homePage"][0] {
+    modules[]{
+      ...,
+      _key
+    }
+  }`;
+
   const allData: any = await getSanityData(query);
+  console.log("AllData", allData);
   return (
-    <div className="md:min-h-screen">
+    <div className="md:min-h-screen pb-10 lg:pb-20">
       <main>
-        <div className="grid grid-cols-1 ">
+        <div>
           {allData.modules.map((module: any, index: number) => {
-            if (module._type === "homeBannerModule") {
-              return <HomeBanner key={index} modules={module} />;
+            switch (module._type) {
+              case "homeBannerModule":
+                return <HomeBanner key={index} modules={module} />;
+              case "richTextModule":
+                return <RichText key={index} richText={module} />;
+              case "readerFavourites":
+                return <ReaderFavourites key={index} {...module} />;
+              case "activitiesModule":
+                return <ActivitiesModule key={index} {...module} />;
+              case "categoryHighlightModule":
+                return <TravelGuides key={index} {...module} />;
+              case "subscriptionBannerModule":
+                return <Subscribe key={index} {...module} />;
+              case "realEstateModule":
+                return <RealEstate key={index} {...module} />;
+              case "classicsModule":
+                return <TwoColumnImageContent key={index} {...module} />;
+              case "galleryModule":
+                return <Gallery key={index} {...module} />;
+              case "currentIssueModule":
+                return <CurrentIssue key={index} {...module} />;
+              default:
+                break;
             }
-            if (module._type === "richTextModule") {
-              return <RichText key={index} richText={module.content} />;
-            }
-            if (module._type === "readerFavourites") {
-              return (
-                <ReaderFavourites
-                  key={index}
-                  articles={module.articles}
-                  headingText={module.headingText}
-                  headingHighlight={module.headingHighlight}
-                />
-              );
-            }
-            if (module._type === "activitiesModule") {
-              return (
-                <ActivitiesModule
-                  key={index}
-                  leadArticle={module.leadArticle}
-                  sidebarArticles={module.sidebarArticles}
-                  headingText={module.headingText}
-                  headingHighlight={module.headingHighlight}
-                />
-              );
-            }
-            return null;
           })}
         </div>
       </main>

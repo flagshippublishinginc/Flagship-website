@@ -1,10 +1,11 @@
 import { formatPublishDate } from "@/lib/helpingFunctions";
-import { ReaderFavouritesInterface } from "@/lib/interfaces";
-import { urlFor } from "@/lib/sanity";
+import { urlForImage } from "@/lib/sanity";
 import Image from "next/image";
 import AnimatedLink from "./AnimatedLink";
+import { ReaderFavouritesModule } from "@/types/homeModules";
+import { stegaClean } from "@sanity/client/stega";
 
-const ReaderFavourites: React.FC<ReaderFavouritesInterface> = ({
+const ReaderFavourites: React.FC<ReaderFavouritesModule> = ({
   articles,
   headingText,
   headingHighlight,
@@ -12,20 +13,18 @@ const ReaderFavourites: React.FC<ReaderFavouritesInterface> = ({
   return (
     <section className="section-spacing">
       <div className="container">
-        <div className="section_title pb-3">
-          <h2 className="font-heading">
+        <div className="section_title pb-3 mx-[-12px] lg:mx-0 border-b border-background-gray">
+          <h2 className="font-heading px-3">
             {headingText}
             <span className="text-tertiary"> {headingHighlight}</span>
           </h2>
         </div>
-        <div className="flex flex-wrap mx-[-16px] lg:mx-[-32px] border-b border-background-gray">
+        <div className="flex flex-wrap border-b border-background-gray">
           {articles.map((article, index) => {
-            const updatedDescription =
-              article.description.slice(0, 100) + "...";
             return (
               <div
                 key={index}
-                className={`group py-6 px-4 lg:px-8 w-full md:w-[calc(100%/2)] lg:w-[calc(100%/3)] border-t bg-white border-background-gray md:odd:border-r lg:not-[&:hover]:odd:border-r-0 lg:not-[&:hover]:not-first:border-l md:hover:scale-105 transition-all duration-300 md:hover:border`}>
+                className={`group py-6 md:px-4 lg:px-8 w-full md:w-[calc(100%/2)] lg:w-[calc(100%/3)] bg-white border-background-gray md:odd:border-r lg:not-[&:hover]:odd:border-r-0 lg:not-[&:hover]:not-first:border-l md:hover:scale-103 transition-all duration-300 md:hover:border ${index === 0 ? "" : "border-t lg:border-t-0"}`}>
                 <div className="article-top mb-6">
                   <div className="image-top flex justify-between items-center gap-2 mb-3 text-[14px]">
                     {article.publishDate && (
@@ -39,8 +38,8 @@ const ReaderFavourites: React.FC<ReaderFavouritesInterface> = ({
                   </div>
                   <div className="article-image">
                     <Image
-                      src={urlFor(article.image).url()}
-                      alt={article.title}
+                      src={urlForImage(article.image)!.url()}
+                      alt={stegaClean(article.title)}
                       width={700}
                       height={700}
                     />
@@ -54,7 +53,9 @@ const ReaderFavourites: React.FC<ReaderFavouritesInterface> = ({
                   )}
 
                   {article.description && (
-                    <p className="text-secondary mb-6">{updatedDescription}</p>
+                    <p className="text-secondary mb-6 line-clamp-2">
+                      {stegaClean(article.description)}
+                    </p>
                   )}
 
                   {article.author && (

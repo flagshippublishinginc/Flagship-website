@@ -1,6 +1,7 @@
 import { PortableText } from "next-sanity";
+import { RichTextModule } from "@/types/homeModules";
 
-const RichText: React.FC<{ richText: any }> = ({ richText }) => {
+const RichText: React.FC<{ richText: RichTextModule }> = ({ richText }) => {
   return (
     <section className="rich-text section-spacing">
       <div className="container">

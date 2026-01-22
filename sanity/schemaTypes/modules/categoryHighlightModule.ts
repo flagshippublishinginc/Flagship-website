@@ -35,11 +35,18 @@ export default defineType({
             validation: Rule => Rule.required()
         }),
         defineField({
-            name: 'sidePosts',
-            title: 'Side Posts',
+            name: 'leftSidePosts',
+            title: 'Left Side Posts',
             type: 'array',
             of: [{ type: 'reference', to: [{ type: 'post' }] }],
-            validation: Rule => Rule.required().min(4).max(4).error('You must select exactly 4 side posts.')
+            description: 'Posts to display on the left side of the featured post (no limit).'
+        }),
+        defineField({
+            name: 'rightSidePosts',
+            title: 'Right Side Posts',
+            type: 'array',
+            of: [{ type: 'reference', to: [{ type: 'post' }] }],
+            description: 'Posts to display on the right side of the featured post (no limit).'
         }),
         defineField({
             name: 'buttonText',

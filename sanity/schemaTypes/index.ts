@@ -15,6 +15,7 @@ import site from './documents/site'
 
 import seo from './objects/seo'
 import links from './objects/links'
+import navItem from './objects/navItem'
 
 import hero from './modules/heroModule'
 import richTextBlock from './modules/richTextModule'
@@ -32,6 +33,11 @@ import homeBannerModule from './modules/homeBannerModule'
 import readerFavourites from './modules/readerFavouritesModule'
 import activities from './modules/activitiesModule'
 import categoryHighlight from './modules/categoryHighlightModule'
+import currentIssue from './modules/currentIssueModule'
+import realEstate from './modules/realEstateModule'
+import subscriptionBanner from './modules/subscriptionBannerModule'
+import classics from './modules/classicsModule'
+import gallery from './modules/galleryModule'
 
 export const schemaTypes = [
   // documents
@@ -52,6 +58,7 @@ export const schemaTypes = [
   // objects
   seo,
   links,
+  navItem,
 
   // modules
   hero,
@@ -70,4 +77,9 @@ export const schemaTypes = [
   readerFavourites,
   activities,
   categoryHighlight,
+  currentIssue,
+  realEstate,
+  subscriptionBanner,
+  classics,
+  gallery,
 ]

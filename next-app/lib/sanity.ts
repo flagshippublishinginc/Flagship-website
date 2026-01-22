@@ -1,55 +1,40 @@
+import { createClient, type SanityClient } from "next-sanity";
 import { createImageUrlBuilder } from "@sanity/image-url";
-import { createClient } from "next-sanity";
-import { draftMode } from "next/headers";
 
-const mode = process.env.NEXT_PUBLIC_SANITY_MODE || 'production';
-const isPreview = mode === 'preview';
+import { getFileAsset } from "@sanity/asset-utils";
 
-console.log('Using Sanity Config:', {
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
-  mode,
-  isPreview
-});
-
-export const client = createClient({
+const config = {
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
-  apiVersion: "2025-12-10",
-  useCdn: !isPreview, // Disable CDN in preview to see latest changes
-  perspective: isPreview ? 'previewDrafts' : 'published',
-  token: isPreview ? process.env.NEXT_PUBLIC_SANITY_TOKEN : undefined,
-  ignoreBrowserTokenWarning: true
+  apiVersion: "2025-01-14",
+  useCdn: true,
+  stega: {
+    enabled: process.env.NODE_ENV !== "production",
+    studioUrl:
+      process.env.NEXT_PUBLIC_SANITY_STUDIO_URL || "http://localhost:3333",
+  },
+} as const;
+
+export const client: SanityClient = createClient({
+  ...config,
+  perspective: "published",
 });
 
-const builder = createImageUrlBuilder(client);
+const imageBuilder = createImageUrlBuilder(client);
 
+export const urlForImage = (source: any) =>
+  source ? imageBuilder.image(source).auto("format").fit("max") : null;
 
-export const urlFor = (source: any) => builder.image(source);
+export function urlForFile(source: any): string | null {
+  if (!source?.asset?._ref) return null;
 
-export async function sanityFetch<QueryResponse>({
-  query,
-  params = {},
-  tags,
-}: {
-  query: string
-  params?: any
-  tags?: string[]
-}) {
-  const isDraftMode = (await draftMode()).isEnabled
-  if (isDraftMode && !process.env.NEXT_PUBLIC_SANITY_TOKEN) {
-    throw new Error('Missing NEXT_PUBLIC_SANITY_TOKEN')
+  try {
+    const asset = getFileAsset(source, {
+      projectId: config.projectId,
+      dataset: config.dataset,
+    });
+    return asset.url ?? null;
+  } catch {
+    return null;
   }
-
-  const perspective = isDraftMode ? 'previewDrafts' : 'published'
-
-  return client.fetch<QueryResponse>(query, params, {
-    token: isDraftMode ? process.env.NEXT_PUBLIC_SANITY_TOKEN : undefined,
-    perspective,
-    useCdn: !isDraftMode,
-    next: {
-      revalidate: isDraftMode ? 0 : 60,
-      tags,
-    },
-  })
 }

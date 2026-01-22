@@ -1,29 +1,24 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-:root {
-  --background: #ffffff;
-  --foreground: #1a1a1a;
-  --font-sans: var(--font-source-sans-3), system-ui, sans-serif;
-  --font-heading: var(--font-playfair-display), system-ui, serif;
-}
 @theme {
-  --font-sans: var(--font-source-sans-3), system-ui, sans-serif;
-  --font-heading: var(--font-playfair-display), system-ui, serif;
+  --font-sans: var(--font-sans), system-ui, sans-serif;
+  --font-heading: var(--font-heading), system-ui, serif;
 }
 
 @theme inline {
-  --color-primary: #1a1a1a;
-  --color-secondary: #4b4b4b;
-  --color-tertiary: #c63c22;
-  --color-accent: #8b2a17;
-  --color-gray: #ddd8d1;
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-tertiary: var(--color-tertiary);
+  --color-accent: var(--color-accent);
+  --color-gray: var(--color-gray);
   --color-gray-light: #b7b7b7;
-  --color-background-gray: #ddd8d1;
-  --color-background-category: #fbfaf9;
+  --color-background-gray: var(--color-background-gray);
+  --color-background-category: var(--color-background-category);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-sans);
+  --font-heading: var(--font-heading);
   --font-mono: var(--font-geist-mono);
 }
 
@@ -34,12 +29,6 @@
 
   .font-sans {
     font-family: var(--font-sans);
-  }
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #ffffff;
-    --foreground: #1a1a1a;
   }
 }
 
@@ -55,16 +44,21 @@ body {
     font-family: var(--font-sans);
   }
 
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+  }
+
   h1 {
     @apply text-[28px] md:text-[36px] lg:text-[40px] font-bold;
   }
 
   h2 {
     @apply text-3xl font-bold;
-  }
-
-  h2 {
-    font-family: var(--font-heading);
   }
 
   h3 {
@@ -96,7 +90,7 @@ body {
 
 /* Header styles: */
 .header {
-  @apply py-4 bg-white border-b border-[#DDD8D1];
+  @apply py-4 bg-white border-b border-gray;
 }
 
 .header-container {
@@ -124,7 +118,7 @@ body {
 }
 
 .container {
-  @apply max-w-[1360px] mx-auto px-4 lg:px-8;
+  @apply max-w-[1360px] mx-auto px-3 lg:px-8;
 }
 
 /* Banner styles */

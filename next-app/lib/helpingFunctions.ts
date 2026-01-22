@@ -1,4 +1,4 @@
-import { sanityFetch } from "./sanity";
+import { sanityFetch } from "./fetch";
 
 // const query = `*[_type == "homePage"][0]{ "homeBanner": modules[_type == "homeBannerModule"][0]{ _key, _type, title, description, authorPrefix, author, buttonLabel, buttonLink, image, } }`;
 
@@ -20,4 +20,9 @@ export async function getTheme() {
   const themeQuery = `*[_type == "themeSettings"][0]`;
   const themeData = await getSanityData(themeQuery);
   return themeData;
+}
+
+export async function getThemeSetting(query: string) {
+  const themeSettingData = await getSanityData(query);
+  return themeSettingData;
 }
