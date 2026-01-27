@@ -13,3 +13,4 @@ export { default as Gallery } from "./Gallery";
 export { default as RealEstate } from "./RealEstate";
 export { default as TwoColumnImageContent } from "./TwoColumnImageContent";
 export { default as CurrentIssue } from "./CurrentIssue";
+export { default as PostListing } from "./blog/PostListing";
