@@ -16,7 +16,6 @@ export default function PostsListing({ blogId }: { blogId: string }) {
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
 
-  // Initial load
   useEffect(() => {
     loadMorePosts();
   }, []);
@@ -27,10 +26,12 @@ export default function PostsListing({ blogId }: { blogId: string }) {
     setLoading(true);
 
     const res = await fetch(
-      `/api/load-more-posts?blogId=${blogId}&start=${posts.length}`,
+      `/api/load-more-posts?blogId=${blogId}&start=${posts.length}&limit=${POSTS_PER_PAGE}`,
     );
 
     const newPosts: Post[] = await res.json();
+
+    console.log("newPosts ", newPosts);
 
     setPosts((prev) => [...prev, ...newPosts]);
     setHasMore(newPosts.length === POSTS_PER_PAGE);
@@ -41,8 +42,8 @@ export default function PostsListing({ blogId }: { blogId: string }) {
     <>
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 border-t border-b border-gray pt-6">
         <div className="col-span-8 space-y-6">
-          {posts.map((post) => (
-            <article key={post._id}>
+          {posts.map((post, index) => (
+            <article key={index}>
               <h3>{post.title}</h3>
             </article>
           ))}
