@@ -18,8 +18,29 @@ export default defineType({
     defineField({
       name: 'slug',
       type: 'slug',
-      options: {source: 'title', maxLength: 96},
-      validation: (Rule) => Rule.required(),
+      readOnly: false,
+      options: {
+        source: 'title',
+        maxLength: 96,
+        slugify: (input: string) =>
+          input
+            .toLowerCase()
+            // normalize accented characters
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            // remove smart quotes & apostrophes
+            .replace(/[’'ʻ"]/g, '')
+            // replace non-alphanumeric with hyphens
+            .replace(/[^a-z0-9]+/g, '-')
+            // trim hyphens
+            .replace(/^-+|-+$/g, '')
+            .slice(0, 96),
+      },
+    }),
+    defineField({
+      name: 'selectBlog',
+      type: 'reference',
+      to: [{type: 'blogListingPage'}],
     }),
     defineField({name: 'excerpt', type: 'text'}),
     defineField({name: 'coverImage', type: 'image'}),

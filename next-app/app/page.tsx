@@ -21,7 +21,7 @@ export default async function Home() {
   }`;
 
   const allData: any = await getSanityData(query);
-  console.log("AllData", allData);
+  // console.log("AllData", allData);
   return (
     <div className="md:min-h-screen pb-10 lg:pb-20">
       <main>

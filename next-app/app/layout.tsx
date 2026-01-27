@@ -31,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 // getting header data from sanity
-const settingsQuery = `*[_type == "settings"][0]{
+const headerQuery = `*[_type == "settings"][0]{
   header {
     logo,
     navLinks[]{
@@ -60,32 +60,6 @@ const settingsQuery = `*[_type == "settings"][0]{
         image
       }
     }
-  },
-  footer {
-    logo,
-    description,
-    quickLinks[]{
-      label,
-      type,
-      external,
-      internal->{ "slug": slug.current, _type }
-    },
-    readerServices[]{
-      label,
-      type,
-      external,
-      internal->{ "slug": slug.current, _type }
-    },
-    newsletterTitle,
-    newsletterDescription,
-    socialLinks[]{ icon, url },
-    legalLinks[]{
-      label,
-      type,
-      external,
-      internal->{ "slug": slug.current, _type }
-    },
-    copyright
   }
 }`;
 
@@ -97,8 +71,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   // Fetching data inside the component to ensure it's dynamic
-  const [settingsData, themeSettingData] = await Promise.all([
-    getSanityData(settingsQuery),
+  const [headerData, themeSettingData] = await Promise.all([
+    getSanityData(headerQuery),
     getSanityData(themeSettingQuery),
   ]);
 
@@ -131,9 +105,9 @@ export default async function RootLayout({
       <body className={` antialiased`}>
         {(await draftMode()).isEnabled && <VisualEditing />}
         <EnvironmentBadge />
-        <Header data={settingsData?.header} />
+        <Header data={headerData?.header} />
         {children}
-        <Footer data={settingsData?.footer} />
+        <Footer />
       </body>
     </html>
   );

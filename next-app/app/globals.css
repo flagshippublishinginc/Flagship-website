@@ -126,3 +126,7 @@ body {
 .banner-container {
   @apply max-w-[1960px] mx-auto;
 }
+
+.blog-banner-wrapper {
+  @apply py-8 md:py-10 lg:py-20;
+}
