@@ -107,7 +107,7 @@ export default function PostsListing({
               </div>
               <div className="col-span-12 md:col-span-4 order-0 md:order-1">
                 <Link
-                  href={`/blog/${blogName}/${post.slug.current}`}
+                  href={`/${blogName}/${post.slug.current}`}
                   className="text-primary">
                   <Image
                     src={urlForImage(post.coverImage)!.url()}
