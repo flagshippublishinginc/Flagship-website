@@ -1,5 +1,5 @@
 import { PortableText } from "next-sanity";
-import { RichTextModule } from "@/types/homeModules";
+import { RichTextModule } from "@/types/componentsTypes";
 
 const RichText: React.FC<{ richText: RichTextModule }> = ({ richText }) => {
   return (

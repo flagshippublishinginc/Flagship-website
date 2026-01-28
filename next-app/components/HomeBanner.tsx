@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { urlForImage } from "@/lib/sanity";
-import { HomeBannerModule } from "@/types/homeModules";
+import { HomeBannerModule } from "@/types/componentsTypes";
 import AnimatedLink from "./AnimatedLink";
 import { stegaClean } from "next-sanity";
 

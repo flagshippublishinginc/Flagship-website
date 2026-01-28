@@ -1,7 +1,7 @@
 import { urlForImage } from "@/lib/sanity";
 import Image from "next/image";
 import AnimatedLink from "./AnimatedLink";
-import { CurrentIssueModule } from "@/types/homeModules";
+import { CurrentIssueModule } from "@/types/componentsTypes";
 import { stegaClean } from "next-sanity";
 
 const CurrentIssue: React.FC<CurrentIssueModule> = ({

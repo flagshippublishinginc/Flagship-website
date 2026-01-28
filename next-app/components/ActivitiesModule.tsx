@@ -2,7 +2,7 @@ import { urlForImage, urlForFile } from "@/lib/sanity";
 import Image from "next/image";
 import Link from "next/link";
 import AnimatedButton from "./AnimatedButton";
-import { ActivitiesModule as ActivitiesModuleProps } from "@/types/homeModules";
+import { ActivitiesModule as ActivitiesModuleProps } from "@/types/componentsTypes";
 import { stegaClean } from "@sanity/client/stega";
 
 const ActivitiesModule: React.FC<ActivitiesModuleProps> = ({

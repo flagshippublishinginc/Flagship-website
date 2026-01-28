@@ -215,3 +215,12 @@ export interface GalleryModule extends BaseModule {
   buttonLink?: string;
   galleryItems: GalleryItem[];
 }
+
+export interface CtaBannerModule extends BaseModule {
+  _type: "ctaBannerModule";
+  buttonLink: string;
+  buttonText: string;
+  title: string;
+  description: string;
+  image: SanityImage;
+}

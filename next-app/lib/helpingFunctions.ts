@@ -2,9 +2,20 @@ import { sanityFetch } from "./fetch";
 
 // const query = `*[_type == "homePage"][0]{ "homeBanner": modules[_type == "homeBannerModule"][0]{ _key, _type, title, description, authorPrefix, author, buttonLabel, buttonLink, image, } }`;
 
-export async function getSanityData(query: string) {
-  const data: any = await sanityFetch({ query });
+export async function getSanityData(
+  query: string,
+  params?: Record<string, any>,
+) {
+  const data: any = await sanityFetch({ query, params });
   return data;
+}
+
+export function formatDateLong(dateString: string) {
+  return new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  }).format(new Date(dateString));
 }
 
 export function formatPublishDate(dateString: string) {

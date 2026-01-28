@@ -45,5 +45,11 @@ export default defineType({
     }),
     defineField({name: 'description', type: 'text'}),
     defineField({name: 'seo', title: 'SEO', type: 'seo'}),
+    defineField({
+      name: 'modules',
+      title: 'Page Modules',
+      type: 'array',
+      of: [{type: 'ctaBannerModule'}],
+    }),
   ],
 })

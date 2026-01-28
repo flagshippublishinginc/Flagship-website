@@ -2,7 +2,7 @@ import { formatPublishDate } from "@/lib/helpingFunctions";
 import { urlForImage } from "@/lib/sanity";
 import Image from "next/image";
 import AnimatedLink from "./AnimatedLink";
-import { ReaderFavouritesModule } from "@/types/homeModules";
+import { ReaderFavouritesModule } from "@/types/componentsTypes";
 import { stegaClean } from "@sanity/client/stega";
 
 const ReaderFavourites: React.FC<ReaderFavouritesModule> = ({
