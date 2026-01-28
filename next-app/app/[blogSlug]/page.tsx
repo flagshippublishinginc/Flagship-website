@@ -1,16 +1,21 @@
 import { PostListing } from "@/components";
 import { getSanityData } from "@/lib/helpingFunctions";
+import { notFound } from "next/navigation";
 
 type Params = {
-  blogName: string;
+  blogSlug: string;
 };
 
 export default async function BlogPage({ params }: { params: Params }) {
-  const { blogName } = await params;
-  console.log("blogName ", blogName);
-  const blogQuery = `*[_type == "blogListingPage" && slug.current == "${blogName}"][0]{_id,title, titleHighlight, description, seo{metaTitle, metaDescription}}`;
+  const { blogSlug } = await params;
+  console.log("blogSlug ", blogSlug);
+  const blogQuery = `*[_type == "blogListingPage" && slug.current == "${blogSlug}"][0]{_id,title, titleHighlight, description, seo{metaTitle, metaDescription}}`;
   const blogData = await getSanityData(blogQuery);
   console.log("blogData ", blogData);
+
+  if (!blogData) {
+    return notFound();
+  }
   return (
     <main>
       <section className="blog-banner-wrapper">
@@ -37,7 +42,7 @@ export default async function BlogPage({ params }: { params: Params }) {
             </h2>
           </div>
           <div className="content-section pt-3">
-            <PostListing blogId={blogData._id} />
+            <PostListing blogId={blogData._id} blogSlug={blogSlug} />
           </div>
         </div>
       </section>

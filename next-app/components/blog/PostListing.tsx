@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 const POSTS_PER_PAGE = 6;
 
@@ -11,7 +12,13 @@ type Post = {
   coverImage: any;
 };
 
-export default function PostsListing({ blogId }: { blogId: string }) {
+export default function PostsListing({
+  blogId,
+  blogSlug,
+}: {
+  blogId: string;
+  blogSlug: string;
+}) {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
@@ -44,7 +51,9 @@ export default function PostsListing({ blogId }: { blogId: string }) {
         <div className="col-span-8 space-y-6">
           {posts.map((post, index) => (
             <article key={index}>
-              <h3>{post.title}</h3>
+              <Link href={`/${blogSlug}/${post.slug.current}`}>
+                <h3>{post.title}</h3>
+              </Link>
             </article>
           ))}
         </div>
