@@ -1,4 +1,4 @@
-import { TravelGuidesModule } from "@/types/homeModules";
+import { TravelGuidesModule } from "@/types/componentsTypes";
 import AnimatedButton from "./AnimatedButton";
 import { getSanityData } from "@/lib/helpingFunctions";
 import Image from "next/image";

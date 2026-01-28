@@ -5,15 +5,28 @@ export default defineType({
   title: 'CTA Banner',
   type: 'object',
   fields: [
-    defineField({name: 'text', type: 'string', title: 'Banner Text'}),
-    defineField({name: 'ctaText', type: 'string', title: 'CTA Text'}),
-    defineField({name: 'ctaLink', type: 'url', title: 'CTA Link'}),
-  ]
-  ,
+    defineField({name: 'title', type: 'string', title: 'Title'}),
+    defineField({name: 'description', type: 'string', title: 'Description'}),
+    defineField({name: 'buttonText', type: 'string', title: 'Button Text'}),
+    defineField({name: 'buttonLink', type: 'url', title: 'Button Link'}),
+    defineField({name: 'image', type: 'image', title: 'Image'}),
+  ],
   preview: {
-    select: { title: 'text', subtitle: 'ctaText' },
-    prepare({ title, subtitle }) {
-      return { title: title || 'CTA Banner', subtitle: subtitle ? `CTA: ${subtitle}` : undefined }
-    }
-  }
+    select: {
+      image: 'image',
+      title: 'title',
+      description: 'description',
+      buttonText: 'buttonText',
+      buttonLink: 'buttonLink',
+    },
+    prepare({title, description, buttonText, buttonLink, image}) {
+      return {
+        title: title || 'CTA Banner',
+        description: description ? `CTA: ${description}` : undefined,
+        buttonText: buttonText ? `CTA: ${buttonText}` : undefined,
+        buttonLink: buttonLink ? `CTA: ${buttonLink}` : undefined,
+        media: image,
+      }
+    },
+  },
 })

@@ -1,5 +1,5 @@
 import { urlForImage } from "@/lib/sanity";
-import { TwoColumnImageContentModule } from "@/types/homeModules";
+import { TwoColumnImageContentModule } from "@/types/componentsTypes";
 import Image from "next/image";
 import { stegaClean } from "@sanity/client/stega";
 import AnimatedLink from "./AnimatedLink";

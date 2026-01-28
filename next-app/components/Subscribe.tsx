@@ -2,7 +2,7 @@ import * as motion from "motion/react-client";
 import Image from "next/image";
 import AnimatedButton from "./AnimatedButton";
 import { SubscribeTextVariants } from "@/lib/animation";
-import { SubscribeModule } from "@/types/homeModules";
+import { SubscribeModule } from "@/types/componentsTypes";
 import { stegaClean } from "@sanity/client/stega";
 import { urlForImage } from "@/lib/sanity";
 const images = [

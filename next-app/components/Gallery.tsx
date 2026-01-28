@@ -1,4 +1,4 @@
-import { GalleryModule } from "@/types/homeModules";
+import { GalleryModule } from "@/types/componentsTypes";
 import AnimatedButton from "./AnimatedButton";
 import { stegaClean } from "next-sanity";
 import { urlForImage } from "@/lib/sanity";

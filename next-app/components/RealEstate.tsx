@@ -5,7 +5,7 @@ import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import "@splidejs/splide/dist/css/themes/splide-default.min.css";
 import { AutoScroll } from "@splidejs/splide-extension-auto-scroll";
-import { RealEstateModule as RealEstateModuleProps } from "@/types/homeModules";
+import { RealEstateModule as RealEstateModuleProps } from "@/types/componentsTypes";
 import { urlForImage } from "@/lib/sanity";
 import { stegaClean } from "@sanity/client/stega";
 
