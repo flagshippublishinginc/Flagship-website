@@ -44,12 +44,12 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({name: 'description', type: 'text'}),
-    defineField({name: 'seo', title: 'SEO', type: 'seo'}),
     defineField({
       name: 'modules',
       title: 'Page Modules',
       type: 'array',
       of: [{type: 'ctaBannerModule'}],
     }),
+    defineField({name: 'seo', title: 'SEO', type: 'seo'}),
   ],
 })

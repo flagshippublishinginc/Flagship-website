@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { urlForImage } from "@/lib/sanity";
+import { stegaClean } from "next-sanity";
 
 interface NavItem {
   label: string;
@@ -50,7 +51,7 @@ const Header = ({ data }: HeaderProps) => {
             className="inline-block mr-2"
           />
         )}
-        <span>{item.label}</span>
+        <span>{stegaClean(item.label)}</span>
         {item.children && item.children.length > 0 && (
           <svg
             className="inline-block ml-1 w-4 h-4"
@@ -109,7 +110,7 @@ const Header = ({ data }: HeaderProps) => {
               onMouseLeave={() => setActiveDropdown(null)}>
               {renderLink(
                 item,
-                "text-[14px] font-bold uppercase tracking-widest flex items-center hover:text-tertiary py-4"
+                "text-[14px] font-bold uppercase tracking-widest flex items-center hover:text-tertiary py-4",
               )}
 
               {item.children && item.children.length > 0 && (
@@ -136,7 +137,7 @@ const Header = ({ data }: HeaderProps) => {
                                 : "#"
                           }
                           className="text-[13px] font-bold uppercase tracking-wider hover:underline whitespace-nowrap hover:text-white">
-                          {child.label}
+                          {stegaClean(child.label)}
                         </Link>
                       </div>
                     ))}
@@ -210,13 +211,13 @@ const Header = ({ data }: HeaderProps) => {
                 <div className="flex items-center justify-between">
                   {renderLink(
                     item,
-                    "text-[16px] font-bold uppercase tracking-wider"
+                    "text-[16px] font-bold uppercase tracking-wider",
                   )}
                   {item.children && (
                     <button
                       onClick={() =>
                         setActiveDropdown(
-                          activeDropdown === item.label ? null : item.label
+                          activeDropdown === item.label ? null : item.label,
                         )
                       }>
                       <svg
@@ -247,7 +248,7 @@ const Header = ({ data }: HeaderProps) => {
                               : "#"
                         }
                         className="text-[14px] uppercase tracking-wider font-medium hover:text-white">
-                        {child.label}
+                        {stegaClean(child.label)}
                       </Link>
                     ))}
                   </div>

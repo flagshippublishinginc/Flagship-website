@@ -56,7 +56,7 @@ export default function PostsListing({
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-12 gap-6 border-t border-b md:pt-6 border-background-gray">
+    <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-14 border-t border-b md:pt-6 border-background-gray">
       <div className="col-span-12 md:col-span-9 space-y-6">
         {posts.map((post, index) => (
           <article
@@ -100,7 +100,7 @@ export default function PostsListing({
                 )}
 
                 {post.author && (
-                  <p className=" mt-5 text-sm text-gray-light">
+                  <p className=" mt-5 text-[12px] text-gray-light">
                     By {stegaClean(post.author.name)}
                   </p>
                 )}

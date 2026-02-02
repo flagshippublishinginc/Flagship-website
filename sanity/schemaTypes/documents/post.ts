@@ -43,9 +43,7 @@ export default defineType({
       to: [{ type: 'blogListingPage' }],
       validation: (Rule) => Rule.required(),
     }),
-    defineField({ name: 'excerpt', type: 'text' }),
     defineField({ name: 'coverImage', type: 'image' }),
-    defineField({ name: 'content', type: 'array', of: [{ type: 'block' }, { type: 'image' }] }),
     defineField({ name: 'author', type: 'reference', to: [{ type: 'author' }] }),
     defineField({
       name: 'categories',
@@ -53,10 +51,35 @@ export default defineType({
       of: [{ type: 'reference', to: [{ type: 'category' }] }],
     }),
     defineField({
-      name: 'relatedPosts',
-      title: 'Related posts (manual)',
+      name: 'content',
       type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'post' }] }],
+      of: [
+        {
+          type: 'richTextModule',
+        },
+        {
+          type: 'singleImageModule',
+        },
+        {
+          type: 'twoColumnTextWithImage',
+        },
+      ],
+    }),
+
+    defineField({
+      name: 'loadMoreContent',
+      type: 'array',
+      of: [
+        {
+          type: 'richTextModule',
+        },
+        {
+          type: 'singleImageModule',
+        },
+        {
+          type: 'twoColumnTextWithImage',
+        },
+      ],
     }),
     defineField({ name: 'seo', title: 'SEO', type: 'seo' }),
   ],

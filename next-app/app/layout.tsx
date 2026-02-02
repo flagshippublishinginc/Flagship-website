@@ -6,6 +6,7 @@ import { getSanityData, getTheme } from "@/lib/helpingFunctions";
 import { VisualEditing } from "next-sanity/visual-editing";
 import { draftMode } from "next/headers";
 import { stegaClean } from "@sanity/client/stega";
+import { urlForImage } from "@/lib/sanity";
 
 const sourceSans3 = Source_Sans_3({
   variable: "--font-source-sans-3",
@@ -22,11 +23,27 @@ const playfairDisplay = Playfair_Display({
 // getting seo meta data from sanity
 export async function generateMetadata(): Promise<Metadata> {
   const homePageQuery = `*[_type == "homePage"][0]{ title, seo { metaTitle, metaDescription } }`;
-  const homePageData = await getSanityData(homePageQuery);
+  const favIconQuery = `*[_type == "settings"][0]{favicon}`;
+
+  const [homePageData, favIconData] = await Promise.all([
+    getSanityData(homePageQuery),
+    getSanityData(favIconQuery),
+  ]);
 
   return {
     title: homePageData?.seo?.metaTitle || "Flagship",
     description: homePageData?.seo?.metaDescription || "",
+    icons: {
+      icon: urlForImage(favIconData?.favicon)?.url() || "",
+    },
+    openGraph: {
+      title: homePageData?.seo?.metaTitle || "Flagship",
+      description: homePageData?.seo?.metaDescription || "",
+    },
+    twitter: {
+      title: homePageData?.seo?.metaTitle || "Flagship",
+      description: homePageData?.seo?.metaDescription || "",
+    },
   };
 }
 
@@ -63,6 +80,8 @@ const headerQuery = `*[_type == "settings"][0]{
   }
 }`;
 
+const footerQuery = `*[_type == "settings"][0]{footer}`;
+
 const themeSettingQuery = `*[_type == "themeSettings" && title == "MAUI NŌ KA ʻOI Theme"][0]`;
 
 export default async function RootLayout({
@@ -71,9 +90,10 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   // Fetching data inside the component to ensure it's dynamic
-  const [headerData, themeSettingData] = await Promise.all([
+  const [headerData, themeSettingData, footerData] = await Promise.all([
     getSanityData(headerQuery),
     getSanityData(themeSettingQuery),
+    getSanityData(footerQuery),
   ]);
 
   return (
@@ -107,7 +127,7 @@ export default async function RootLayout({
         <EnvironmentBadge />
         <Header data={headerData?.header} />
         {children}
-        <Footer />
+        <Footer data={footerData?.footer} />
       </body>
     </html>
   );

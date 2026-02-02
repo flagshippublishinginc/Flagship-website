@@ -19,7 +19,7 @@ export const hoverVariants: Variants = {
     y: -25,
     opacity: 0,
     transition: {
-      duration: 0.25,
+      duration: 0.2,
       ease: [0.25, 0.1, 0.25, 1],
     },
   },
@@ -34,7 +34,7 @@ export const wordVariants: Variants = {
     y: -25,
     opacity: 1,
     transition: {
-      duration: 0.25,
+      duration: 0.2,
       ease: [0.25, 0.1, 0.25, 1],
     },
   },
