@@ -38,6 +38,8 @@ import realEstate from './modules/realEstateModule'
 import subscriptionBanner from './modules/subscriptionBannerModule'
 import classics from './modules/classicsModule'
 import gallery from './modules/galleryModule'
+import singleImageModule from './modules/singleImageModule'
+import twoColumnTextWithImage from './modules/twoColumnTextWithImage'
 
 export const schemaTypes = [
   // documents
@@ -82,4 +84,6 @@ export const schemaTypes = [
   subscriptionBanner,
   classics,
   gallery,
+  singleImageModule,
+  twoColumnTextWithImage,
 ]

@@ -1,3 +1,4 @@
+import slugify from "slugify";
 import { sanityFetch } from "./fetch";
 
 // const query = `*[_type == "homePage"][0]{ "homeBanner": modules[_type == "homeBannerModule"][0]{ _key, _type, title, description, authorPrefix, author, buttonLabel, buttonLink, image, } }`;
@@ -36,4 +37,18 @@ export async function getTheme() {
 export async function getThemeSetting(query: string) {
   const themeSettingData = await getSanityData(query);
   return themeSettingData;
+}
+
+export function generateToc(content: any[]) {
+  return content
+    .filter((block) => block._type === "block" && ["h2"].includes(block.style))
+    .map((block) => {
+      const text = block.children.map((child: any) => child.text).join("");
+
+      return {
+        id: slugify(text, { lower: true, strict: true }),
+        text,
+        level: block.style === "h2" ? 2 : 3,
+      };
+    });
 }

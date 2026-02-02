@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { urlForImage } from "@/lib/sanity";
+import { div } from "motion/react-client";
 
 interface LinkType {
   type: "internal" | "external";
@@ -59,13 +60,13 @@ const Footer = ({ data }: FooterProps) => {
   };
 
   return (
-    <footer className="w-full bg-[#8B2D1D] text-white pt-16 pb-8 px-6 lg:px-20 font-sans">
+    <footer className="w-full bg-[#8B2D1D] text-white pt-16 pb-8 px-4 lg:px-20 font-sans">
       <div className="max-w-[1440px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16 border-b border-white/20 pb-12">
           {/* Logo and Description */}
-          <div className="lg:col-span-4 flex flex-col gap-6">
+          <div className="col-span-1 lg:col-span-4 flex flex-col gap-6">
             {logo && (
-              <div className="relative w-48 h-auto">
+              <div className="relative md:w-48 h-auto flex justify-center md:justify-start">
                 <Image
                   src={urlForImage(logo)?.url() || ""}
                   alt="Footer Logo"
@@ -76,9 +77,11 @@ const Footer = ({ data }: FooterProps) => {
               </div>
             )}
             {description && (
-              <p className="text-sm leading-relaxed max-w-sm opacity-90">
-                {description}
-              </p>
+              <div className="text-center md:text-left w-full">
+                <p className="text-sm leading-relaxed md:max-w-sm opacity-90">
+                  {description}
+                </p>
+              </div>
             )}
           </div>
 
@@ -90,8 +93,7 @@ const Footer = ({ data }: FooterProps) => {
                 <li key={idx}>
                   <Link
                     href={resolveLink(item)}
-                    className="text-sm hover:opacity-80 transition-opacity"
-                  >
+                    className="text-sm hover:opacity-80 transition-opacity">
                     {item.label}
                   </Link>
                 </li>
@@ -107,8 +109,7 @@ const Footer = ({ data }: FooterProps) => {
                 <li key={idx}>
                   <Link
                     href={resolveLink(item)}
-                    className="text-sm hover:opacity-80 transition-opacity"
-                  >
+                    className="text-sm hover:opacity-80 transition-opacity">
                     {item.label}
                   </Link>
                 </li>
@@ -127,12 +128,13 @@ const Footer = ({ data }: FooterProps) => {
                 className="w-full bg-transparent border border-white/40 px-4 py-3 text-sm placeholder:text-white/60 focus:outline-none focus:border-white transition-colors"
                 required
               />
-              <button
-                type="submit"
-                className="bg-white text-[#8B2D1D] px-6 py-3 text-sm font-semibold hover:bg-gray-100 transition-colors w-full sm:w-auto text-center"
-              >
-                Subscribe Now
-              </button>
+              <div className="flex items-start">
+                <button
+                  type="submit"
+                  className="bg-white cursor-pointer text-[#8B2D1D] px-8 py-4 text-sm font-semibold hover:bg-gray-100 transition-colors w-auto text-center">
+                  Subscribe Now
+                </button>
+              </div>
             </form>
           </div>
         </div>
@@ -149,8 +151,7 @@ const Footer = ({ data }: FooterProps) => {
                   href={item.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:opacity-80 transition-opacity"
-                >
+                  className="hover:opacity-80 transition-opacity">
                   {item.icon && (
                     <Image
                       src={urlForImage(item.icon)?.url() || ""}
@@ -171,8 +172,7 @@ const Footer = ({ data }: FooterProps) => {
               <Link
                 key={idx}
                 href={resolveLink(item)}
-                className="hover:opacity-100 transition-opacity"
-              >
+                className="hover:opacity-100 transition-opacity">
                 {item.label}
               </Link>
             ))}
