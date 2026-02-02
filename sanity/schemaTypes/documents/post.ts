@@ -25,14 +25,10 @@ export default defineType({
         slugify: (input: string) =>
           input
             .toLowerCase()
-            // normalize accented characters
             .normalize('NFD')
             .replace(/[\u0300-\u036f]/g, '')
-            // remove smart quotes & apostrophes
             .replace(/[’'ʻ"]/g, '')
-            // replace non-alphanumeric with hyphens
             .replace(/[^a-z0-9]+/g, '-')
-            // trim hyphens
             .replace(/^-+|-+$/g, '')
             .slice(0, 96),
       },

@@ -2,7 +2,7 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --font-sans: var(--font-sans), system-ui, sans-serif;
+  --font-body: var(--font-body), system-ui, sans-serif;
   --font-heading: var(--font-heading), system-ui, serif;
 }
 
@@ -40,6 +40,7 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
+  font-family: var(--font-body);
 }
 
 /* Heading tags styles */

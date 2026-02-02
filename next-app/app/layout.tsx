@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Source_Sans_3, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Footer, Header, EnvironmentBadge } from "@/components";
-import { getSanityData, getTheme } from "@/lib/helpingFunctions";
+import { getSanityData } from "@/lib/helpingFunctions";
 import { VisualEditing } from "next-sanity/visual-editing";
 import { draftMode } from "next/headers";
 import { stegaClean } from "@sanity/client/stega";
@@ -96,6 +96,8 @@ export default async function RootLayout({
     getSanityData(footerQuery),
   ]);
 
+  console.log("themeSettingData ", themeSettingData);
+
   return (
     <html
       lang="en"
@@ -113,13 +115,16 @@ export default async function RootLayout({
               --color-background-gray: ${stegaClean(themeSettingData?.backgroundSection?.midColor) || "#ddd8d1"};
               --color-background-category: ${stegaClean(themeSettingData?.backgroundSection?.lightColor) || "#fbfaf9"};
               --color-gray: ${stegaClean(themeSettingData?.borderColor) || "#ddd8d1"};
-              --font-sans: ${stegaClean(themeSettingData?.fontFamily) || "var(--font-source-sans-3)"};
-              --font-heading: ${stegaClean(themeSettingData?.fontFamily) || "var(--font-playfair-display)"};
+              --font-body: ${stegaClean(themeSettingData?.bodyFont) || "var(--font-source-sans-3)"};
+              --font-heading: ${stegaClean(themeSettingData?.headingFont) || "var(--font-playfair-display)"};
             }
           `}
         </style>
-        {themeSettingData?.useGoogleFont && themeSettingData?.googleFontUrl && (
-          <link rel="stylesheet" href={themeSettingData.googleFontUrl} />
+        {themeSettingData?.headingFont && themeSettingData?.headingFontUrl && (
+          <link rel="stylesheet" href={themeSettingData.headingFontUrl} />
+        )}
+        {themeSettingData?.bodyFont && themeSettingData?.bodyFontUrl && (
+          <link rel="stylesheet" href={themeSettingData.bodyFontUrl} />
         )}
       </head>
       <body className={` antialiased`}>
