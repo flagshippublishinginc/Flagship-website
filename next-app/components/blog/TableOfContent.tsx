@@ -3,24 +3,10 @@
 import { motion, AnimatePresence } from "motion/react";
 import { useState, useEffect } from "react";
 import slugify from "slugify";
-import type { Variants } from "motion/react";
 
 export type TocItem = {
   id: string;
   text: string;
-};
-
-const dropdownVariants: Variants = {
-  closed: {
-    height: 0,
-    opacity: 0,
-    transition: { duration: 0.25, ease: "easeInOut" },
-  },
-  open: {
-    height: "auto",
-    opacity: 1,
-    transition: { duration: 0.3, ease: "easeInOut" },
-  },
 };
 
 function TableOfContents({
@@ -39,83 +25,130 @@ function TableOfContents({
     const headings = Array.from(
       document.querySelectorAll(`.${elementClassName} h2`),
     ) as HTMLHeadingElement[];
-    const items: TocItem[] = headings.map((heading) => {
+
+    const items = headings.map((heading) => {
       let id = heading.id;
       if (!id) {
-        id = slugify(heading.textContent || "", { lower: true, strict: true });
+        id = slugify(heading.textContent || "", {
+          lower: true,
+          strict: true,
+        });
         heading.id = id;
       }
       return { id, text: heading.textContent || "" };
     });
+
     setToc(items);
   }, []);
 
   useEffect(() => {
     const checkScreenSize = () => {
-      const mobile = window.innerWidth < 768;
-      setIsMobile(mobile);
+      setIsMobile(window.innerWidth < 768);
     };
     checkScreenSize();
     window.addEventListener("resize", checkScreenSize);
     return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
-  if (toc.length < 1) return null;
+  useEffect(() => {
+    if (!toc.length) return;
+
+    const headings = toc
+      .map((item) => document.getElementById(item.id))
+      .filter(Boolean) as HTMLElement[];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveId(entry.target.id);
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: "-40px 0px -70% 0px",
+        threshold: 0,
+      },
+    );
+
+    headings.forEach((heading) => observer.observe(heading));
+
+    return () => observer.disconnect();
+  }, [toc]);
+
+  if (!toc.length) return null;
 
   return (
     <nav className={`toc ${classNames}`}>
       <button
         type="button"
         onClick={() => isMobile && setIsOpen((prev) => !prev)}
-        className={`w-full flex items-center justify-between text-[14px] text-tertiary ${
-          isMobile ? "cursor-pointer" : "cursor-default"
-        }`}>
-        <span>Table of Contents</span>
+        className="w-full flex items-center justify-between text-[14px] text-tertiary cursor-pointer">
+        <span className="font-semibold">IN THIS ARTICLE</span>
 
         {isMobile && (
           <motion.span
             animate={{ rotate: isOpen ? 180 : 0 }}
-            transition={{ duration: 0.2 }}>
+            transition={{ duration: 0.25 }}>
             <svg
               width="24"
               height="24"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg">
-              <g strokeWidth="0" />
-              <g strokeLinecap="round" strokeLinejoin="round" />
+              {" "}
+              <g strokeWidth="0" />{" "}
+              <g strokeLinecap="round" strokeLinejoin="round" />{" "}
               <path
                 fillRule="evenodd"
                 clipRule="evenodd"
                 d="M12.707 14.707a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 1.414-1.414L12 12.586l4.293-4.293a1 1 0 1 1 1.414 1.414z"
                 fill="currentColor"
                 className="text-tertiary"
-              />
+              />{" "}
             </svg>
           </motion.span>
         )}
       </button>
 
-      {(!isMobile || isOpen) && (
-        <AnimatePresence initial={false}>
+      <AnimatePresence initial={false}>
+        {(!isMobile || isOpen) && (
           <motion.ul
-            className="pt-4 overflow-hidden"
-            key="toc-list"
-            variants={dropdownVariants}
-            initial="closed"
-            animate="open"
-            exit="closed">
+            key="toc"
+            layout
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{
+              height: { duration: 0.3 },
+              opacity: { duration: 0.2 },
+            }}
+            className="overflow-hidden pt-4">
             {toc.map((item) => (
               <li
                 key={item.id}
                 className="py-4 last:pb-0 border-t border-background-gray">
                 <a
                   href={`#${item.id}`}
-                  onClick={() => {
-                    setActiveId(item.id);
-                    if (isMobile) setIsOpen(false);
+                  onClick={(e) => {
+                    e.preventDefault();
+
+                    const el = document.getElementById(item.id);
+                    if (!el) return;
+
+                    if (isMobile) {
+                      setIsOpen(false);
+                    }
+                    setTimeout(() => {
+                      el.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                      });
+                      setActiveId(item.id);
+                    }, 150);
                   }}
-                  className={`toc-link ${
+                  className={`toc-link font-heading ${
                     activeId === item.id ? "text-tertiary" : ""
                   }`}>
                   {item.text}
@@ -123,8 +156,8 @@ function TableOfContents({
               </li>
             ))}
           </motion.ul>
-        </AnimatePresence>
-      )}
+        )}
+      </AnimatePresence>
     </nav>
   );
 }

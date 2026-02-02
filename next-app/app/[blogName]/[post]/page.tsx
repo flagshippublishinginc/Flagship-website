@@ -1,5 +1,6 @@
 import {
   AnimatedLink,
+  CTABanner,
   LoadMorePostData,
   RichTextContent,
   SingleImage,
@@ -91,7 +92,8 @@ const blogPostQuery = `
         title,
         titleHighlight,
         slug,
-        "url": "/" + slug.current
+        "url": "/" + slug.current,
+        "ctaModules": modules[_type == "ctaBannerModule"][0]
       },
       seo
     }
@@ -234,18 +236,20 @@ export default async function PostPage({ params }: Props) {
                   })}
                 </div>
               )}
-              {blogPostData.loadMoreContent.length > 0 && (
+              {blogPostData.loadMoreContent && (
                 <LoadMorePostData content={blogPostData.loadMoreContent} />
               )}
             </div>
-            <div className="w-full md:w-[calc(30%-12px)] lg:w-[calc(30%-28px)] order-1 md:order-2">
-              <TableOfContents
-                elementClassName="blog-heading-content"
-                classNames={`w-full`}
-              />
-              <SocialShare
-                url={`${blogPostData.selectBlog.url}/${blogPostData.slug.current}`}
-              />
+            <div className="w-full md:w-[calc(30%-12px)] lg:w-[calc(30%-28px)] order-1 md:order-2 pt-0 lg:pt-4">
+              <div className="sticky top-[30px]">
+                <TableOfContents
+                  elementClassName="blog-heading-content"
+                  classNames={`w-full`}
+                />
+                <SocialShare
+                  url={`${blogPostData.selectBlog.url}/${blogPostData.slug.current}`}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -285,7 +289,7 @@ export default async function PostPage({ params }: Props) {
                             alt={stegaClean(blogPostData.title)}
                             width={416}
                             height={232}
-                            className="w-full h-auto"
+                            className="w-full md:max-h-[235px] object-cover"
                           />
                         </Link>
                       </div>
@@ -321,6 +325,11 @@ export default async function PostPage({ params }: Props) {
               })}
             </div>
           </div>
+        </section>
+      )}
+      {blogPostData.selectBlog.ctaModules && (
+        <section className="section-spacing">
+          <CTABanner {...blogPostData.selectBlog.ctaModules} />
         </section>
       )}
     </>

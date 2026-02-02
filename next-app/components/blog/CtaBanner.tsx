@@ -12,7 +12,7 @@ const CtaBanner: React.FC<CtaBannerModule> = ({
   image,
 }) => {
   return (
-    <section className="section-spacing max-w-5xl bg-background-category px-6 py-6 lg:py-14 lg:px-10 grid grid-cols-1 lg:grid-cols-2 items-center gap-6">
+    <section className="section-spacing container bg-background-category px-6 py-6 lg:py-14 lg:px-10 grid grid-cols-1 lg:grid-cols-2 items-center gap-6">
       <div>
         {title && <h2 className="text-tertiary">{stegaClean(title)}</h2>}
         {description && (
