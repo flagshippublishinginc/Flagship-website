@@ -21,3 +21,6 @@ export { default as SingleImage } from "./blog/SingleImage";
 export { default as TwoColumnTextWithImage } from "./blog/TwoColumnTextWithImage";
 export { default as LoadMorePostData } from "./blog/LoadMorePostData";
 export { default as SocialShare } from "./blog/SocialShare";
+export { default as ModuleRenderer } from "./ModuleRenderer";
+export { default as NestedFaqModule } from "./NestedFaqModule";
+export { default as SimpleBanner } from "./SimpleBanner";

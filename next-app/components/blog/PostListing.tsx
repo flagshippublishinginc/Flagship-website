@@ -88,7 +88,7 @@ export default function PostsListing({
                 </div>
                 <h3 className="font-heading text-primary font-semibold">
                   <Link
-                    href={`/${blogName}/${post.slug.current}`}
+                    href={`/explore-maui/${blogName}/${post.slug.current}`}
                     className="text-primary hover:text-tertiary">
                     {stegaClean(post.title)}
                   </Link>
@@ -107,7 +107,7 @@ export default function PostsListing({
               </div>
               <div className="col-span-12 md:col-span-4 order-0 md:order-1">
                 <Link
-                  href={`/${blogName}/${post.slug.current}`}
+                  href={`/explore-maui/${blogName}/${post.slug.current}`}
                   className="text-primary">
                   <Image
                     src={urlForImage(post.coverImage)!.url()}

@@ -54,3 +54,8 @@ export const SubscribeTextVariants: Variants = {
     },
   },
 };
+
+export const accordionVariants = {
+  closed: { height: 0, opacity: 0 },
+  open: { height: "auto", opacity: 1 },
+};

@@ -89,14 +89,11 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Fetching data inside the component to ensure it's dynamic
   const [headerData, themeSettingData, footerData] = await Promise.all([
     getSanityData(headerQuery),
     getSanityData(themeSettingQuery),
     getSanityData(footerQuery),
   ]);
-
-  console.log("themeSettingData ", themeSettingData);
 
   return (
     <html

@@ -92,7 +92,7 @@ const blogPostQuery = `
         title,
         titleHighlight,
         slug,
-        "url": "/" + slug.current,
+        "url":  slug.current,
         "ctaModules": modules[_type == "ctaBannerModule"][0]
       },
       seo
@@ -119,7 +119,7 @@ const relatedBlogQuery = `*[
   },
   selectBlog->{
   slug,
-  "url": "/" + slug.current},
+  "url":  slug.current },
   author->{
     _id,
     name,
@@ -168,15 +168,15 @@ export default async function PostPage({ params }: Props) {
                   />
                 </svg>{" "}
                 <Link
-                  className="px-2 text-[#DDD8D1] hover:text-tertiary transition-colors duration-300"
+                  className="px-2 text-[#DDD8D1] hover:text-tertiary transition-colors duration-300 font-semibold"
                   href={`/`}>
-                  Home
+                  HOME
                 </Link>
                 {"/"}
                 <Link
-                  className="px-2 text-[#666666] hover:text-tertiary transition-colors duration-300"
-                  href={blogPostData.selectBlog.url}>
-                  Blog
+                  className="px-2 text-primary hover:text-tertiary transition-colors duration-300 font-semibold"
+                  href={`/explore-maui/${blogPostData.selectBlog.url}`}>
+                  BLOGS
                 </Link>
               </div>
               <div>
@@ -283,7 +283,7 @@ export default async function PostPage({ params }: Props) {
                       </div>
                       <div className="article-image">
                         <Link
-                          href={`${blogPostData.selectBlog.url}/${blogPostData.slug.current}`}>
+                          href={`/explore-maui/${blogPostData.selectBlog.url}/${blogPostData.slug.current}`}>
                           <Image
                             src={urlForImage(blogPostData.coverImage)!.url()}
                             alt={stegaClean(blogPostData.title)}
@@ -316,7 +316,7 @@ export default async function PostPage({ params }: Props) {
                       <div className="mt-10">
                         <AnimatedLink
                           text={`Read Story`}
-                          href={`${blogPostData.selectBlog.url}/${blogPostData.slug.current}`}
+                          href={`/explore-maui/${blogPostData.selectBlog.url}/${blogPostData.slug.current}`}
                         />
                       </div>
                     </div>
