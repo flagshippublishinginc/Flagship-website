@@ -35,7 +35,8 @@ export default defineType({
         { type: 'faqModule' },
         { type: 'statsModule' },
         { type: 'logosModule' },
-        { type: 'twoColumnModule' }
+        { type: 'twoColumnModule' },
+        { type: 'shopifyProductListingModule' }
       ],
       options: { modal: { type: 'dialog' } }
     }),

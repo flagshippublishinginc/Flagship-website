@@ -7,6 +7,7 @@ import {
   SocialShare,
   TableOfContents,
   TwoColumnTextWithImage,
+  ShopifyProductListing,
 } from "@/components";
 import {
   formatDateLong,
@@ -232,6 +233,8 @@ export default async function PostPage({ params }: Props) {
                         return (
                           <TwoColumnTextWithImage key={index} {...module} />
                         );
+                      case "shopifyProductListingModule":
+                        return <ShopifyProductListing key={index} {...module} />;
                     }
                   })}
                 </div>

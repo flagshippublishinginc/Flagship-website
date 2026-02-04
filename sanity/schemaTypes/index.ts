@@ -40,6 +40,7 @@ import classics from './modules/classicsModule'
 import gallery from './modules/galleryModule'
 import singleImageModule from './modules/singleImageModule'
 import twoColumnTextWithImage from './modules/twoColumnTextWithImage'
+import shopifyProductListingModule from './modules/shopifyProductListingModule'
 
 export const schemaTypes = [
   // documents
@@ -86,4 +87,5 @@ export const schemaTypes = [
   gallery,
   singleImageModule,
   twoColumnTextWithImage,
+  shopifyProductListingModule,
 ]
