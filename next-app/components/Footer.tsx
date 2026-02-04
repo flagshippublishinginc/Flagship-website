@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { urlForImage } from "@/lib/sanity";
-import { div } from "motion/react-client";
 
 interface LinkType {
   type: "internal" | "external";
@@ -67,13 +66,15 @@ const Footer = ({ data }: FooterProps) => {
           <div className="col-span-1 lg:col-span-4 flex flex-col gap-6">
             {logo && (
               <div className="relative md:w-48 h-auto flex justify-center md:justify-start">
-                <Image
-                  src={urlForImage(logo)?.url() || ""}
-                  alt="Footer Logo"
-                  width={200}
-                  height={80}
-                  className="object-contain"
-                />
+                <Link href="/">
+                  <Image
+                    src={urlForImage(logo)?.url() || ""}
+                    alt="Footer Logo"
+                    width={200}
+                    height={80}
+                    className="object-contain"
+                  />
+                </Link>
               </div>
             )}
             {description && (
@@ -87,13 +88,13 @@ const Footer = ({ data }: FooterProps) => {
 
           {/* Quick Links */}
           <div className="lg:col-span-2">
-            <h3 className="font-heading text-lg mb-6">Quick Links</h3>
+            <p className="font-body font-semibold mb-6">Quick Links</p>
             <ul className="space-y-4">
               {quickLinks?.map((item, idx) => (
                 <li key={idx}>
                   <Link
                     href={resolveLink(item)}
-                    className="text-sm hover:opacity-80 transition-opacity">
+                    className="text-[14px] text-white hover:opacity-80 transition-opacity">
                     {item.label}
                   </Link>
                 </li>
@@ -103,13 +104,13 @@ const Footer = ({ data }: FooterProps) => {
 
           {/* Reader Services */}
           <div className="lg:col-span-2">
-            <h3 className="font-heading text-lg mb-6">Reader Services</h3>
+            <p className="font-body font-semibold mb-6">Reader Services</p>
             <ul className="space-y-4">
               {readerServices?.map((item, idx) => (
                 <li key={idx}>
                   <Link
                     href={resolveLink(item)}
-                    className="text-sm hover:opacity-80 transition-opacity">
+                    className="text-[14px] font-medium text-white hover:opacity-80 transition-opacity">
                     {item.label}
                   </Link>
                 </li>
@@ -125,13 +126,13 @@ const Footer = ({ data }: FooterProps) => {
               <input
                 type="email"
                 placeholder="Enter your email address"
-                className="w-full bg-transparent border border-white/40 px-4 py-3 text-sm placeholder:text-white/60 focus:outline-none focus:border-white transition-colors"
+                className="w-full bg-transparent border border-white px-4 py-3 text-sm placeholder:text-white/70 focus:outline-none focus:border-white transition-colors"
                 required
               />
               <div className="flex items-start">
                 <button
                   type="submit"
-                  className="bg-white cursor-pointer text-[#8B2D1D] px-8 py-4 text-sm font-semibold hover:bg-gray-100 transition-colors w-auto text-center">
+                  className="bg-white cursor-pointer text-primary px-8 py-4 text-sm font-semibold hover:bg-gray-100 transition-colors w-auto text-center">
                   Subscribe Now
                 </button>
               </div>
@@ -167,19 +168,19 @@ const Footer = ({ data }: FooterProps) => {
           </div>
 
           {/* Center: Legal Links */}
-          <div className="flex gap-8 opacity-80 order-2">
+          <div className="flex gap-8 order-2">
             {legalLinks?.map((item, idx) => (
               <Link
                 key={idx}
                 href={resolveLink(item)}
-                className="hover:opacity-100 transition-opacity">
+                className="text-[14px] font-medium text-white hover:opacity-100 transition-opacity">
                 {item.label}
               </Link>
             ))}
           </div>
 
           {/* Right: Copyright */}
-          <div className="text-center md:text-right opacity-80 order-1 md:order-3">
+          <div className="text-center md:text-right order-1 md:order-3 text-[14px] font-semibold text-white hover:opacity-100 transition-opacity">
             {copyright}
           </div>
         </div>

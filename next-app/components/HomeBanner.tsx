@@ -4,15 +4,22 @@ import { HomeBannerModule } from "@/types/componentsTypes";
 import AnimatedLink from "./AnimatedLink";
 import { stegaClean } from "next-sanity";
 
-const HomeBanner = async ({ modules }: { modules: HomeBannerModule }) => {
+const HomeBanner: React.FC<HomeBannerModule> = async ({
+  image,
+  title,
+  description,
+  author,
+  buttonLabel,
+  buttonLink,
+}) => {
   return (
     <section className="home-banner w-full pt-3">
       <div className="container">
         <div className="grid items-center grid-cols-1 md:grid-cols-[1fr_1fr] lg:grid-cols-[3fr_2fr] gap-0 md:gap-5 lg:gap-10">
           <div className="banner-image h-full w-full overflow-hidden">
             <Image
-              src={urlForImage(modules.image)?.url() || ""}
-              alt={stegaClean(modules.title)}
+              src={urlForImage(image)?.url() || ""}
+              alt={stegaClean(title)}
               width={600}
               height={870}
               className="w-full max-h-[870px] h-full object-cover transform transition-transform duration-300 lg:hover:scale-110"
@@ -25,23 +32,18 @@ const HomeBanner = async ({ modules }: { modules: HomeBannerModule }) => {
                 <a
                   href="/"
                   className="transition-colors group-hover:text-tertiary duration-300">
-                  {modules.title}
+                  {title}
                 </a>
               </h1>
-              <p className="banner-description md:mb-6 mb-3">
-                {modules.description}
-              </p>
+              <p className="banner-description md:mb-6 mb-3">{description}</p>
               <p className="text-secondary text-[12px]">
                 By{" "}
                 <span className=" font-medium transition-colors group-hover:text-tertiary duration-300">
-                  {modules.author}
+                  {author}
                 </span>
               </p>
               <div className="mt-10 md:mt-25 pb-10">
-                <AnimatedLink
-                  text={modules.buttonLabel}
-                  href={modules.buttonLink}
-                />
+                <AnimatedLink text={buttonLabel} href={buttonLink} />
               </div>
             </div>
           </div>

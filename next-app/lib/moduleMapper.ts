@@ -1,0 +1,29 @@
+import {
+  HomeBanner,
+  RichText,
+  ReaderFavourites,
+  ActivitiesModule,
+  Subscribe,
+  RealEstate,
+  TravelGuides,
+  Gallery,
+  TwoColumnImageContent,
+  CurrentIssue,
+  NestedFaqModule,
+  SimpleBanner,
+} from "@/components";
+
+export const moduleMapper: Record<string, React.FC<any>> = {
+  homeBannerModule: HomeBanner,
+  richTextModule: RichText,
+  readerFavourites: ReaderFavourites,
+  activitiesModule: ActivitiesModule,
+  categoryHighlightModule: TravelGuides,
+  subscriptionBannerModule: Subscribe,
+  realEstateModule: RealEstate,
+  classicsModule: TwoColumnImageContent,
+  galleryModule: Gallery,
+  currentIssueModule: CurrentIssue,
+  nestedFaqModule: NestedFaqModule,
+  simpleBanner: SimpleBanner,
+};

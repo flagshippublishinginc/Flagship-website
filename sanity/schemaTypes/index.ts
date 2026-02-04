@@ -1,14 +1,10 @@
 // schemas/index.ts
 import page from './documents/page'
 import homePage from './documents/homePage'
-import contactPage from './documents/contactPage'
-import teamPage from './documents/teamPage'
 import blogListingPage from './documents/blogListing'
 import post from './documents/post'
-import teamMember from './documents/teamMember'
 import author from './documents/author'
 import category from './documents/category'
-import testimonial from './documents/testimonial'
 import settings from './documents/settings'
 import themeSettings from './documents/themeSettings'
 import site from './documents/site'
@@ -16,6 +12,7 @@ import site from './documents/site'
 import seo from './objects/seo'
 import links from './objects/links'
 import navItem from './objects/navItem'
+import moduleBuilder from './objects/module'
 
 import hero from './modules/heroModule'
 import richTextBlock from './modules/richTextModule'
@@ -40,20 +37,19 @@ import classics from './modules/classicsModule'
 import gallery from './modules/galleryModule'
 import singleImageModule from './modules/singleImageModule'
 import twoColumnTextWithImage from './modules/twoColumnTextWithImage'
-import shopifyProductListingModule from './modules/shopifyProductListingModule'
+import nestedFaqModule from './modules/nestedFaqModule'
+import simpleBanner from './modules/simpleBanner'
+import collections from './documents/collections'
 
 export const schemaTypes = [
   // documents
   page,
   homePage,
-  contactPage,
-  teamPage,
   blogListingPage,
   post,
-  teamMember,
   author,
   category,
-  testimonial,
+  collections,
   settings,
   themeSettings,
   site,
@@ -62,6 +58,7 @@ export const schemaTypes = [
   seo,
   links,
   navItem,
+  moduleBuilder,
 
   // modules
   hero,
@@ -87,5 +84,6 @@ export const schemaTypes = [
   gallery,
   singleImageModule,
   twoColumnTextWithImage,
-  shopifyProductListingModule,
+  nestedFaqModule,
+  simpleBanner,
 ]

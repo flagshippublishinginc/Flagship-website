@@ -19,6 +19,8 @@ import { Metadata } from "next";
 import { stegaClean } from "next-sanity";
 import Image from "next/image";
 import Link from "next/link";
+import { headers } from "next/headers";
+import { notFound } from "next/navigation";
 
 type Props = {
   params: {
@@ -28,12 +30,16 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const headerList = await headers();
+  const host = headerList.get("host");
+
   const { post } = await params;
 
   const blogPostQuery = `
     *[
       _type == "post" &&
-      slug.current == $slug
+      slug.current == $slug &&
+      references(*[_type == "site" && domain == "http://${host}"]._id)
     ][0]{
       seo
     }
@@ -44,9 +50,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
 
   if (!blogPostData) {
-    return {
-      title: "Post not found",
-    };
+    return notFound();
   }
 
   return {
@@ -65,10 +69,44 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-const blogPostQuery = `
+const relatedBlogQuery = `*[
+  _type == "post" &&
+  _id != $currentPostId &&
+  selectBlog._ref == $blogId &&
+  references($categoryIds)
+]
+| order(_createdAt desc)[0...3]{
+  _id,
+  title,
+  description,
+  slug,
+  coverImage,
+  _createdAt,
+  categories[]->{
+    _id,
+    title,
+    slug
+  },
+  selectBlog->{
+  slug,
+  "url":  slug.current },
+  author->{
+    _id,
+    name,
+  },
+}`;
+
+export default async function PostPage({ params }: Props) {
+  const headerList = await headers();
+  const host = headerList.get("host");
+
+  const { post } = await params;
+
+  const blogPostQuery = `
     *[
       _type == "post" &&
-      slug.current == $slug
+      slug.current == $slug &&
+      references(*[_type == "site" && domain == "http://${host}"]._id)
     ][0]{
       _id,
       title,
@@ -93,53 +131,27 @@ const blogPostQuery = `
         title,
         titleHighlight,
         slug,
-        "url": "/" + slug.current,
+        "url":  slug.current,
         "ctaModules": modules[_type == "ctaBannerModule"][0]
       },
       seo
     }
   `;
 
-const relatedBlogQuery = `*[
-  _type == "post" &&
-  _id != $currentPostId &&
-  selectBlog._ref == $blogId &&
-  references($categoryIds)
-]
-| order(_createdAt desc)[0...3]{
-  _id,
-  title,
-  description,
-  slug,
-  coverImage,
-  _createdAt,
-  categories[]->{
-    _id,
-    title,
-    slug
-  },
-  selectBlog->{
-  slug,
-  "url": "/" + slug.current},
-  author->{
-    _id,
-    name,
-  },
-}`;
-
-export default async function PostPage({ params }: Props) {
-  const { post } = await params;
-
   const blogPostData = await getSanityData(blogPostQuery, {
     slug: post,
   });
 
+  if (!blogPostData) {
+    return notFound();
+  }
+
   console.log("blogPostData", blogPostData);
 
   const relatedBlogData = await getSanityData(relatedBlogQuery, {
-    currentPostId: blogPostData._id,
-    blogId: blogPostData.selectBlog._id,
-    categoryIds: blogPostData.categories.map((category: any) => category._id),
+    currentPostId: blogPostData?._id,
+    blogId: blogPostData?.selectBlog?._id,
+    categoryIds: blogPostData?.categories?.map((category: any) => category._id),
   });
 
   if (!blogPostData) {
@@ -169,15 +181,15 @@ export default async function PostPage({ params }: Props) {
                   />
                 </svg>{" "}
                 <Link
-                  className="px-2 text-[#DDD8D1] hover:text-tertiary transition-colors duration-300"
+                  className="px-2 text-[#DDD8D1] hover:text-tertiary transition-colors duration-300 font-semibold"
                   href={`/`}>
-                  Home
+                  HOME
                 </Link>
                 {"/"}
                 <Link
-                  className="px-2 text-[#666666] hover:text-tertiary transition-colors duration-300"
-                  href={blogPostData.selectBlog.url}>
-                  Blog
+                  className="px-2 text-primary hover:text-tertiary transition-colors duration-300 font-semibold"
+                  href={`/explore-maui/${blogPostData.selectBlog.url}`}>
+                  BLOGS
                 </Link>
               </div>
               <div>
@@ -286,7 +298,7 @@ export default async function PostPage({ params }: Props) {
                       </div>
                       <div className="article-image">
                         <Link
-                          href={`${blogPostData.selectBlog.url}/${blogPostData.slug.current}`}>
+                          href={`/explore-maui/${blogPostData.selectBlog.url}/${blogPostData.slug.current}`}>
                           <Image
                             src={urlForImage(blogPostData.coverImage)!.url()}
                             alt={stegaClean(blogPostData.title)}
@@ -319,7 +331,7 @@ export default async function PostPage({ params }: Props) {
                       <div className="mt-10">
                         <AnimatedLink
                           text={`Read Story`}
-                          href={`${blogPostData.selectBlog.url}/${blogPostData.slug.current}`}
+                          href={`/explore-maui/${blogPostData.selectBlog.url}/${blogPostData.slug.current}`}
                         />
                       </div>
                     </div>

@@ -30,8 +30,7 @@ export interface HomeBannerModule extends BaseModule {
   title: string;
 }
 
-export interface RichTextModule extends BaseModule {
-  _type: "richTextModule";
+export interface RichTextModule {
   content: any;
 }
 
@@ -223,4 +222,33 @@ export interface CtaBannerModule extends BaseModule {
   title: string;
   description: string;
   image: SanityImage;
+}
+
+interface FaqItem {
+  _key?: string;
+  _type: string;
+  question: string;
+  answer: string;
+}
+
+interface ParentFaqItem {
+  _key?: string;
+  _type: string;
+  title: string;
+  faqs: FaqItem[];
+}
+
+export interface NestedFaqModuleType extends BaseModule {
+  _type: "nestedFaqModule";
+  faqs: ParentFaqItem[];
+}
+
+export interface SimpleBannerModule extends BaseModule {
+  _type: "simpleBanner";
+  title: string;
+  titleHighlight: string;
+  description: string;
+  buttonText: string;
+  buttonLink: string;
+  contentAlignment: string;
 }

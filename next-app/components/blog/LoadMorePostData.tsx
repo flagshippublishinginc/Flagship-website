@@ -13,7 +13,7 @@ const LoadMorePostData = ({ content }: { content: any[] }) => {
       <>
         <div className="flex justify-center py-3">
           <button
-            className="cursor-pointer border border-tertiary py-2 px-4"
+            className="cursor-pointer border border-tertiary py-3 px-7 font-semibold"
             onClick={() => setShowContent(true)}>
             Load More
           </button>
