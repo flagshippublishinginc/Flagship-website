@@ -4,7 +4,7 @@ import "./globals.css";
 import { Footer, Header, EnvironmentBadge } from "@/components";
 import { getSanityData } from "@/lib/helpingFunctions";
 import { VisualEditing } from "next-sanity/visual-editing";
-import { draftMode } from "next/headers";
+import { draftMode, headers } from "next/headers";
 import { stegaClean } from "@sanity/client/stega";
 import { urlForImage } from "@/lib/sanity";
 
@@ -22,7 +22,10 @@ const playfairDisplay = Playfair_Display({
 
 // getting seo meta data from sanity
 export async function generateMetadata(): Promise<Metadata> {
-  const homePageQuery = `*[_type == "homePage"][0]{ title, seo { metaTitle, metaDescription } }`;
+  const headerList = await headers();
+  const host = headerList.get("host");
+
+  const homePageQuery = `*[_type == "homePage" && references(*[_type == "site" && domain == "http://${host}"]._id)][0]{ title, seo { metaTitle, metaDescription } }`;
   const favIconQuery = `*[_type == "settings"][0]{favicon}`;
 
   const [homePageData, favIconData] = await Promise.all([
@@ -47,23 +50,19 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-// getting header data from sanity
-const headerQuery = `*[_type == "settings"][0]{
-  header {
-    logo,
-    navLinks[]{
-      label,
-      link {
-        type,
-        external,
-        internal->{ 
-          "slug": slug.current, 
-          _type 
-        }
-      },
-      icon,
-      image,
-      children[]{
+export default async function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  const headerList = await headers();
+  const host = headerList.get("host");
+
+  // getting header data from sanity
+  const headerQuery = `*[_type == "settings" && references(*[_type == "site" && domain == "http://${host}"]._id)][0]{
+    header {
+      logo,
+      navLinks[]{
         label,
         link {
           type,
@@ -74,21 +73,28 @@ const headerQuery = `*[_type == "settings"][0]{
           }
         },
         icon,
-        image
+        image,
+        children[]{
+          label,
+          link {
+            type,
+            external,
+            internal->{ 
+              "slug": slug.current, 
+              _type 
+            }
+          },
+          icon,
+          image
+        }
       }
     }
-  }
-}`;
+  }`;
 
-const footerQuery = `*[_type == "settings"][0]{footer}`;
+  const footerQuery = `*[_type == "settings" && references(*[_type == "site" && domain == "http://${host}"]._id)][0]{footer}`;
 
-const themeSettingQuery = `*[_type == "themeSettings" && title == "MAUI NŌ KA ʻOI Theme"][0]`;
+  const themeSettingQuery = `*[_type == "themeSettings" && references(*[_type == "site" && domain == "http://${host}"]._id)][0]`;
 
-export default async function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
   const [headerData, themeSettingData, footerData] = await Promise.all([
     getSanityData(headerQuery),
     getSanityData(themeSettingQuery),
@@ -127,9 +133,9 @@ export default async function RootLayout({
       <body className={` antialiased`}>
         {(await draftMode()).isEnabled && <VisualEditing />}
         <EnvironmentBadge />
-        <Header data={headerData?.header} />
+        {headerData?.header && <Header data={headerData?.header} />}
         {children}
-        <Footer data={footerData?.footer} />
+        {footerData?.footer && <Footer data={footerData?.footer} />}
       </body>
     </html>
   );

@@ -1,9 +1,13 @@
 import { ModuleRenderer, RichText } from "@/components";
 import { getSanityData } from "@/lib/helpingFunctions";
 import { stegaClean } from "next-sanity";
+import { headers } from "next/headers";
+import { notFound } from "next/navigation";
 
 export async function generateMetadata() {
-  const pageQuery = `*[_type == "collections"][0]{seo}`;
+  const headerList = await headers();
+  const host = headerList.get("host");
+  const pageQuery = `*[_type == "collections" && references(*[_type == "site" && domain == "http://${host}"]._id)][0]{seo}`;
   const pageData: any = await getSanityData(pageQuery);
 
   return {
@@ -21,7 +25,9 @@ export async function generateMetadata() {
 }
 
 export default async function Collections() {
-  const query = `*[_type == "collections"][0] {
+  const headerList = await headers();
+  const host = headerList.get("host");
+  const query = `*[_type == "collections" && references(*[_type == "site" && domain == "http://${host}"]._id)][0] {
   title,
   titleHighlight,
   description,
@@ -33,8 +39,10 @@ export default async function Collections() {
   }`;
 
   const collectionData: any = await getSanityData(query);
+  if (!collectionData) {
+    return notFound();
+  }
 
-  console.log("AllData", collectionData);
   return (
     <div className="md:min-h-screen pb-10 lg:pb-20">
       <div

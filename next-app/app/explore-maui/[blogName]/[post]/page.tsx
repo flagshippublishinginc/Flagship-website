@@ -18,6 +18,8 @@ import { Metadata } from "next";
 import { stegaClean } from "next-sanity";
 import Image from "next/image";
 import Link from "next/link";
+import { headers } from "next/headers";
+import { notFound } from "next/navigation";
 
 type Props = {
   params: {
@@ -27,12 +29,16 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const headerList = await headers();
+  const host = headerList.get("host");
+
   const { post } = await params;
 
   const blogPostQuery = `
     *[
       _type == "post" &&
-      slug.current == $slug
+      slug.current == $slug &&
+      references(*[_type == "site" && domain == "http://${host}"]._id)
     ][0]{
       seo
     }
@@ -43,9 +49,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
 
   if (!blogPostData) {
-    return {
-      title: "Post not found",
-    };
+    return notFound();
   }
 
   return {
@@ -64,10 +68,44 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-const blogPostQuery = `
+const relatedBlogQuery = `*[
+  _type == "post" &&
+  _id != $currentPostId &&
+  selectBlog._ref == $blogId &&
+  references($categoryIds)
+]
+| order(_createdAt desc)[0...3]{
+  _id,
+  title,
+  description,
+  slug,
+  coverImage,
+  _createdAt,
+  categories[]->{
+    _id,
+    title,
+    slug
+  },
+  selectBlog->{
+  slug,
+  "url":  slug.current },
+  author->{
+    _id,
+    name,
+  },
+}`;
+
+export default async function PostPage({ params }: Props) {
+  const headerList = await headers();
+  const host = headerList.get("host");
+
+  const { post } = await params;
+
+  const blogPostQuery = `
     *[
       _type == "post" &&
-      slug.current == $slug
+      slug.current == $slug &&
+      references(*[_type == "site" && domain == "http://${host}"]._id)
     ][0]{
       _id,
       title,
@@ -99,46 +137,20 @@ const blogPostQuery = `
     }
   `;
 
-const relatedBlogQuery = `*[
-  _type == "post" &&
-  _id != $currentPostId &&
-  selectBlog._ref == $blogId &&
-  references($categoryIds)
-]
-| order(_createdAt desc)[0...3]{
-  _id,
-  title,
-  description,
-  slug,
-  coverImage,
-  _createdAt,
-  categories[]->{
-    _id,
-    title,
-    slug
-  },
-  selectBlog->{
-  slug,
-  "url":  slug.current },
-  author->{
-    _id,
-    name,
-  },
-}`;
-
-export default async function PostPage({ params }: Props) {
-  const { post } = await params;
-
   const blogPostData = await getSanityData(blogPostQuery, {
     slug: post,
   });
 
+  if (!blogPostData) {
+    return notFound();
+  }
+
   console.log("blogPostData", blogPostData);
 
   const relatedBlogData = await getSanityData(relatedBlogQuery, {
-    currentPostId: blogPostData._id,
-    blogId: blogPostData.selectBlog._id,
-    categoryIds: blogPostData.categories.map((category: any) => category._id),
+    currentPostId: blogPostData?._id,
+    blogId: blogPostData?.selectBlog?._id,
+    categoryIds: blogPostData?.categories?.map((category: any) => category._id),
   });
 
   if (!blogPostData) {

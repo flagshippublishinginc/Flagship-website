@@ -12,6 +12,13 @@ export default defineType({
     defineField({name: 'header', title: 'Header', type: 'headerModule'}),
     defineField({name: 'footer', title: 'Footer', type: 'footerModule'}),
     defineField({name: 'seo', title: 'Default SEO', type: 'seo'}),
+    defineField({
+      name: 'site',
+      title: 'Site',
+      type: 'reference',
+      to: [{type: 'site'}],
+      validation: (Rule) => Rule.required(),
+    }),
   ],
   preview: {select: {title: 'siteTitle'}},
 })
