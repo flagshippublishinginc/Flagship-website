@@ -21,30 +21,7 @@ export default defineType({
       to: [{type: 'site'}],
       validation: (Rule) => Rule.required(),
     }),
-
-    // Logos
-    defineField({
-      name: 'logo',
-      title: 'Logos',
-      type: 'object',
-      fields: [
-        defineField({
-          name: 'dark',
-          title: 'Dark Logo (for light backgrounds)',
-          type: 'image',
-          options: {hotspot: true},
-        }),
-        defineField({
-          name: 'light',
-          title: 'Light Logo (for dark backgrounds)',
-          type: 'image',
-          options: {hotspot: true},
-        }),
-      ],
-    }),
-
     // Background Colors
-
     defineField({
       name: 'backgroundSection',
       title: 'Background Colors',

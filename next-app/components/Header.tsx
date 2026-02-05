@@ -2,9 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { urlForImage } from "@/lib/sanity";
 import { stegaClean } from "next-sanity";
+import { motion, AnimatePresence } from "motion/react";
+import { accordionVariants, headerMenuBgVariants } from "@/lib/animation";
 
 interface NavItem {
   label: string;
@@ -29,8 +31,32 @@ interface HeaderProps {
 }
 
 const Header = ({ data }: HeaderProps) => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState<string | null>(null);
+  const [isChildOpen, setIsChildOpen] = useState<string | null>(null);
+
+  const handleMenuOpen = useCallback((id: string) => {
+    setIsMenuOpen((prev) => (prev === id ? null : id));
+    setIsChildOpen(null);
+  }, []);
+
+  const handleChildOpen = useCallback((id: string) => {
+    setIsChildOpen((prev) => (prev === id ? null : id));
+    setIsMenuOpen(null);
+  }, []);
+
+  console.log("data ", data);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const renderLink = (item: NavItem, className: string = "") => {
     const href =
@@ -45,7 +71,7 @@ const Header = ({ data }: HeaderProps) => {
         {item.icon && (
           <Image
             src={urlForImage(item.icon)?.url() || ""}
-            alt=""
+            alt={stegaClean(item.label) || "Icon"}
             width={20}
             height={20}
             className="inline-block mr-2"
@@ -99,54 +125,52 @@ const Header = ({ data }: HeaderProps) => {
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-8">
-          {data?.navLinks?.map((item, index) => (
-            <div
-              key={index}
-              className="relative group"
-              onMouseEnter={() =>
-                item.children && setActiveDropdown(item.label)
-              }
-              onMouseLeave={() => setActiveDropdown(null)}>
-              {renderLink(
-                item,
-                "text-[14px] font-bold uppercase tracking-widest flex items-center hover:text-tertiary py-4",
-              )}
+        {!isMobile && (
+          <nav className="hidden lg:flex items-center gap-4 lg:gap-6 xl:gap-8">
+            {data?.navLinks?.map((item, index) => (
+              <div key={index} className="relative group">
+                {renderLink(
+                  item,
+                  "text-[14px] font-bold uppercase tracking-widest flex items-center hover:text-tertiary py-4",
+                )}
 
-              {item.children && item.children.length > 0 && (
-                <div className="absolute left-0 top-full hidden group-hover:block pt-0 w-max min-w-[200px] shadow-lg">
-                  <div className="bg-tertiary text-white p-4 flex flex-col gap-3">
-                    {item.children.map((child, childIndex) => (
-                      <div key={childIndex} className="flex items-center gap-3">
-                        {child.image && (
-                          <div className="w-12 h-12 relative overflow-hidden shrink-0">
-                            <Image
-                              src={urlForImage(child.image)?.url() || ""}
-                              alt={child.label}
-                              fill
-                              className="object-cover"
-                            />
-                          </div>
-                        )}
-                        <Link
-                          href={
-                            child.link?.type === "external"
-                              ? child.link.external || "#"
-                              : child.link?.internal?.slug
-                                ? `/${child.link.internal.slug}`
-                                : "#"
-                          }
-                          className="text-[13px] font-bold uppercase tracking-wider hover:underline whitespace-nowrap hover:text-white">
-                          {stegaClean(child.label)}
-                        </Link>
-                      </div>
-                    ))}
+                {item.children && item.children.length > 0 && (
+                  <div className="absolute left-0 top-full hidden group-hover:block pt-0 w-max min-w-[200px] shadow-lg">
+                    <div className="bg-tertiary text-white p-4 flex flex-col gap-3">
+                      {item.children.map((child, childIndex) => (
+                        <div
+                          key={childIndex}
+                          className="flex items-center gap-3">
+                          {child.image && (
+                            <div className="w-12 h-12 relative overflow-hidden shrink-0">
+                              <Image
+                                src={urlForImage(child.image)?.url() || ""}
+                                alt={child.label || `Image for ${child.label}`}
+                                fill
+                                className="object-cover"
+                              />
+                            </div>
+                          )}
+                          <Link
+                            href={
+                              child.link?.type === "external"
+                                ? child.link.external || "#"
+                                : child.link?.internal?.slug
+                                  ? `/${child.link.internal.slug}`
+                                  : "#"
+                            }
+                            className="text-[13px] font-bold uppercase tracking-wider hover:underline whitespace-nowrap hover:text-white">
+                            {stegaClean(child.label)}
+                          </Link>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
-          ))}
-        </nav>
+                )}
+              </div>
+            ))}
+          </nav>
+        )}
 
         <div className="header-right flex items-center gap-6 font-medium text-[14px] uppercase tracking-widest">
           <div className="header-search flex items-center gap-2 cursor-pointer hover:text-tertiary">
@@ -181,85 +205,43 @@ const Header = ({ data }: HeaderProps) => {
               1
             </span>
           </div>
-
-          {/* Mobile Menu Toggle */}
-          <button
-            className="lg:hidden"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </button>
         </div>
       </div>
 
       {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 w-full bg-white shadow-xl border-t border-gray-100 p-4">
-          <nav className="flex flex-col gap-4">
-            {data?.navLinks?.map((item, index) => (
-              <div key={index} className="flex flex-col gap-2">
-                <div className="flex items-center justify-between">
-                  {renderLink(
-                    item,
-                    "text-[16px] font-bold uppercase tracking-wider",
-                  )}
-                  {item.children && (
-                    <button
-                      onClick={() =>
-                        setActiveDropdown(
-                          activeDropdown === item.label ? null : item.label,
-                        )
-                      }>
-                      <svg
-                        className={`w-5 h-5 transition-transform ${activeDropdown === item.label ? "rotate-180" : ""}`}
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M19 9l-7 7-7-7"
-                        />
-                      </svg>
-                    </button>
-                  )}
-                </div>
-                {item.children && activeDropdown === item.label && (
-                  <div className="pl-6 flex flex-col gap-3 bg-gray-50 p-3 mt-1">
-                    {item.children.map((child, childIndex) => (
-                      <Link
-                        key={childIndex}
-                        href={
-                          child.link?.type === "external"
-                            ? child.link.external || "#"
-                            : child.link?.internal?.slug
-                              ? `/${child.link.internal.slug}`
-                              : "#"
-                        }
-                        className="text-[14px] uppercase tracking-wider font-medium hover:text-white">
-                        {stegaClean(child.label)}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-          </nav>
-        </div>
-      )}
+      <AnimatePresence>
+        {isMobile && isMenuOpen && (
+          <motion.div
+            variants={headerMenuBgVariants}
+            initial="close"
+            animate="open"
+            exit="close"
+            className="fixed inset-0 w-full bg-primary/32">
+            <div className="flex align-bottom h-full">
+              <nav className="p-6 mt-auto w-full bg-white">
+                <ul className="m-0 p-0 list-none flex justify-between gap-1">
+                  {data?.navLinks?.map((item, index) => (
+                    <li
+                      key={index}
+                      onClick={() => handleMenuOpen(`menu-${index}`)}
+                      className="cursor-pointer">
+                      <Image
+                        src={urlForImage(item.icon)?.url() || ""}
+                        alt={stegaClean(item.label) || "Icon"}
+                        width={24}
+                        height={24}
+                        className="inline-block"
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 };
 
-export default Header;
+export default React.memo(Header);

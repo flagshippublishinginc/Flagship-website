@@ -145,8 +145,6 @@ export default async function PostPage({ params }: Props) {
     return notFound();
   }
 
-  console.log("blogPostData", blogPostData);
-
   const relatedBlogData = await getSanityData(relatedBlogQuery, {
     currentPostId: blogPostData?._id,
     blogId: blogPostData?.selectBlog?._id,

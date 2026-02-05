@@ -59,7 +59,8 @@ const Subscribe: React.FC<SubscribeModule> = ({
                       alt="MAUI magazine"
                       width={625}
                       height={405}
-                      className="w-full"
+                      className="w-full h-auto"
+                      loading="lazy"
                     />
                   </div>
                 </motion.div>
