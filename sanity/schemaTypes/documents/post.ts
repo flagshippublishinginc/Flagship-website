@@ -59,6 +59,9 @@ export default defineType({
         {
           type: 'twoColumnTextWithImage',
         },
+        {
+          type: 'shopifyProductListingModule',
+        },
       ],
     }),
 
@@ -74,6 +77,9 @@ export default defineType({
         },
         {
           type: 'twoColumnTextWithImage',
+        },
+        {
+          type: 'shopifyProductListingModule',
         },
       ],
     }),

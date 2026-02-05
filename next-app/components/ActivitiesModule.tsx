@@ -29,7 +29,7 @@ const ActivitiesModule: React.FC<ActivitiesModuleProps> = ({
                 <div className="imageContent mb-4">
                   {leadArticle.mediaType === "image" && (
                     <Link
-                      href={leadArticle.readLink}
+                      href={leadArticle.readLink || "#"}
                       className="block overflow-hidden">
                       <Image
                         src={urlForImage(leadArticle.image)!.url()}
@@ -58,7 +58,7 @@ const ActivitiesModule: React.FC<ActivitiesModuleProps> = ({
               <div className="textContent">
                 {leadArticle.title && (
                   <h2 className="font-heading mb-4">
-                    <Link href={leadArticle.readLink}>{leadArticle.title}</Link>
+                    <Link href={leadArticle.readLink || "#"}>{leadArticle.title}</Link>
                   </h2>
                 )}
                 {leadArticle.description && (
@@ -79,7 +79,7 @@ const ActivitiesModule: React.FC<ActivitiesModuleProps> = ({
                     <div className="imageContent w-full ">
                       <Link
                         className="group block overflow-hidden"
-                        href={article.readLink}>
+                        href={article.readLink || "#"}>
                         <Image
                           src={urlForImage(article.image)?.url() || ""}
                           alt={stegaClean(article.title)}
@@ -94,7 +94,7 @@ const ActivitiesModule: React.FC<ActivitiesModuleProps> = ({
                     {article.title && (
                       <h5 className="font-heading mb-2 md:mb-4 text-sm md:text-base leading-tight">
                         <Link
-                          href={article.readLink}
+                          href={article.readLink || "#"}
                           className="hover:underline">
                           {article.title}
                         </Link>
@@ -113,8 +113,8 @@ const ActivitiesModule: React.FC<ActivitiesModuleProps> = ({
         </div>
         {buttonText && ButtonUrl && (
           <div className="flex justify-center mt-8 md:mt-14">
-            <Link href={ButtonUrl}>
-              <AnimatedButton text={buttonText} href={ButtonUrl} />
+            <Link href={ButtonUrl || "#"}>
+              <AnimatedButton text={buttonText} href={ButtonUrl || "#"} />
             </Link>
           </div>
         )}

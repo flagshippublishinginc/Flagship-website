@@ -5,6 +5,7 @@ import blogListingPage from './documents/blogListing'
 import post from './documents/post'
 import author from './documents/author'
 import category from './documents/category'
+import collections from './documents/collections'
 import settings from './documents/settings'
 import themeSettings from './documents/themeSettings'
 import site from './documents/site'
@@ -39,7 +40,7 @@ import singleImageModule from './modules/singleImageModule'
 import twoColumnTextWithImage from './modules/twoColumnTextWithImage'
 import nestedFaqModule from './modules/nestedFaqModule'
 import simpleBanner from './modules/simpleBanner'
-import collections from './documents/collections'
+import shopifyProductListingModule from './modules/shopifyProductListingModule'
 
 export const schemaTypes = [
   // documents
@@ -86,4 +87,5 @@ export const schemaTypes = [
   twoColumnTextWithImage,
   nestedFaqModule,
   simpleBanner,
+  shopifyProductListingModule,
 ]

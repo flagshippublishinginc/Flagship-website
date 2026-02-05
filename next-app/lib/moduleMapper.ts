@@ -11,6 +11,7 @@ import {
   CurrentIssue,
   NestedFaqModule,
   SimpleBanner,
+  ShopifyProductListing,
 } from "@/components";
 
 export const moduleMapper: Record<string, React.FC<any>> = {
@@ -26,4 +27,5 @@ export const moduleMapper: Record<string, React.FC<any>> = {
   currentIssueModule: CurrentIssue,
   nestedFaqModule: NestedFaqModule,
   simpleBanner: SimpleBanner,
+  shopifyProductListingModule: ShopifyProductListing,
 };

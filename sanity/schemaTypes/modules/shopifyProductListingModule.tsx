@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineField, defineType } from 'sanity'
 import { ShopifyProductSelector } from '../../components/ShopifyProductSelector'
 
@@ -7,16 +8,6 @@ export default defineType({
     type: 'object',
     fields: [
         defineField({
-            name: 'title',
-            title: 'Module Title',
-            type: 'string',
-        }),
-        defineField({
-            name: 'description',
-            title: 'Module Description',
-            type: 'text',
-        }),
-        defineField({
             name: 'products',
             title: 'Products',
             type: 'array',
@@ -25,15 +16,16 @@ export default defineType({
                     type: 'object',
                     name: 'shopifyProduct',
                     title: 'Shopify Product',
+                    components: {
+                        input: ShopifyProductSelector
+                    },
                     fields: [
                         defineField({
                             name: 'shopifyId',
-                            title: 'Select Shopify Product',
+                            title: 'Shopify Product ID',
                             type: 'string',
-                            components: {
-                                input: ShopifyProductSelector
-                            },
-                            description: 'Select a product from Shopify to auto-fill details',
+                            readOnly: true,
+                            hidden: true,
                         }),
                         defineField({
                             name: 'title',
@@ -72,9 +64,13 @@ export default defineType({
                             return {
                                 title: title || 'New Product',
                                 subtitle: subtitle || 'No price',
-                                // Sanity preview can show external images if matched correctly
-                                // But for standard media preview, it usually expects a Sanity image object.
-                                // We'll just show the text for now.
+                                media: imageUrl ? (
+                                    <img
+                                        src={imageUrl}
+                                        alt={title}
+                                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                    />
+                                ) : null
                             }
                         }
                     }
