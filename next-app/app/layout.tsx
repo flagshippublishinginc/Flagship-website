@@ -63,6 +63,7 @@ export default async function RootLayout({
     header {
       logo,
       navLinks[]{
+      _key,
         label,
         link {
           type,
@@ -73,13 +74,16 @@ export default async function RootLayout({
           }
         },
         icon,
+        hoverIcon,
         image,
         children[]{
+        _key,
           label,
           link {
             type,
             external,
             internal->{ 
+            _id,
               "slug": slug.current, 
               _type 
             }

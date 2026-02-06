@@ -1,4 +1,5 @@
 import type { Variants } from "motion/react";
+import { animate } from "motion/react-client";
 
 export const containerVariants: Variants = {
   initial: {},
@@ -71,6 +72,48 @@ export const headerMenuBgVariants: Variants = {
   },
   open: {
     opacity: 1,
+    transition: { duration: 0.3, ease: "easeIn" },
+  },
+};
+
+export const menuLabelVariants: Variants = {
+  initial: {
+    opacity: 0,
+    x: -24,
+  },
+  animate: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      type: "spring",
+      stiffness: 280,
+      damping: 24,
+      mass: 0.9,
+    },
+  },
+  exit: {
+    opacity: 0,
+    x: -24,
+    transition: {
+      type: "spring",
+      stiffness: 280,
+      damping: 24,
+      mass: 0.9,
+    },
+  },
+};
+
+export const childMenuVariants: Variants = {
+  initial: {
+    opacity: 0,
+    bottom: 0,
+    visibility: "hidden",
+    transition: { duration: 0.25, ease: "easeOut" },
+  },
+  animate: {
+    opacity: 1,
+    bottom: 72,
+    visibility: "visible",
     transition: { duration: 0.3, ease: "easeIn" },
   },
 };

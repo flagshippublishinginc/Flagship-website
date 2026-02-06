@@ -17,12 +17,12 @@
   "dependencies": {
     "@sanity/color-input": "^5.0.0",
     "@sanity/presentation": "^2.0.0",
-    "@sanity/vision": "^5.8.0",
+    "@sanity/vision": "^5.8.1",
     "react": "^19.2.1",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^19.2.1",
-    "sanity": "^5.8.0",
+    "sanity": "^5.8.1",
     "styled-components": "^6.1.18"
   },
   "devDependencies": {

@@ -17,7 +17,7 @@ const TwoColumnImageContent: React.FC<TwoColumnImageContentModule> = ({
   return (
     <section className="section-spacing">
       <div className="container">
-        <div className="section_inner grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6">
+        <div className="section_inner block lg:grid lg:grid-cols-12 gap-8 lg:gap-6">
           <div className="col-span-12 lg:col-span-8">
             <div className="column_heading lg:px-0 block lg:hidden pb-4">
               <h3 className="font-heading">
@@ -38,7 +38,7 @@ const TwoColumnImageContent: React.FC<TwoColumnImageContentModule> = ({
               />
             </div>
           </div>
-          <div className="col-span-12 lg:col-span-4 flex flex-col justify-between gap-4">
+          <div className="col-span-12 mt-8 lg:mt-0 lg:col-span-4 flex flex-col justify-between gap-4">
             <div className="column_heading lg:px-0 py-6 border-t border-b border-background-gray hidden lg:block">
               <h3 className="font-heading">
                 {stegaClean(headingText)}
