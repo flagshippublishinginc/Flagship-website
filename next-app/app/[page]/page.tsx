@@ -39,6 +39,7 @@ const page = async ({ params }: { params: Params }) => {
   const host = headerList.get("host");
   const pageQuery = `*[_type == "page" && slug.current == "${page}" && references(*[_type == "site" && domain == "http://${host}"]._id)][0]{modules[]}`;
   const pageData: any = await getSanityData(pageQuery);
+  console.log(pageData);
 
   if (!pageData) {
     return notFound();

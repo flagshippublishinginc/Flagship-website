@@ -27,5 +27,12 @@ export default defineType({
     {type: 'classicsModule'},
     {type: 'galleryModule'},
     {type: 'simpleBanner'},
+    {type: 'teamMembers'},
+    {type: 'bannerWithBottomContent'},
+    {type: 'introWithImages'},
+    {type: 'coverageOverview'},
+    {type: 'miniGallery'},
+    {type: 'ctaCardsSection'},
+    {type: 'formContent'},
   ],
 })

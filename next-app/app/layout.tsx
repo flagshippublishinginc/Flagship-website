@@ -70,7 +70,8 @@ export default async function RootLayout({
           external,
           internal->{ 
             "slug": slug.current, 
-            _type 
+            _type ,
+            "selectedBlog": select( _type == "post" => selectBlog->{ "slug": slug.current }, null )
           }
         },
         icon,
@@ -85,7 +86,8 @@ export default async function RootLayout({
             internal->{ 
             _id,
               "slug": slug.current, 
-              _type 
+              _type,
+              "selectedBlog": select( _type == "post" => selectBlog->{ "slug": slug.current }, null )
             }
           },
           icon,
@@ -95,7 +97,47 @@ export default async function RootLayout({
     }
   }`;
 
-  const footerQuery = `*[_type == "site" && domain == "http://${host}"][0]{footer}`;
+  const footerQuery = `*[_type == "site" && domain == "http://${host}"][0]{footer{
+    logo,
+    description,
+    quickLinks[]{
+      type,
+      external,
+      internal->{ 
+            "slug": slug.current, 
+            _type ,
+            "selectedBlog": select( _type == "post" => selectBlog->{ "slug": slug.current }, null )
+          },
+      label,
+      type
+    },
+    readerServices[]{
+      type,
+      external,
+      internal->{ 
+            "slug": slug.current, 
+            _type ,
+            "selectedBlog": select( _type == "post" => selectBlog->{ "slug": slug.current }, null )
+          },
+      label,
+      type
+    },
+    newsletterTitle,
+    newsletterDescription,
+    socialLinks,
+    legalLinks[]{
+      type,
+      external,
+      internal->{ 
+            "slug": slug.current, 
+            _type ,
+            "selectedBlog": select( _type == "post" => selectBlog->{ "slug": slug.current }, null )
+          },
+      label,
+      type
+    },
+    copyright,
+  }}`;
 
   const themeSettingQuery = `*[_type == "themeSettings" && references(*[_type == "site" && domain == "http://${host}"]._id)][0]`;
 

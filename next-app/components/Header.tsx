@@ -22,6 +22,9 @@ interface NavItem {
     internal?: {
       slug: string;
       _type: string;
+      selectedBlog?: {
+        slug: string;
+      };
     };
   };
   icon?: any;
@@ -34,6 +37,18 @@ interface HeaderProps {
   data?: {
     logo?: any;
     navLinks?: NavItem[];
+  };
+}
+
+interface LinkType {
+  type: "internal" | "external";
+  external?: string;
+  internal?: {
+    selectedBlog?: {
+      slug: string;
+    };
+    slug: string;
+    _type: string;
   };
 }
 
@@ -58,12 +73,18 @@ const Header: React.FC<HeaderProps> = ({ data }) => {
   }, []);
 
   const renderLink = (item: NavItem, className = "") => {
-    const href =
-      item.link?.type === "external"
-        ? item.link.external
-        : item.link?.internal?.slug
-          ? `/${item.link.internal.slug}`
-          : "#";
+    let href = null;
+    let linkType = stegaClean(item.link?.type);
+    if (linkType === "external") {
+      href = stegaClean(item.link?.external);
+    } else if (linkType === "internal") {
+      const pageType = stegaClean(item.link?.internal?._type);
+      if (pageType === "post") {
+        href = `/explore-maui/${item.link?.internal?.selectedBlog?.slug}/${item.link?.internal?.slug}`;
+      } else {
+        href = `/${item.link?.internal?.slug}`;
+      }
+    }
 
     return (
       <Link href={href || "#"} className={className}>
@@ -79,6 +100,22 @@ const Header: React.FC<HeaderProps> = ({ data }) => {
         <span>{stegaClean(item.label)}</span>
       </Link>
     );
+  };
+
+  const resolveLink = (child: NavItem) => {
+    let href = null;
+    let linkType = stegaClean(child.link?.type);
+    if (linkType === "external") {
+      href = stegaClean(child.link?.external || "");
+    } else if (linkType === "internal") {
+      const pageType = stegaClean(child.link?.internal?._type);
+      if (pageType === "post") {
+        href = `/explore-maui/${child.link?.internal?.selectedBlog?.slug || ""}/${child.link?.internal?.slug || ""}`;
+      } else {
+        href = `/${child.link?.internal?.slug || ""}`;
+      }
+    }
+    return href || "/";
   };
 
   return (
@@ -107,35 +144,33 @@ const Header: React.FC<HeaderProps> = ({ data }) => {
         {/* Desktop Navigation */}
         {!isMobile && (
           <nav className="hidden lg:flex gap-6">
-            {data?.navLinks?.map((item) => (
-              <div key={item._key} className="relative group">
-                {renderLink(
-                  item,
-                  "text-[14px] font-bold uppercase tracking-widest py-4 flex items-center hover:text-tertiary",
-                )}
+            {data?.navLinks?.map((item) => {
+              return (
+                <div key={item._key} className="relative group">
+                  {renderLink(
+                    item,
+                    "text-[14px] font-bold uppercase tracking-widest py-4 flex items-center hover:text-tertiary",
+                  )}
 
-                {item.children?.length && (
-                  <div className="absolute left-0 top-full hidden group-hover:block min-w-[200px] shadow-lg">
-                    <div className="bg-tertiary text-white p-4 flex flex-col gap-3">
-                      {item.children.map((child) => (
-                        <Link
-                          key={child._key}
-                          href={
-                            child.link?.type === "external"
-                              ? child.link.external || "#"
-                              : child.link?.internal?.slug
-                                ? `/${child.link.internal.slug}`
-                                : "#"
-                          }
-                          className="text-[13px] font-bold uppercase tracking-wider hover:underline">
-                          {stegaClean(child.label)}
-                        </Link>
-                      ))}
+                  {item.children?.length && (
+                    <div className="absolute left-0 top-full hidden group-hover:block min-w-[200px] shadow-lg">
+                      <div className="bg-tertiary text-white p-4 flex flex-col gap-3">
+                        {item.children.map((child) => {
+                          return (
+                            <Link
+                              key={child._key}
+                              href={resolveLink(child as any)}
+                              className="text-[13px] font-bold uppercase tracking-wider hover:underline hover:text-white">
+                              {stegaClean(child.label)}
+                            </Link>
+                          );
+                        })}
+                      </div>
                     </div>
-                  </div>
-                )}
-              </div>
-            ))}
+                  )}
+                </div>
+              );
+            })}
           </nav>
         )}
 
@@ -211,7 +246,9 @@ const Header: React.FC<HeaderProps> = ({ data }) => {
                             animate="animate"
                             exit="exit"
                             className="text-tertiary font-medium">
-                            {stegaClean(item.label)}
+                            <Link href={resolveLink(item as any)}>
+                              {stegaClean(item.label)}
+                            </Link>
                           </motion.span>
                         )}
                       </div>
@@ -244,22 +281,20 @@ const Header: React.FC<HeaderProps> = ({ data }) => {
                         </button>
                       </div>
                       <ul className="py-10 px-4 bg-white">
-                        {activeItem.children.map((child) => (
-                          <li
-                            key={child._key}
-                            className="not-last:pb-6 not-last:border-b border-background-gray not-first:pt-6">
-                            <Link
-                              href={
-                                child.link?.type === "external"
-                                  ? child.link.external!
-                                  : `/${child.link?.internal?.slug || ""}`
-                              }
-                              className="block text-primary font-bold uppercase"
-                              onClick={() => setActiveParentId(null)}>
-                              {stegaClean(child.label)}
-                            </Link>
-                          </li>
-                        ))}
+                        {activeItem.children.map((child) => {
+                          return (
+                            <li
+                              key={child._key}
+                              className="not-last:pb-6 not-last:border-b border-background-gray not-first:pt-6">
+                              <Link
+                                href={resolveLink(child)}
+                                className="block text-primary font-bold uppercase"
+                                onClick={() => setActiveParentId(null)}>
+                                {stegaClean(child.label)}
+                              </Link>
+                            </li>
+                          );
+                        })}
                       </ul>
                     </motion.div>
                   );

@@ -40,6 +40,13 @@ import twoColumnTextWithImage from './modules/twoColumnTextWithImage'
 import nestedFaqModule from './modules/nestedFaqModule'
 import simpleBanner from './modules/simpleBanner'
 import collections from './documents/collections'
+import teamMember from './modules/teamMember'
+import bannerWithBottomContent from './modules/bannerWithBottomContent'
+import introWithImages from './modules/introWithImages'
+import coverageOverview from './modules/coverageOverview'
+import miniGallery from './modules/miniGallery'
+import ctaCardsSection from './modules/ctaCardsSection'
+import formContent from './modules/formFields'
 
 export const schemaTypes = [
   // documents
@@ -86,4 +93,11 @@ export const schemaTypes = [
   twoColumnTextWithImage,
   nestedFaqModule,
   simpleBanner,
+  teamMember,
+  bannerWithBottomContent,
+  introWithImages,
+  coverageOverview,
+  miniGallery,
+  ctaCardsSection,
+  formContent,
 ]
