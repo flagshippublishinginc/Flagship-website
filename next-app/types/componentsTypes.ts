@@ -350,14 +350,13 @@ export type FieldType =
   | "select"
   | "radio"
   | "checkbox"
-  | "file"
-  | "image"
   | "url"
   | "textarea";
 
 export interface FormField {
   label: string;
   type: FieldType;
+  name: string;
   required?: boolean;
   defaultValue?: string;
   placeholder?: string;
@@ -373,4 +372,53 @@ export interface RowLayout {
 export interface DynamicFormModule extends BaseModule {
   _type: "dynamicForm";
   rowLayout: RowLayout[];
+  formButtonText: string;
+}
+
+export interface ContactUsModule extends BaseModule {
+  _type: "contactUsModule";
+  leftColumnContent: LeftColumnContent[];
+  rightColumnContent: RightColumnContent[];
+}
+
+export interface LeftColumnContent {
+  _type: "leftColumnContent";
+  topContent: RichTextModule;
+  bottomContent: RichTextModule;
+  socialLinks: {
+    icon: SanityImage;
+    altText: string;
+    link: string;
+    _key: string;
+  }[];
+}
+
+export interface FormFieldsWrapper {
+  _type: "formFields";
+  rowLayout: RowLayout[];
+}
+
+export interface RightColumnContent {
+  _type: "rightColumnContent";
+  formFields: FormFieldsWrapper;
+  formButtonText: string;
+  formTitle: string;
+  formDescription: string;
+  bottomContent: bottomContentItems[];
+}
+
+export interface bottomContentItems {
+  contentItems: {
+    _key?: string;
+    iconImage: SanityImage;
+    title: string;
+    rowContent: {
+      _key?: string;
+      contentType: "text" | "image";
+      label?: string;
+      text?: string;
+      image?: SanityImage;
+      imageAltText?: string;
+    }[];
+  }[];
 }

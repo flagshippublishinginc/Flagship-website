@@ -218,7 +218,7 @@ const Header: React.FC<HeaderProps> = ({ data }) => {
             ref={mobileMenuRef}
             className="fixed bottom-0 left-0 w-full bg-primary/30  z-50">
             <nav className="p-6 relative z-50 bg-white shadow-[0px_-8px_11px_0px_#3C3C3C12]">
-              <ul className="flex justify-between">
+              <ul className="flex justify-between list-none">
                 {data?.navLinks?.map((item) => {
                   const isActive = activeParentId === item._key;
 
@@ -280,7 +280,7 @@ const Header: React.FC<HeaderProps> = ({ data }) => {
                           <CgClose width={24} height={24} color="#ffffff" />
                         </button>
                       </div>
-                      <ul className="py-10 px-4 bg-white">
+                      <ul className="py-10 px-4 bg-white list-none">
                         {activeItem.children.map((child) => {
                           return (
                             <li

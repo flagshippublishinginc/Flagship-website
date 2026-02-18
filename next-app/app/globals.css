@@ -98,7 +98,10 @@ body {
   input,
   textarea,
   select {
-    @apply w-full p-2 border border-background-gray rounded-md;
+    @apply w-full p-2 md:py-5 md:px-3 border border-background-gray rounded-none text-[16px];
+  }
+  input {
+    @apply bg-[#F8F6F3] outline-none;
   }
 }
 
@@ -119,7 +122,7 @@ body {
 
 /* Button styles: */
 .btn-primary {
-  @apply bg-transparent text-primary py-3 px-8 transition duration-400 font-bold border border-tertiary hover:bg-tertiary hover:text-white cursor-pointer inline-block;
+  @apply bg-transparent text-primary py-2 px-3 md:py-5 md:px-6 transition duration-400 font-bold border border-tertiary hover:bg-tertiary hover:text-white cursor-pointer inline-block;
 }
 
 /* Link styles */

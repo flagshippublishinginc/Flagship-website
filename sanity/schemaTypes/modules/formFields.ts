@@ -61,15 +61,31 @@ export default defineType({
                           {title: 'Select', value: 'select'},
                           {title: 'Radio', value: 'radio'},
                           {title: 'Checkbox', value: 'checkbox'},
-                          {title: 'File', value: 'file'},
-                          {title: 'Image', value: 'image'},
                           {title: 'URL', value: 'url'},
                           {title: 'Text Area', value: 'textarea'},
                         ],
                       },
                       validation: (Rule) => Rule.required(),
+                      initialValue: 'text',
                     },
-
+                    {
+                      name: 'name',
+                      title: 'Field name (identifier)',
+                      type: 'slug',
+                      description: 'Used as key in form submission – auto-suggested from type',
+                      options: {
+                        source: (doc, {parent}) => {
+                          return (parent as {label?: string | undefined})?.label || ''
+                        },
+                        slugify: (input) =>
+                          input
+                            .toLowerCase()
+                            .replace(/\s+/g, '-')
+                            .replace(/[^\w\-]+/g, '')
+                            .slice(0, 96),
+                      },
+                      validation: (Rule) => Rule.required(),
+                    },
                     {
                       name: 'required',
                       title: 'Required',

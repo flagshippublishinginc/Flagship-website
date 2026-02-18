@@ -31,3 +31,6 @@ export { default as MiniGallery } from "./MiniGallery";
 export { default as TeamMembers } from "./TeamMembers";
 export { default as CtaCardSection } from "./CtaCardSection";
 export { default as DynamicForm } from "./DynamicForm";
+export { default as ContactUsComponent } from "./ContactUsComponent";
+export { default as DynamicCustomForm } from "./DynamicCustomForm";
+export { default as FormField } from "./FormField";

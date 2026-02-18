@@ -47,6 +47,7 @@ import coverageOverview from './modules/coverageOverview'
 import miniGallery from './modules/miniGallery'
 import ctaCardsSection from './modules/ctaCardsSection'
 import formContent from './modules/formFields'
+import contactUsModule from './modules/ContactUsModule'
 
 export const schemaTypes = [
   // documents
@@ -100,4 +101,5 @@ export const schemaTypes = [
   miniGallery,
   ctaCardsSection,
   formContent,
+  contactUsModule,
 ]

@@ -18,6 +18,7 @@ import {
   TeamMembers,
   CtaCardSection,
   DynamicForm,
+  ContactUsComponent,
 } from "@/components";
 
 export const moduleMapper: Record<string, React.FC<any>> = {
@@ -40,4 +41,5 @@ export const moduleMapper: Record<string, React.FC<any>> = {
   teamMembers: TeamMembers,
   ctaCardsSection: CtaCardSection,
   formContent: DynamicForm,
+  contactUsModule: ContactUsComponent,
 };

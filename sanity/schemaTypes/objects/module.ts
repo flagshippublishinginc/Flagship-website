@@ -34,5 +34,6 @@ export default defineType({
     {type: 'miniGallery'},
     {type: 'ctaCardsSection'},
     {type: 'formContent'},
+    {type: 'contactUsModule'},
   ],
 })
