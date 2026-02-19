@@ -8,26 +8,28 @@ const components = {
       return <p className="mb-4 leading-relaxed">{children}</p>;
     },
     h1: ({ children }: any) => {
-      return <h1 className="mb-6 leading-relaxed">{children}</h1>;
+      return <h1 className="mb-6 leading-relaxed text-tertiary">{children}</h1>;
     },
     h2: ({ children }: any) => {
-      return <h2 className="mb-6 leading-relaxed">{children}</h2>;
+      return <h2 className="mb-6 leading-relaxed text-tertiary">{children}</h2>;
     },
     h3: ({ children }: any) => {
-      return <h3 className="mb-6 leading-relaxed">{children}</h3>;
+      return <h3 className="mb-6 leading-relaxed text-tertiary">{children}</h3>;
     },
     h4: ({ children }: any) => {
-      return <h4 className="mb-6 leading-relaxed">{children}</h4>;
+      return <h4 className="mb-6 leading-relaxed text-tertiary">{children}</h4>;
     },
     h5: ({ children }: any) => {
-      return <h5 className="mb-6 leading-relaxed">{children}</h5>;
+      return <h5 className="mb-6 leading-relaxed text-tertiary">{children}</h5>;
     },
     h6: ({ children }: any) => {
-      return <h6 className="mb-6 leading-relaxed">{children}</h6>;
+      return <h6 className="mb-6 leading-relaxed text-tertiary">{children}</h6>;
     },
     blockquote: ({ children }: any) => {
       return (
-        <blockquote className="mb-6 leading-relaxed">{children}</blockquote>
+        <blockquote className="mb-6 leading-relaxed text-tertiary">
+          {children}
+        </blockquote>
       );
     },
   },
@@ -86,7 +88,7 @@ const components = {
 
 const RichText: React.FC<RichTextModule> = ({ content, className }: any) => {
   return (
-    <section className={`${className}`}>
+    <section className={`section-spacing ${className}`}>
       <div className="container">
         <div className="richText_wrapper w-full max-w-full">
           <PortableText value={content} components={components} />

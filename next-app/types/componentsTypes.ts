@@ -252,3 +252,174 @@ export interface SimpleBannerModule extends BaseModule {
   buttonLink: string;
   contentAlignment: string;
 }
+
+export interface BannerWithBottomContentModule extends BaseModule {
+  _type: "bannerWithBottomContent";
+  addBottomContent: boolean;
+  addButton: boolean;
+  buttonText: string;
+  buttonLink: string;
+  buttonAlignment: string;
+  topTextContent: any;
+  textContent: string;
+  image: SanityImage;
+  imageAlt: string;
+  textBackgroundColor: string;
+  textColor: string;
+  contentMaxWidth: number;
+}
+
+export interface IntroWithImagesModule extends BaseModule {
+  _type: "introWithImages";
+  headingText: string;
+  headingHighlight: string;
+  textContent: any;
+  addImages: {
+    image: SanityImage;
+    alt: string;
+  }[];
+  addButton: boolean;
+  buttonText: string;
+  buttonLink: string;
+}
+
+export interface CoverageOverviewModule extends BaseModule {
+  _type: "coverageOverview";
+  heading: string;
+  headingBackgroundColor: string;
+  headingColor: string;
+  title: string;
+  titleHighlight: string;
+  listItems: {
+    iconImage: SanityImage;
+    text: string;
+  }[];
+}
+
+export interface MiniGalleryModule extends BaseModule {
+  _type: "miniGallery";
+  heading: string;
+  highlightedHeadingText: string;
+  images: {
+    image: SanityImage;
+    altText: string;
+  }[];
+  buttonText: string;
+  buttonLink: string;
+}
+
+export interface TeamMemberModule extends BaseModule {
+  _type: "teamMembers";
+  headingHighlight: string;
+  heading: string;
+  teamMembers: {
+    _key?: string;
+    name: string;
+    image: SanityImage;
+    designation: string;
+  }[];
+}
+
+export interface LinkType {
+  _type: string;
+  label: string;
+  external: string;
+  internal: any;
+  type: string;
+}
+
+export interface CtaCardSectionModule extends BaseModule {
+  _type: "ctaCardsSection";
+  title: string;
+  highlightedText: string;
+  titleTextAlignment: string;
+  ctaCards: {
+    _key?: string;
+    link: LinkType;
+    description: string;
+  }[];
+}
+
+export type FieldType =
+  | "text"
+  | "email"
+  | "phone"
+  | "number"
+  | "date"
+  | "datetime"
+  | "select"
+  | "radio"
+  | "checkbox"
+  | "url"
+  | "textarea";
+
+export interface FormField {
+  label: string;
+  type: FieldType;
+  name: string;
+  required?: boolean;
+  defaultValue?: string;
+  placeholder?: string;
+  options?: string[]; // for select dropdowns
+  radioValues?: string[]; // for radio buttons
+  defaultChecked?: boolean;
+}
+
+export interface RowLayout {
+  columnType: "one" | "two" | "three";
+  formFields: FormField[];
+}
+
+export interface DynamicFormModule extends BaseModule {
+  _type: "dynamicForm";
+  rowLayout: RowLayout[];
+  formButtonText: string;
+}
+
+export interface ContactUsModule extends BaseModule {
+  _type: "contactUsModule";
+  leftColumnContent: LeftColumnContent[];
+  rightColumnContent: RightColumnContent[];
+}
+
+export interface LeftColumnContent {
+  _type: "leftColumnContent";
+  topContent: RichTextModule;
+  bottomContent: RichTextModule;
+  socialLinks: {
+    icon: SanityImage;
+    altText: string;
+    link: string;
+    _key: string;
+  }[];
+}
+
+export interface FormFieldsWrapper {
+  _type: "formFields";
+  rowLayout: RowLayout[];
+}
+
+export interface RightColumnContent {
+  _type: "rightColumnContent";
+  formFields: FormFieldsWrapper;
+  formButtonText: string;
+  formTitle: string;
+  formDescription: string;
+  bottomContent: bottomContentItems[];
+}
+
+export interface bottomContentItems {
+  contentItems: {
+    _key?: string;
+    iconImage: SanityImage;
+    title: string;
+    rowContent: {
+      _key?: string;
+      contentType: "text" | "image";
+      label?: string;
+      text?: string;
+      image?: SanityImage;
+      imageAltText?: string;
+    }[];
+  }[];
+}

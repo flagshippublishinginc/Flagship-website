@@ -2,6 +2,14 @@ import { GalleryModule } from "@/types/componentsTypes";
 import AnimatedButton from "./AnimatedButton";
 import { stegaClean } from "next-sanity";
 import { urlForImage } from "@/lib/sanity";
+import * as motion from "motion/react-client";
+import {
+  contentFromBottomVarient,
+  contentScaleUpVarient,
+  imageFadeInVarient,
+  parentContainerVarient,
+  textFromLeftSpringVarient,
+} from "@/lib/animation";
 
 const LAYOUT = [
   { col: "md:col-span-2", row: "md:row-span-3" },
@@ -23,14 +31,21 @@ const Gallery: React.FC<GalleryModule> = ({
   buttonLink,
 }) => {
   return (
-    <section className="section-spacing">
-      <div className="container">
+    <section className="section-spacing overflow-hidden">
+      <motion.div
+        variants={parentContainerVarient}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true }}
+        className="container">
         {headingText || headingHighlight ? (
           <div className="section_title mx-[-12px] lg:mx-0 pb-3 border-b border-background-gray">
-            <h2 className="font-heading px-3">
+            <motion.h2
+              variants={textFromLeftSpringVarient}
+              className="font-heading px-3">
               {headingText}{" "}
               <span className="text-tertiary">{headingHighlight}</span>
-            </h2>
+            </motion.h2>
           </div>
         ) : (
           ""
@@ -46,13 +61,18 @@ const Gallery: React.FC<GalleryModule> = ({
                   className={`${layout.col ?? ""} ${layout.row ?? ""} ${item.itemType == "image" ? "order-1" : "order-0"}`}>
                   {item.itemType == "image" && (
                     <div className="flex items-center justify-center h-full relative group overflow-hidden ">
-                      <img
-                        src={urlForImage(item.image)?.url()}
-                        alt={
-                          stegaClean(item.title) || `Gallery Image ${index + 1}`
-                        }
-                        className="w-full h-full object-cover transform transition-transform duration-300 lg:group-hover:scale-110"
-                      />
+                      <motion.div
+                        variants={imageFadeInVarient}
+                        className="w-full h-full">
+                        <img
+                          src={urlForImage(item.image)?.url()}
+                          alt={
+                            stegaClean(item.title) ||
+                            `Gallery Image ${index + 1}`
+                          }
+                          className="w-full h-full object-cover transform transition-transform duration-300 lg:group-hover:scale-110"
+                        />
+                      </motion.div>
                       <div className="absolute inset-0 bg-black opacity-0 sm:group-hover:opacity-20 transition-opacity duration-300 ease-in-out"></div>
                       {item.title && item.location && (
                         <div className="absolute w-full -bottom-full sm:group-hover:bottom-0 transition-all duration-400 ease-in-out px-6 pb-4">
@@ -73,9 +93,11 @@ const Gallery: React.FC<GalleryModule> = ({
                   )}
                   {item.itemType == "text" && (
                     <div className="flex items-center justify-center h-full">
-                      <h3 className="text-tertiary text-[24px] lg:text-[32px] text-center">
+                      <motion.h3
+                        variants={contentScaleUpVarient}
+                        className="text-tertiary text-[24px] lg:text-[32px] text-center">
                         {item?.textContent}
-                      </h3>
+                      </motion.h3>
                     </div>
                   )}
                 </div>
@@ -84,11 +106,13 @@ const Gallery: React.FC<GalleryModule> = ({
           </div>
         </div>
         {buttonText && buttonLink && (
-          <div className="mt-6 md:mt-14 flex justify-center">
+          <motion.div
+            variants={contentFromBottomVarient}
+            className="mt-6 md:mt-14 flex justify-center">
             <AnimatedButton text={buttonText} href={buttonLink} />
-          </div>
+          </motion.div>
         )}
-      </div>
+      </motion.div>
     </section>
   );
 };

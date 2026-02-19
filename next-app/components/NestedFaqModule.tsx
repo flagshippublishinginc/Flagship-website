@@ -6,6 +6,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useCallback } from "react";
 import { accordionVariants } from "@/lib/animation";
+import slugify from "slugify";
 
 const NestedFaqModule: React.FC<NestedFaqModuleType> = ({ faqs }) => {
   const [openParent, setOpenParent] = useState<string | null>(null);
@@ -26,12 +27,16 @@ const NestedFaqModule: React.FC<NestedFaqModuleType> = ({ faqs }) => {
         <div className="grid grid-cols-1 gap-8 lg:gap-12">
           {faqs?.map((faq) => {
             const isParentOpen = openParent === faq._key;
+            const id = slugify(faq.title || "", {
+              lower: true,
+              strict: true,
+            });
             return (
-              <div key={faq._key} className=" ">
+              <div key={faq._key} id={id}>
                 <button
                   type="button"
                   onClick={() => parentHandler(faq._key!)}
-                  className="group flex w-full items-center justify-between py-4 text-left transition-colors hover:text-primary focus:outline-none cursor-pointer border-tertiary border-b">
+                  className={`group flex w-full items-center justify-between py-4 text-left transition-colors focus:outline-none cursor-pointer border-tertiary border-b ${isParentOpen ? "text-tertiary" : "text-primary"}`}>
                   <h3 className="text-[20px] font-semibold">{faq.title}</h3>
                   <motion.span
                     animate={{ rotate: isParentOpen ? 180 : 0 }}

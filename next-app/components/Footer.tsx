@@ -1,11 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { urlForImage } from "@/lib/sanity";
+import { stegaClean } from "next-sanity";
 
 interface LinkType {
   type: "internal" | "external";
   external?: string;
   internal?: {
+    selectedBlog?: {
+      slug: string;
+    };
     slug: string;
     _type: string;
   };
@@ -50,12 +54,19 @@ const Footer = ({ data }: FooterProps) => {
   } = data;
 
   const resolveLink = (link: LinkType) => {
-    if (link.type === "external" && link.external) return link.external;
-    if (link.type === "internal" && link.internal) {
-      // Basic slug resolution - adjust based on your routing
-      return `/${link.internal.slug}`;
+    let href = null;
+    const linkType = stegaClean(link.type);
+    if (linkType === "external") {
+      href = stegaClean(link.external);
+    } else {
+      const internalType = stegaClean(link.internal?._type);
+      if (internalType === "page") {
+        href = `/${stegaClean(link.internal?.slug)}`;
+      } else {
+        href = `/explore-maui/${stegaClean(link.internal?.selectedBlog?.slug)}/${stegaClean(link.internal?.slug)}`;
+      }
     }
-    return "/";
+    return href || "#";
   };
 
   return (
@@ -110,7 +121,7 @@ const Footer = ({ data }: FooterProps) => {
                 <li key={idx}>
                   <Link
                     href={resolveLink(item)}
-                    className="text-[14px] font-medium text-white hover:opacity-80 transition-opacity">
+                    className="text-[14px] text-white hover:opacity-80 transition-opacity">
                     {item.label}
                   </Link>
                 </li>

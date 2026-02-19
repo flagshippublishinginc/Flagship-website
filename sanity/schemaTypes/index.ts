@@ -5,10 +5,10 @@ import blogListingPage from './documents/blogListing'
 import post from './documents/post'
 import author from './documents/author'
 import category from './documents/category'
-import collections from './documents/collections'
 import settings from './documents/settings'
 import themeSettings from './documents/themeSettings'
 import site from './documents/site'
+import collections from './documents/collections'
 
 import seo from './objects/seo'
 import links from './objects/links'
@@ -40,6 +40,14 @@ import singleImageModule from './modules/singleImageModule'
 import twoColumnTextWithImage from './modules/twoColumnTextWithImage'
 import nestedFaqModule from './modules/nestedFaqModule'
 import simpleBanner from './modules/simpleBanner'
+import teamMember from './modules/teamMember'
+import bannerWithBottomContent from './modules/bannerWithBottomContent'
+import introWithImages from './modules/introWithImages'
+import coverageOverview from './modules/coverageOverview'
+import miniGallery from './modules/miniGallery'
+import ctaCardsSection from './modules/ctaCardsSection'
+import formContent from './modules/formFields'
+import contactUsModule from './modules/ContactUsModule'
 import shopifyProductListingModule from './modules/shopifyProductListingModule'
 
 export const schemaTypes = [
@@ -50,10 +58,10 @@ export const schemaTypes = [
   post,
   author,
   category,
-  collections,
   settings,
   themeSettings,
   site,
+  collections,
 
   // objects
   seo,
@@ -87,5 +95,13 @@ export const schemaTypes = [
   twoColumnTextWithImage,
   nestedFaqModule,
   simpleBanner,
+  teamMember,
+  bannerWithBottomContent,
+  introWithImages,
+  coverageOverview,
+  miniGallery,
+  ctaCardsSection,
+  formContent,
+  contactUsModule,
   shopifyProductListingModule,
 ]

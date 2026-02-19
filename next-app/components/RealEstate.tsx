@@ -8,6 +8,13 @@ import { AutoScroll } from "@splidejs/splide-extension-auto-scroll";
 import { RealEstateModule as RealEstateModuleProps } from "@/types/componentsTypes";
 import { urlForImage } from "@/lib/sanity";
 import { stegaClean } from "@sanity/client/stega";
+import { motion } from "motion/react";
+import {
+  contentFromLeftVarient,
+  contentFromRightVarient,
+  parentContainerVarient,
+  textFromLeftSpringVarient,
+} from "@/lib/animation";
 
 const RealEstateModule: React.FC<RealEstateModuleProps> = ({
   headingHighlight,
@@ -40,17 +47,31 @@ const RealEstateModule: React.FC<RealEstateModuleProps> = ({
   } as any;
   return (
     <section className="section-spacing">
-      <div className="container">
-        <div className="section_title pb-3 mx-[-12px] lg:mx-0  border-b border-background-gray">
-          <h2 className="font-heading px-3">
+      <div className="container overflow-hidden">
+        <motion.div
+          variants={parentContainerVarient}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          className="section_title pb-3 mx-[-12px] lg:mx-0  border-b border-background-gray">
+          <motion.h2
+            variants={textFromLeftSpringVarient}
+            className="font-heading px-3">
             {headingText}{" "}
             <span className="text-tertiary">{headingHighlight}</span>
-          </h2>
-        </div>
+          </motion.h2>
+        </motion.div>
         <div className="flex flex-wrap border-b border-background-gray">
           <div className="leadArticle-item w-full lg:w-[60%] border-b lg:border-b-0 md:border-r border-background-gray">
-            <div className="py-3 md:p-6">
-              <div className="featured_img overflow-hidden">
+            <motion.div
+              variants={parentContainerVarient}
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true }}
+              className="py-3 md:p-6">
+              <motion.div
+                variants={contentFromLeftVarient}
+                className="featured_img overflow-hidden">
                 <Image
                   src={urlForImage(featuredImage)!.url()}
                   alt={stegaClean(featuredTitle)}
@@ -58,17 +79,25 @@ const RealEstateModule: React.FC<RealEstateModuleProps> = ({
                   height={316}
                   className="h-full w-full object-cover transform transition-transform duration-300 lg:hover:scale-110"
                 />
-              </div>
-              <div className="featured_title pt-3">
+              </motion.div>
+              <motion.div
+                variants={contentFromLeftVarient}
+                className="featured_title pt-3">
                 <h2 className="font-heading mb-4">{featuredTitle}</h2>
                 <p className="text-secondary mb-0">{featuredDescription}</p>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
-          <div className="sidebarArticles-item w-full lg:w-[40%] ">
+          <motion.div
+            variants={parentContainerVarient}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            className="sidebarArticles-item w-full lg:w-[40%] ">
             {sidebarArticles?.map((item, index) => {
               return (
-                <div
+                <motion.div
+                  variants={contentFromRightVarient}
                   key={index}
                   className={`grid grid-cols-[4fr_6fr] lg:grid-cols-[6fr_4fr] items-center lg:items-start gap-4 py-3 md:p-6 ${index === sidebarArticles.length - 1 ? "not-first:border-t border-background-gray" : ""}`}>
                   <div className="image_content overflow-hidden">
@@ -86,10 +115,10 @@ const RealEstateModule: React.FC<RealEstateModuleProps> = ({
                       {stegaClean(item.description)}
                     </p>
                   </div>
-                </div>
+                </motion.div>
               );
             })}
-          </div>
+          </motion.div>
         </div>
       </div>
       <div className="slider-wrapper pt-6 overflow-hidden">

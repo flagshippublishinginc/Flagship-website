@@ -11,6 +11,14 @@ import {
   CurrentIssue,
   NestedFaqModule,
   SimpleBanner,
+  BannerWithBottomContent,
+  IntroWithImages,
+  CoverageOverview,
+  MiniGallery,
+  TeamMembers,
+  CtaCardSection,
+  DynamicForm,
+  ContactUsComponent,
   ShopifyProductListing,
 } from "@/components";
 
@@ -27,5 +35,13 @@ export const moduleMapper: Record<string, React.FC<any>> = {
   currentIssueModule: CurrentIssue,
   nestedFaqModule: NestedFaqModule,
   simpleBanner: SimpleBanner,
+  bannerWithBottomContent: BannerWithBottomContent,
+  introWithImages: IntroWithImages,
+  coverageOverview: CoverageOverview,
+  miniGallery: MiniGallery,
+  teamMembers: TeamMembers,
+  ctaCardsSection: CtaCardSection,
+  formContent: DynamicForm,
+  contactUsModule: ContactUsComponent,
   shopifyProductListingModule: ShopifyProductListing,
 };
