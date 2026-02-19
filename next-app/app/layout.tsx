@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import { Source_Sans_3, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Footer, Header, EnvironmentBadge } from "@/components";
-import { getSanityData, getTheme } from "@/lib/helpingFunctions";
+import { getSanityData } from "@/lib/helpingFunctions";
 import { VisualEditing } from "next-sanity/visual-editing";
-import { draftMode } from "next/headers";
+import { draftMode, headers } from "next/headers";
 import { stegaClean } from "@sanity/client/stega";
+import { urlForImage } from "@/lib/sanity";
 
 const sourceSans3 = Source_Sans_3({
   variable: "--font-source-sans-3",
@@ -21,59 +22,129 @@ const playfairDisplay = Playfair_Display({
 
 // getting seo meta data from sanity
 export async function generateMetadata(): Promise<Metadata> {
-  const homePageQuery = `*[_type == "homePage"][0]{ title, seo { metaTitle, metaDescription } }`;
-  const homePageData = await getSanityData(homePageQuery);
+  const headerList = await headers();
+  const host = headerList.get("host");
+
+  const homePageQuery = `*[_type == "homePage" && references(*[_type == "site" && domain == "http://${host}"]._id)][0]{ title, seo { metaTitle, metaDescription } }`;
+  const favIconQuery = `*[_type == "site" && domain == "http://${host}"][0]{favicon}`;
+
+  const [homePageData, favIconData] = await Promise.all([
+    getSanityData(homePageQuery),
+    getSanityData(favIconQuery),
+  ]);
 
   return {
     title: homePageData?.seo?.metaTitle || "Flagship",
     description: homePageData?.seo?.metaDescription || "",
+    icons: {
+      icon: urlForImage(favIconData?.favicon)?.url() || "",
+    },
+    openGraph: {
+      title: homePageData?.seo?.metaTitle || "Flagship",
+      description: homePageData?.seo?.metaDescription || "",
+    },
+    twitter: {
+      title: homePageData?.seo?.metaTitle || "Flagship",
+      description: homePageData?.seo?.metaDescription || "",
+    },
   };
 }
-
-// getting header data from sanity
-const headerQuery = `*[_type == "settings"][0]{
-  header {
-    logo,
-    navLinks[]{
-      label,
-      link {
-        type,
-        external,
-        internal->{ 
-          "slug": slug.current, 
-          _type 
-        }
-      },
-      icon,
-      image,
-      children[]{
-        label,
-        link {
-          type,
-          external,
-          internal->{ 
-            "slug": slug.current, 
-            _type 
-          }
-        },
-        icon,
-        image
-      }
-    }
-  }
-}`;
-
-const themeSettingQuery = `*[_type == "themeSettings" && title == "MAUI NŌ KA ʻOI Theme"][0]`;
 
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Fetching data inside the component to ensure it's dynamic
-  const [headerData, themeSettingData] = await Promise.all([
+  const headerList = await headers();
+  const host = headerList.get("host");
+
+  // getting header data from sanity site group
+  const headerQuery = `*[_type == "site" && domain == "http://${host}"][0]{
+    header {
+      logo,
+      navLinks[]{
+      _key,
+        label,
+        link {
+          type,
+          external,
+          internal->{ 
+            "slug": slug.current, 
+            _type ,
+            "selectedBlog": select( _type == "post" => selectBlog->{ "slug": slug.current }, null )
+          }
+        },
+        icon,
+        hoverIcon,
+        image,
+        children[]{
+        _key,
+          label,
+          link {
+            type,
+            external,
+            internal->{ 
+            _id,
+              "slug": slug.current, 
+              _type,
+              "selectedBlog": select( _type == "post" => selectBlog->{ "slug": slug.current }, null )
+            }
+          },
+          icon,
+          image
+        }
+      }
+    }
+  }`;
+
+  const footerQuery = `*[_type == "site" && domain == "http://${host}"][0]{footer{
+    logo,
+    description,
+    quickLinks[]{
+      type,
+      external,
+      internal->{ 
+            "slug": slug.current, 
+            _type ,
+            "selectedBlog": select( _type == "post" => selectBlog->{ "slug": slug.current }, null )
+          },
+      label,
+      type
+    },
+    readerServices[]{
+      type,
+      external,
+      internal->{ 
+            "slug": slug.current, 
+            _type ,
+            "selectedBlog": select( _type == "post" => selectBlog->{ "slug": slug.current }, null )
+          },
+      label,
+      type
+    },
+    newsletterTitle,
+    newsletterDescription,
+    socialLinks,
+    legalLinks[]{
+      type,
+      external,
+      internal->{ 
+            "slug": slug.current, 
+            _type ,
+            "selectedBlog": select( _type == "post" => selectBlog->{ "slug": slug.current }, null )
+          },
+      label,
+      type
+    },
+    copyright,
+  }}`;
+
+  const themeSettingQuery = `*[_type == "themeSettings" && references(*[_type == "site" && domain == "http://${host}"]._id)][0]`;
+
+  const [headerData, themeSettingData, footerData] = await Promise.all([
     getSanityData(headerQuery),
     getSanityData(themeSettingQuery),
+    getSanityData(footerQuery),
   ]);
 
   return (
@@ -93,21 +164,24 @@ export default async function RootLayout({
               --color-background-gray: ${stegaClean(themeSettingData?.backgroundSection?.midColor) || "#ddd8d1"};
               --color-background-category: ${stegaClean(themeSettingData?.backgroundSection?.lightColor) || "#fbfaf9"};
               --color-gray: ${stegaClean(themeSettingData?.borderColor) || "#ddd8d1"};
-              --font-sans: ${stegaClean(themeSettingData?.fontFamily) || "var(--font-source-sans-3)"};
-              --font-heading: ${stegaClean(themeSettingData?.fontFamily) || "var(--font-playfair-display)"};
+              --font-body: ${stegaClean(themeSettingData?.bodyFont) || "var(--font-source-sans-3)"};
+              --font-heading: ${stegaClean(themeSettingData?.headingFont) || "var(--font-playfair-display)"};
             }
           `}
         </style>
-        {themeSettingData?.useGoogleFont && themeSettingData?.googleFontUrl && (
-          <link rel="stylesheet" href={themeSettingData.googleFontUrl} />
+        {themeSettingData?.headingFont && themeSettingData?.headingFontUrl && (
+          <link rel="stylesheet" href={themeSettingData.headingFontUrl} />
+        )}
+        {themeSettingData?.bodyFont && themeSettingData?.bodyFontUrl && (
+          <link rel="stylesheet" href={themeSettingData.bodyFontUrl} />
         )}
       </head>
       <body className={` antialiased`}>
         {(await draftMode()).isEnabled && <VisualEditing />}
         <EnvironmentBadge />
-        <Header data={headerData?.header} />
+        {headerData?.header && <Header data={headerData?.header} />}
         {children}
-        <Footer />
+        {footerData?.footer && <Footer data={footerData?.footer} />}
       </body>
     </html>
   );

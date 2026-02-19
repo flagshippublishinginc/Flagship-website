@@ -1,47 +1,94 @@
 // schemas/documents/post.ts
-import {defineType, defineField} from 'sanity'
+import { defineType, defineField } from 'sanity'
 
 export default defineType({
   name: 'post',
   title: 'Post',
   type: 'document',
   fields: [
-    defineField({name: 'title', type: 'string', validation: (Rule) => Rule.required()}),
-    defineField({name: 'description', type: 'string', validation: (Rule) => Rule.required()}),
+    defineField({ name: 'title', type: 'string', validation: (Rule) => Rule.required() }),
+    defineField({ name: 'description', type: 'string', validation: (Rule) => Rule.required() }),
     defineField({
       name: 'site',
       title: 'Site',
       type: 'reference',
-      to: [{type: 'site'}],
+      to: [{ type: 'site' }],
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'slug',
       type: 'slug',
-      options: {source: 'title', maxLength: 96},
+      readOnly: false,
+      options: {
+        source: 'title',
+        maxLength: 96,
+        slugify: (input: string) =>
+          input
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/[’'ʻ"]/g, '')
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '')
+            .slice(0, 96),
+      },
+    }),
+    defineField({
+      name: 'selectBlog',
+      type: 'reference',
+      to: [{ type: 'blogListingPage' }],
       validation: (Rule) => Rule.required(),
     }),
-    defineField({name: 'excerpt', type: 'text'}),
-    defineField({name: 'coverImage', type: 'image'}),
-    defineField({name: 'content', type: 'array', of: [{type: 'block'}, {type: 'image'}]}),
-    defineField({name: 'author', type: 'reference', to: [{type: 'author'}]}),
+    defineField({ name: 'coverImage', type: 'image' }),
+    defineField({ name: 'author', type: 'reference', to: [{ type: 'author' }] }),
     defineField({
       name: 'categories',
       type: 'array',
-      of: [{type: 'reference', to: [{type: 'category'}]}],
+      of: [{ type: 'reference', to: [{ type: 'category' }] }],
     }),
     defineField({
-      name: 'relatedPosts',
-      title: 'Related posts (manual)',
+      name: 'content',
       type: 'array',
-      of: [{type: 'reference', to: [{type: 'post'}]}],
+      of: [
+        {
+          type: 'richTextModule',
+        },
+        {
+          type: 'singleImageModule',
+        },
+        {
+          type: 'twoColumnTextWithImage',
+        },
+        {
+          type: 'shopifyProductListingModule',
+        },
+      ],
     }),
-    defineField({name: 'seo', title: 'SEO', type: 'seo'}),
+
+    defineField({
+      name: 'loadMoreContent',
+      type: 'array',
+      of: [
+        {
+          type: 'richTextModule',
+        },
+        {
+          type: 'singleImageModule',
+        },
+        {
+          type: 'twoColumnTextWithImage',
+        },
+        {
+          type: 'shopifyProductListingModule',
+        },
+      ],
+    }),
+    defineField({ name: 'seo', title: 'SEO', type: 'seo' }),
   ],
   preview: {
-    select: {title: 'title', subtitle: 'author.name'},
-    prepare({title, subtitle}) {
-      return {title, subtitle}
+    select: { title: 'title', subtitle: 'author.name' },
+    prepare({ title, subtitle }) {
+      return { title, subtitle }
     },
   },
 })

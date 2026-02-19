@@ -2,7 +2,7 @@ import * as motion from "motion/react-client";
 import Image from "next/image";
 import AnimatedButton from "./AnimatedButton";
 import { SubscribeTextVariants } from "@/lib/animation";
-import { SubscribeModule } from "@/types/homeModules";
+import { SubscribeModule } from "@/types/componentsTypes";
 import { stegaClean } from "@sanity/client/stega";
 import { urlForImage } from "@/lib/sanity";
 const images = [
@@ -59,7 +59,8 @@ const Subscribe: React.FC<SubscribeModule> = ({
                       alt="MAUI magazine"
                       width={625}
                       height={405}
-                      className="w-full"
+                      className="w-full h-auto"
+                      loading="lazy"
                     />
                   </div>
                 </motion.div>
@@ -77,7 +78,7 @@ const Subscribe: React.FC<SubscribeModule> = ({
                     delay: 0.2,
                   }}
                   style={{ zIndex: 1 }}>
-                  <div className="image_inner relative right-[-30px] sm:right-[-60px] lg:right-[-70px] xl:right-[-90px]">
+                  <div className="image_inner relative right-[-10px] sm:right-[-60px] lg:right-[-70px] xl:right-[-90px]">
                     <Image
                       src={urlForImage(tripleImages?.image1)?.url() || ""}
                       alt="MAUI magazine"
@@ -102,7 +103,7 @@ const Subscribe: React.FC<SubscribeModule> = ({
                     delay: 0.4,
                   }}
                   style={{ zIndex: 2 }}>
-                  <div className="image_inner relative left-[-50px] sm:left-[-100px] lg:left-[-70px] xl:left-[-90px]">
+                  <div className="image_inner relative left-[-10px] sm:left-[-100px] lg:left-[-70px] xl:left-[-90px]">
                     <Image
                       src={urlForImage(tripleImages?.image2)?.url() || ""}
                       alt="MAUI magazine"
@@ -127,7 +128,7 @@ const Subscribe: React.FC<SubscribeModule> = ({
                     delay: 0.6,
                   }}
                   style={{ zIndex: 3 }}>
-                  <div className="image_inner relative right-[-40px] sm:right-[-110px] lg:right-[-90px] xl:right-[-130px]">
+                  <div className="image_inner relative right-[-10px] sm:right-[-110px] lg:right-[-90px] xl:right-[-130px]">
                     <Image
                       src={urlForImage(tripleImages?.image3)?.url() || ""}
                       alt="MAUI magazine"
@@ -145,7 +146,7 @@ const Subscribe: React.FC<SubscribeModule> = ({
           </div>
 
           <div
-            className={`w-full ${layout === "single" ? "" : "mt-10 lg:mt-0 pt-20 lg:pt-40"}`}>
+            className={`w-full ${layout === "single" ? "" : "mt-10 lg:mt-0 pt-20 lg:pt-30"}`}>
             <motion.div
               variants={SubscribeTextVariants}
               initial="initial"

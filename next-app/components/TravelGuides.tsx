@@ -1,9 +1,17 @@
-import { TravelGuidesModule } from "@/types/homeModules";
+import { TravelGuidesModule } from "@/types/componentsTypes";
 import AnimatedButton from "./AnimatedButton";
 import { getSanityData } from "@/lib/helpingFunctions";
 import Image from "next/image";
 import { urlForImage } from "@/lib/sanity";
 import { stegaClean } from "next-sanity";
+import * as motion from "motion/react-client";
+import {
+  contentFromBottomVarient,
+  contentFromLeftVarient,
+  contentFromRightVarient,
+  parentContainerVarient,
+  textFromLeftSpringVarient,
+} from "@/lib/animation";
 
 const TravelGuides: React.FC<TravelGuidesModule> = async ({
   rightSidePosts,
@@ -18,24 +26,37 @@ const TravelGuides: React.FC<TravelGuidesModule> = async ({
   const featuredPostData = await getSanityData(featuredQuery);
   return (
     <section className="section-spacing">
-      <div className="container">
-        <div className="section_title pb-3 mx-[-12px] lg:mx-0 border-b border-background-gray">
-          <h2 className="font-heading px-3">
+      <div className="container overflow-hidden">
+        <motion.div
+          variants={parentContainerVarient}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          className="section_title pb-3 mx-[-12px] lg:mx-0 border-b border-background-gray">
+          <motion.h2
+            variants={textFromLeftSpringVarient}
+            className="font-heading px-3">
             {headingText}{" "}
             <span className="text-tertiary">{headingHighlight}</span>
-          </h2>
-        </div>
+          </motion.h2>
+        </motion.div>
         <div className="flex flex-wrap border-b border-background-gray">
           {leftSidePosts.length > 0 && (
-            <div className="w-full h-full lg:w-[21.5%] order-2 lg:order-1">
+            <motion.div
+              variants={parentContainerVarient}
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true }}
+              className="w-full h-full lg:w-[21.5%] order-2 lg:order-1">
               <div className="">
                 {leftSidePosts?.map(async (post, index) => {
                   const leftSidePostQuery = `*[_type == "post" && _id == "${post._ref}"][0]`;
                   const leftSidePostData =
                     await getSanityData(leftSidePostQuery);
                   return (
-                    <div
+                    <motion.div
                       key={index}
+                      variants={contentFromLeftVarient}
                       className={`grid grid-cols-[4fr_6fr] md:grid-cols-[3fr_7fr] lg:grid-cols-1 gap-4 items-center leftPost_items py-3 md:p-6 ${index != 0 ? "border-t border-background-gray" : ""}`}>
                       <div className="leftPost_Img overflow-hidden">
                         <Image
@@ -60,16 +81,23 @@ const TravelGuides: React.FC<TravelGuidesModule> = async ({
                           )}
                         </div>
                       )}
-                    </div>
+                    </motion.div>
                   );
                 })}
               </div>
-            </div>
+            </motion.div>
           )}
 
           {featuredPostData && (
-            <div className="w-full lg:w-[57%] order-1 lg:order-2 border-b lg:border-t-0 lg:border-b-0 md:border-l md:border-r border-background-gray">
-              <div className="py-3 md:p-6">
+            <motion.div
+              variants={parentContainerVarient}
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true }}
+              className="w-full lg:w-[57%] order-1 lg:order-2 border-b lg:border-t-0 lg:border-b-0 md:border-l md:border-r border-background-gray">
+              <motion.div
+                variants={contentFromBottomVarient}
+                className="py-3 md:p-6">
                 <div className="featured-img overflow-hidden">
                   <Image
                     src={urlForImage(featuredPostData.coverImage)?.url() || ""}
@@ -92,12 +120,17 @@ const TravelGuides: React.FC<TravelGuidesModule> = async ({
                     </p>
                   </div>
                 )}
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           )}
 
           {rightSidePosts.length > 0 && (
-            <div className="w-full h-full order-3 lg:w-[21.5%]">
+            <motion.div
+              variants={parentContainerVarient}
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true }}
+              className="w-full h-full order-3 lg:w-[21.5%]">
               <div className="">
                 {rightSidePosts?.map(async (post, index) => {
                   const rightSidePostQuery = `*[_type == "post" && _id == "${post._ref}"][0]`;
@@ -105,7 +138,8 @@ const TravelGuides: React.FC<TravelGuidesModule> = async ({
                     await getSanityData(rightSidePostQuery);
 
                   return (
-                    <div
+                    <motion.div
+                      variants={contentFromRightVarient}
                       className={`grid grid-cols-[4fr_6fr] md:grid-cols-[3fr_7fr] lg:grid-cols-1 gap-4 items-center leftPost_items py-3 md:p-6 border-background-gray ${index != 0 ? "border-t " : ""} ${index === 0 ? "border-t lg:border-t-0" : ""}`}
                       key={index}>
                       <div className="leftPost_Img overflow-hidden">
@@ -131,17 +165,24 @@ const TravelGuides: React.FC<TravelGuidesModule> = async ({
                           )}
                         </div>
                       )}
-                    </div>
+                    </motion.div>
                   );
                 })}
               </div>
-            </div>
+            </motion.div>
           )}
         </div>
         {buttonText && buttonLink && (
-          <div className="mt-6 md:mt-14 flex justify-center">
-            <AnimatedButton text={buttonText || ""} href={buttonLink || ""} />
-          </div>
+          <motion.div
+            variants={parentContainerVarient}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            className="mt-6 md:mt-14 flex justify-center">
+            <motion.div variants={contentFromBottomVarient}>
+              <AnimatedButton text={buttonText || ""} href={buttonLink || ""} />
+            </motion.div>
+          </motion.div>
         )}
       </div>
     </section>

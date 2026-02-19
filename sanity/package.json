@@ -17,17 +17,18 @@
   "dependencies": {
     "@sanity/color-input": "^5.0.0",
     "@sanity/presentation": "^2.0.0",
-    "@sanity/vision": "^4.22.0",
+    "@sanity/vision": "^5.10.0",
     "react": "^19.2.1",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^19.2.1",
-    "sanity": "^4.22.0",
+    "sanity": "^5.10.0",
     "styled-components": "^6.1.18"
   },
   "devDependencies": {
     "@sanity/eslint-config-studio": "^5.0.2",
     "@types/react": "^19.1",
+    "baseline-browser-mapping": "^2.9.19",
     "eslint": "^9.28",
     "prettier": "^3.5",
     "typescript": "^5.8"
