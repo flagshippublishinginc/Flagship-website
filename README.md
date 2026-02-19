@@ -73,15 +73,26 @@ To run both the frontend and the CMS in development mode:
 
 ### next-app
 - `/app`: Next.js App Router pages.
-- `/components`: UI components. Major page sections are located here.
+- `/components`: UI components. Major page sections (Modules) are located here.
 - `/lib`: Helper functions, Sanity client setup, and animation utilities.
+    - `moduleMapper.ts`: The central registry that connects Sanity schema types to React components.
 - `/public`: Static assets like images and fonts.
 
 ### sanity
 - `/schemaTypes`: All Sanity schema definitions.
-    - `/documents`: Main document types like `Page`, `Post`, `Author`.
-    - `/modules`: Reusable modules used in the Page Builder.
+    - `/documents`: Main document types like `Page`, `Post`, `Author`, `Site`, and `ThemeSettings`.
+    - `/modules`: Reusable components (e.g., `heroModule`, `realEstateModule`) used in the Page Builder.
     - `/objects`: Shared object types like `SEO`, `Links`, `NavItem`.
+
+## The Modular System
+
+The project uses a "Page Builder" approach. Each `Page` document in Sanity contains a `modules` array. The `ModuleRenderer` in the frontend iterates through this array and uses the `moduleMapper` to render the corresponding component.
+
+### Adding a New Module
+1.  **Sanity Side:** Create a new schema in `sanity/schemaTypes/modules/`.
+2.  **Sanity Side:** Register it in `sanity/schemaTypes/index.ts`.
+3.  **Frontend Side:** Create the component in `next-app/components/`.
+4.  **Frontend Side:** Add the mapping to `next-app/lib/moduleMapper.ts`.
 
 ## Deployment
 

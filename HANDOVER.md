@@ -36,15 +36,15 @@ To update the "DNA" of your site (Logos, Menus, Colors), use the **Global Settin
 *   **Site Title & Domain:** Set the base name and URL for your site.
 *   **Site Logo & Favicon:** Upload your brand logo and the small icon that appears in browser tabs.
 *   **Header & Footer:** 
-    *   Manage navigation links.
-    *   Add "Call to Action" buttons (e.g., "Join Today").
-    *   Configure social media links and legal links (Privacy Policy, terms).
+    *   **Main Navigation:** Add links to your pages. You can use "Nested Dropdowns" for sub-menus.
+    *   **Social & Legal:** Specific sections for your social media profiles and legal links (T&Cs).
+    *   **Call to Action:** A dedicated primary button for the header.
 
 ### Theme Settings (`Theme Settings`)
-This is where you control the visual style:
-*   **Colors:** Update the Primary, Secondary, and Accent colors. Changing these will instantly update the entire site.
-*   **Fonts:** Specify Google Font names and embed URLs for Headings and Body text.
-*   **Note:** Always use Hex codes (e.g., `#C63C22`) for colors.
+This is the "Style Guide" of your website:
+*   **Colors:** Update HEX codes for Backgrounds, Text, and Accents. (e.g., `#C63C22` for the signature red).
+*   **Fonts:** You can change the typography by entering a Google Font name (e.g., `Inter`) and pasting the CSS URL from [fonts.google.com](https://fonts.google.com).
+*   **Tip:** Changing a color here updates every instance of that color across the site instantly.
 
 ---
 
@@ -92,11 +92,49 @@ Every **Page** and **Post** has an **SEO** tab at the bottom. **Crucial for Goog
 
 ---
 
-## 6. How to Update Navigation Menus
+## 7. Module Reference Guide
 
-1.  Go to **Header** (under Site Settings).
-2.  Under **Navigation Items**, add a new item.
-3.  Choose between a **Simple Link** or a **Nested Dropdown**.
-4.  For Dropdowns, add further sub-items.
+The website is composed of various "Modules". Below is a complete list of available modules and how to use them.
+
+### A. Hero & Top-of-Page Sections
+*   **Home Banner:** A large section with an image, title, description, and author attribution. Ideal for the main home page.
+*   **Hero Module:** A standard large banner for the top of pages.
+*   **Simple Banner:** A smaller, more concise version of the Hero banner.
+*   **Intro With Images:** A section with a title, description, and multiple images to introduce a topic visually.
+
+### B. Core Content Modules
+*   **Rich Text:** Your primary tool for text. Supports bold, italics, lists, links, and custom text colors. Use this for articles or general information.
+*   **Two Column:** Split content into two sides (left and right). Useful for mixing images and text.
+*   **Image Gallery:** A grid of images. Each image can have a "Hotspot" (for cropping), a title, a location, and a photographer credit.
+*   **FAQ / Nested FAQ:** Use for Question & Answer sections. Use "Nested FAQ" if you want to group questions by category.
+
+### C. Specialized Listing Sections
+*   **Real Estate Module:** Specifically for property listings. Includes a large "Lead" item on the left and a scrolling list of properties on the right.
+*   **Activities Module:** Highlight travel or event activities. You can choose between an **Image** or a **Video** as the main feature.
+*   **Shopify Product Listing:** Live-syncs with your Shopify store. Search for products and override descriptions specifically for the website.
+*   **Current Issue:** Specialized magazine layout featuring a cover image, issue date, and a bulleted list of featured articles.
+*   **Reader Favourites / Classics:** Curated list of popular articles or products with a prominent number overlay (e.g., 1, 2, 3).
+
+### D. Interactive & Promotional
+*   **Contact Us / Dynamic Form:** Add a contact form to any page. You can customize the fields (Name, Email, Message, etc.).
+*   **Subscription Banner:** A call-to-action specifically for email signups (e.g., for a newsletter).
+*   **Testimonials:** A section to display quotes and reviews.
+*   **Team Members:** Display a grid of profiles with names, roles, and photos.
+*   **Logo Cloud:** A scrolling or static list of partner/sponsor logos.
+
+### E. Utilities
+*   **CTA Banner:** A simple, high-impact banner with a Title, Image, and a Button to drive clicks.
+*   **Performance Stats:** Large numbers and labels to highlight achievements (e.g., "10k+ Readers").
+*   **Coverage Overview:** A map or list based section to show geographical reach.
 
 ---
+
+## 8. Tips for a Better Website
+
+*   **Hotspot Tool:** Every image has a "Hotspot" button. Click it and drag the blue circle to the most important part of the photo. This ensures it's never cropped out on mobile.
+*   **Previewing:** Always use the "Preview" button in Sanity to see how your changes look on the actual site before clicking "Publish".
+*   **SEO:** Don't forget the SEO tab at the bottom of every Page. A good Meta Title and Description help you rank higher on Google.
+
+---
+
+**Support Contact:** [Your Agency Name / Email]
