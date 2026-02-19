@@ -134,7 +134,3 @@ The website is composed of various "Modules". Below is a complete list of availa
 *   **Hotspot Tool:** Every image has a "Hotspot" button. Click it and drag the blue circle to the most important part of the photo. This ensures it's never cropped out on mobile.
 *   **Previewing:** Always use the "Preview" button in Sanity to see how your changes look on the actual site before clicking "Publish".
 *   **SEO:** Don't forget the SEO tab at the bottom of every Page. A good Meta Title and Description help you rank higher on Google.
-
----
-
-**Support Contact:** [Your Agency Name / Email]
