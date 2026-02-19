@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const host = headerList.get("host");
 
   const homePageQuery = `*[_type == "homePage" && references(*[_type == "site" && domain == "http://${host}"]._id)][0]{ title, seo { metaTitle, metaDescription } }`;
-  const favIconQuery = `*[_type == "settings"][0]{favicon}`;
+  const favIconQuery = `*[_type == "site" && domain == "http://${host}"][0]{favicon}`;
 
   const [homePageData, favIconData] = await Promise.all([
     getSanityData(homePageQuery),
@@ -58,8 +58,8 @@ export default async function RootLayout({
   const headerList = await headers();
   const host = headerList.get("host");
 
-  // getting header data from sanity
-  const headerQuery = `*[_type == "settings" && references(*[_type == "site" && domain == "http://${host}"]._id)][0]{
+  // getting header data from sanity site group
+  const headerQuery = `*[_type == "site" && domain == "http://${host}"][0]{
     header {
       logo,
       navLinks[]{
@@ -91,7 +91,7 @@ export default async function RootLayout({
     }
   }`;
 
-  const footerQuery = `*[_type == "settings" && references(*[_type == "site" && domain == "http://${host}"]._id)][0]{footer}`;
+  const footerQuery = `*[_type == "site" && domain == "http://${host}"][0]{footer}`;
 
   const themeSettingQuery = `*[_type == "themeSettings" && references(*[_type == "site" && domain == "http://${host}"]._id)][0]`;
 

@@ -58,4 +58,19 @@ export const SubscribeTextVariants: Variants = {
 export const accordionVariants = {
   closed: { height: 0, opacity: 0 },
   open: { height: "auto", opacity: 1 },
+  transition: {
+    duration: 0.4,
+    ease: [0.4, 0, 0.2, 1],
+  },
+};
+
+export const headerMenuBgVariants: Variants = {
+  closed: {
+    opacity: 0,
+    transition: { duration: 0.25, ease: "easeOut" },
+  },
+  open: {
+    opacity: 1,
+    transition: { duration: 0.3, ease: "easeIn" },
+  },
 };
