@@ -98,9 +98,13 @@ body {
   input,
   textarea,
   select {
-    @apply w-full p-2 md:py-5 md:px-3 border border-background-gray rounded-none text-[16px];
+    @apply w-full p-2 md:py-5 md:px-3 border border-background-gray rounded-none text-[16px] text-primary;
   }
   input {
+    @apply bg-[#F8F6F3] outline-none;
+  }
+
+  option {
     @apply bg-[#F8F6F3] outline-none;
   }
 }

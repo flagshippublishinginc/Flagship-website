@@ -12,7 +12,6 @@ const ContactUsComponent = ({
 }: ContactUsModule) => {
   const formData = rightColumnContent?.[0];
   const leftColumnContentData = leftColumnContent[0];
-  console.log("rightColumnContent ", formData.bottomContent[0].contentItems);
   return (
     <section className="py-15 md:pt-0 md:pb-30">
       <div className="container">
@@ -62,7 +61,6 @@ const ContactUsComponent = ({
             {formData.bottomContent[0].contentItems.length > 0 && (
               <div className="pt-10 lg:pt-14 grid grid-cols-1 gap-8 lg:gap-14">
                 {formData.bottomContent[0].contentItems.map((contentItem) => {
-                  console.log("contentItem ", contentItem);
                   return (
                     <div key={contentItem._key} className="group">
                       {contentItem.title && (

@@ -15,10 +15,7 @@ type FieldType =
   | "url"
   | "textarea";
 
-interface Option {
-  label: string;
-  value: string;
-}
+// Sanity stores select options and radio values as plain strings
 
 interface FormFieldProps {
   field: {
@@ -30,7 +27,8 @@ interface FormFieldProps {
     placeholder?: string;
     defaultValue?: string;
     defaultChecked?: boolean;
-    options?: Option[];
+    options?: string[]; // used by select
+    radioValues?: string[]; // used by radio
   };
   register: UseFormRegister<any>;
   errors: FieldErrors<any>;
@@ -80,16 +78,25 @@ const FormField = ({
 
   return (
     <div className="space-y-1">
-      <label className={labelClasses}>
-        {field.label}
-        {field.required && <span className="text-red-600 ml-1">*</span>}
-      </label>
+      {/* Field label — use <p> for radio/checkbox to avoid nesting <label> inside <label> */}
+      {field.type === "radio" || field.type === "checkbox" ? (
+        <p className={labelClasses}>
+          {field.label}
+          {field.required && <span className="text-red-600 ml-1">*</span>}
+        </p>
+      ) : (
+        <label htmlFor={name} className={labelClasses}>
+          {field.label}
+          {field.required && <span className="text-red-600 ml-1">*</span>}
+        </label>
+      )}
 
       {/* Text, Email, Phone, Number, URL, Date, Datetime */}
       {["text", "email", "phone", "number", "url", "date", "datetime"].includes(
         field.type,
       ) && (
         <input
+          id={name}
           type={
             field.type === "phone"
               ? "tel"
@@ -124,52 +131,52 @@ const FormField = ({
           <option value="" disabled>
             Select an option
           </option>
-          {field.options?.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
+          {field.options?.map((opt, idx) => {
+            const optionValue = stegaClean(opt);
+            return (
+              <option key={idx} value={optionValue}>
+                {optionValue}
+              </option>
+            );
+          })}
         </select>
       )}
 
-      {/* Radio Group */}
+      {/* Radio Group — uses radioValues from Sanity */}
       {field.type === "radio" && (
         <div className="flex flex-wrap gap-6">
-          {field.options?.map((opt, idx) => (
-            <label
-              key={opt.value}
-              className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="radio"
-                value={opt.value}
-                defaultChecked={idx === 0 && field.defaultChecked} // or logic for pre-select
-                className="h-4 w-4 text-black border-gray-300 focus:ring-black"
-                {...register(name, rules)} // register on every → RHF handles group
-              />
-              <span>{opt.label}</span>
-            </label>
-          ))}
+          {field.radioValues?.map((val, idx) => {
+            const radioLabel = stegaClean(val);
+            return (
+              <label
+                key={idx}
+                className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  value={radioLabel}
+                  className="h-4 w-4 text-black border-gray-300 focus:ring-black"
+                  {...register(name, rules)}
+                />
+                <span>{radioLabel}</span>
+              </label>
+            );
+          })}
         </div>
       )}
 
-      {/* Checkbox Group */}
+      {/* Checkbox — must use defaultChecked (uncontrolled) NOT checked, so RHF manages state */}
       {field.type === "checkbox" && (
-        <div className="flex flex-wrap gap-6">
-          {field.options?.map((opt) => (
-            <label
-              key={opt.value}
-              className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="checkbox"
-                value={opt.value}
-                defaultChecked={field.defaultChecked} // only meaningful if single checkbox
-                className="h-4 w-4 text-black border-gray-300 rounded focus:ring-black"
-                {...register(name, rules)}
-              />
-              <span>{opt.label}</span>
-            </label>
-          ))}
-        </div>
+        <label className="flex items-center gap-2 cursor-pointer">
+          <input
+            type="checkbox"
+            defaultChecked={field.defaultChecked}
+            className="h-4 w-4 cursor-pointer"
+            {...register(name, {
+              required: field.required ? `Field is required` : false,
+            })}
+          />
+          <span>{stegaClean(field.label)}</span>
+        </label>
       )}
 
       <AnimatePresence>

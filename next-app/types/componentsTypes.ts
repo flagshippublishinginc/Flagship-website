@@ -360,7 +360,8 @@ export interface FormField {
   required?: boolean;
   defaultValue?: string;
   placeholder?: string;
-  options?: string[];
+  options?: string[]; // for select dropdowns
+  radioValues?: string[]; // for radio buttons
   defaultChecked?: boolean;
 }
 

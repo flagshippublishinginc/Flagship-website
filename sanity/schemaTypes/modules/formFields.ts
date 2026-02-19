@@ -99,7 +99,7 @@ export default defineType({
                       title: 'Default Checked',
                       type: 'boolean',
                       initialValue: false,
-                      hidden: ({parent}: any) => !['radio', 'checkbox'].includes(parent?.type),
+                      hidden: ({parent}: any) => !['checkbox'].includes(parent?.type),
                     },
 
                     // ✅ Hide for radio/checkbox
@@ -129,6 +129,21 @@ export default defineType({
                           const fieldType = context.parent?.type
                           if (fieldType === 'select' && (!value || value.length === 0)) {
                             return 'Options are required for select field'
+                          }
+                          return true
+                        }),
+                    },
+                    {
+                      name: 'radioValues',
+                      title: 'Radio Values',
+                      type: 'array',
+                      of: [{type: 'string'}],
+                      hidden: ({parent}: any) => parent?.type !== 'radio',
+                      validation: (Rule) =>
+                        Rule.custom((value: any, context: any) => {
+                          const fieldType = context.parent?.type
+                          if (fieldType === 'radio' && (!value || value.length === 0)) {
+                            return 'Values are required for radio field'
                           }
                           return true
                         }),
